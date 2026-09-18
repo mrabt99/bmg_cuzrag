@@ -1,0 +1,64 @@
+# =====================================================================
+#  ETAPA 2 (tramo 3/17) - Templado a 1e10 K/s : 1800 K -> 1700 K
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - Negishi/SLURM - v4 (NPT, Pdamp=10)
+#
+#  Generado a partir de in.quench_1e10 (version monolitica) para poder
+#  encadenar jobs de SLURM con --dependency=afterok: a 1e10 K/s cada
+#  tramo de 1e7 pasos (10 ns) tarda ~35 h a la performance medida en el
+#  log del profesor (6.845 ns/dia, 48 MPI ranks) y el walltime maximo
+#  de la cola no alcanza para los 17 tramos + el relax en un solo job.
+#
+#  Ver ESTADO_PROYECTO_meltquench_1e10.md: v1 exploto a 1.67 ns con
+#  Pdamp=1.0 (mismo valor que a 1e12 K/s). Aca Pdamp=10.0 (v4) + fix
+#  halt como cinturon de seguridad real.
+#
+#  Entrada:  restart.quench_${tag}_${rate}.seg2
+#  Salida:   restart.quench_${tag}_${rate}.seg3
+#            quench_${tag}_${rate}.dump.seg3   (10 frames, cada 10 K)
+#            quench_${tag}_${rate}.log.dat.seg3 (T, Ep/atomo, Lx, rho, P)
+# =====================================================================
+
+variable        tag   index N65536
+variable        pot   index ZrCuAg.lammps.eam
+variable        rate  index 1e10
+variable        pdamp index 10.0          # ps -- v4 fix (era 1.0 en 1e12)
+
+read_restart    restart.quench_${tag}_${rate}.seg2
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001                       # 1 fs -- fijo, no tocar (VDOS/fonones)
+
+thermo          10000
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+fix             log2 all ave/time 100 100 10000 &
+                v_Tinst v_PEat v_Lbox v_Rho v_Pinst &
+                file quench_${tag}_${rate}.log.dat.seg3 &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+fix             halt_T all halt 100 v_Tinst > 8000.0 error hard
+fix             halt_P all halt 100 v_Pinst > 1.0e5 error hard    # |P| > ~10 GPa
+
+dump            traj all custom 1000000 quench_${tag}_${rate}.dump.seg3 &
+                id type x y z vx vy vz
+dump_modify     traj sort id first yes
+dump_modify     traj format float %.8g
+
+print           "### tramo 3/17 :  1800 K -> 1700 K"
+fix              qnpt all npt temp 1800.0 1700.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000                       # 10 ns
+unfix            qnpt
+print           "### tramo 3/17 terminado : T=${Tinst} K  Ep=${PEat} eV  Lx=${Lbox} A  rho=${Rho} g/cc"
+write_restart    restart.quench_${tag}_${rate}.seg3
+

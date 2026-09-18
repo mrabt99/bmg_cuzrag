@@ -1,0 +1,64 @@
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+# =====================================================================
+#  Relajacion final 300 K, 0 Pa, 10 ns -- cadena de produccion 2e10 K/s
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - Negishi/SLURM - v4 (NPT, Pdamp=10)
+#
+#  Arranca de restart.quench_${tag}_${rate}.seg16 (300 K ya alcanzados
+#  por la rampa a 2e10 K/s). Se corre aparte (mismo motivo que el resto
+#  del proyecto: agregar esta etapa sin reiniciar LAMMPS dispara
+#  "ERROR: Invalid timestep reset for fix ave/time" con el fix log2 del
+#  templado todavia activo).
+# =====================================================================
+
+variable        tag   index N65536
+variable        pot   index ../ZrCuAg.lammps.eam
+variable        rate  index 2e10
+variable        pdamp index 10.0
+
+read_restart    restart.quench_${tag}_${rate}.seg16
+read_restart    restart.quench_N65536_${rate}.seg16
+read_restart    restart.quench_N65536_2e10.seg16
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+  restoring atom style atomic from restart
+  orthogonal box = (5.1623124 5.1623124 5.1623124) to (109.91874 109.91874 109.91874)
+  3 by 4 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.027 seconds
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+pair_coeff      * * ../ZrCuAg.lammps.eam Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001
+
+thermo          10000
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+fix             log2 all ave/time 100 100 10000                 v_Tinst v_PEat v_Lbox v_Rho v_Pinst                 file relax300K_${tag}_${rate}.log.dat                 title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+fix             log2 all ave/time 100 100 10000                 v_Tinst v_PEat v_Lbox v_Rho v_Pinst                 file relax300K_N65536_${rate}.log.dat                 title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+fix             log2 all ave/time 100 100 10000                 v_Tinst v_PEat v_Lbox v_Rho v_Pinst                 file relax300K_N65536_2e10.log.dat                 title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+fix             halt_P all halt 1000 v_Pinst > 1.0e5 error hard
+
+dump            relaxtraj all custom 1000000 relax300K_${tag}_${rate}.dump                 id type x y z vx vy vz
+dump            relaxtraj all custom 1000000 relax300K_N65536_${rate}.dump                 id type x y z vx vy vz
+dump            relaxtraj all custom 1000000 relax300K_N65536_2e10.dump                 id type x y z vx vy vz
+dump_modify     relaxtraj sort id first yes
+
+reset_timestep  0
+ERROR: Cannot reset timestep with time-dependent fix ave/time defined (src/src/update.cpp:507)
+Last command: reset_timestep  0

@@ -1,0 +1,69 @@
+# =====================================================================
+#  Relajacion final 300 K, 0 Pa, 10 ns -- cadena de produccion 1e11 K/s
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - Negishi/SLURM - v4 (NPT, Pdamp=10)
+#
+#  Arranca de restart.quench_${tag}_${rate}.seg16 (300 K ya alcanzados
+#  por la rampa a 1e11 K/s). Se corre aparte (mismo motivo que el resto
+#  del proyecto: agregar esta etapa sin reiniciar LAMMPS dispara
+#  "ERROR: Cannot reset timestep with time-dependent fix ave/time
+#  defined" con el fix log2 del templado todavia activo).
+#
+#  Duracion y logging identicos a prod_2e10/in.relax300K_2e10 -- esta
+#  etapa final no depende de la tasa de enfriamiento que trajo al
+#  sistema hasta 300K, solo del estado alcanzado.
+# =====================================================================
+
+variable        tag   index N65536
+variable        pot   index ../ZrCuAg.lammps.eam
+variable        rate  index 1e11
+variable        pdamp index 10.0
+
+read_restart    restart.quench_${tag}_${rate}.seg16
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001
+
+thermo          10000
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+fix             log2 all ave/time 100 100 10000 &
+                v_Tinst v_PEat v_Lbox v_Rho v_Pinst &
+                file relax300K_${tag}_${rate}.log.dat &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+fix             halt_P all halt 1000 v_Pinst > 1.0e5 error hard
+
+dump            relaxtraj all custom 1000000 relax300K_${tag}_${rate}.dump &
+                id type x y z vx vy vz
+dump_modify     relaxtraj sort id first yes
+
+# NOTA: se omite "reset_timestep 0" cosmetico -- con fix log2 (ave/time)
+# ya activo, LAMMPS 20220623 tira el mismo error que en el proyecto
+# anterior. No hace falta para la fisica, el numero de paso solo sigue
+# creciendo desde donde quedo seg16.
+fix             relax all npt temp 300.0 300.0 0.1 iso 0.0 0.0 ${pdamp}
+run             10000000                     # 10 ns
+unfix           relax
+
+print           "### VIDRIO LISTO  (${tag}, ${rate} K/s, Pdamp=${pdamp} ps)"
+print           "###   T        = ${Tinst} K"
+print           "###   PE/atomo = ${PEat} eV     <-- comparar entre tasas"
+print           "###   Lx       = ${Lbox} A"
+print           "###   densidad = ${Rho} g/cc    <-- comparar entre tasas"
+
+write_restart   restart.glass300K_${tag}_${rate}
+write_data      data.glass300K_${tag}_${rate}
+write_dump      all custom glass300K_${tag}_${rate}.dump id type x y z vx vy vz &
+                modify sort id

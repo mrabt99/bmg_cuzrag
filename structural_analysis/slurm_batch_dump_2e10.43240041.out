@@ -1,0 +1,15 @@
+### [2e10] 01.dump <- /scratch/negishi/aaabt/65536_1e10/sweep_2e10/restart.sweep_2e10_1900K
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+  restoring atom style atomic from restart
+  orthogonal box = (3.5421321 3.5421321 3.5421321) to (111.53892 111.53892 111.53892)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.090 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### Done: 1 restarts converted for 2e10

@@ -1,0 +1,1497 @@
+### [1e12] 01.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg1
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.5260308 3.5260308 3.5260308) to (111.55502 111.55502 111.55502)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.049 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 26 26 26
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 19.45 | 19.45 | 19.45 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   1907.0908     -294412.3       0             -278257.21      192.52638    
+         1   1907.0908     -294412.3       0             -278257.21      192.52638    
+Loop time of 0.0123241 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 7.011 ns/day, 3.423 hours/ns, 81.142 timesteps/s
+96.5% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.010391   | 0.010995   | 0.011668   |   0.4 | 89.21
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00046101 | 0.0010873  | 0.0017352  |   1.4 |  8.82
+Output  | 9.7894e-05 | 0.00015705 | 0.00029805 |   0.0 |  1.27
+Modify  | 6.82e-07   | 1.0771e-06 | 1.643e-06  |   0.0 |  0.01
+Other   |            | 8.412e-05  |            |       |  0.68
+
+Nlocal:           4096 ave        4123 max        4070 min
+Histogram: 1 1 1 5 0 2 3 2 0 1
+Nghost:        7440.56 ave        7491 max        7396 min
+Histogram: 2 0 1 2 4 3 2 1 0 1
+Neighs:         273284 ave      277410 max      269918 min
+Histogram: 2 2 2 3 0 0 4 1 0 2
+FullNghs:       546567 ave      550793 max      542400 min
+Histogram: 1 2 1 4 1 0 1 4 0 2
+
+Total # of neighbors = 8745074
+Ave neighs/atom = 133.43924
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### [1e12] 02.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg2
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.6395848 3.6395848 3.6395848) to (111.44147 111.44147 111.44147)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.046 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 26 26 26
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 19.45 | 19.46 | 19.46 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   1799.8838     -295756.74      0             -280509.81      18.474932    
+         1   1799.8838     -295756.74      0             -280509.81      18.474932    
+Loop time of 0.0123085 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 7.020 ns/day, 3.419 hours/ns, 81.245 timesteps/s
+97.5% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.010495   | 0.011041   | 0.011574   |   0.3 | 89.70
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00048941 | 0.0010177  | 0.0015972  |   1.1 |  8.27
+Output  | 9.569e-05  | 0.00016103 | 0.00033639 |   0.0 |  1.31
+Modify  | 6.91e-07   | 1.3131e-06 | 2.294e-06  |   0.0 |  0.01
+Other   |            | 8.769e-05  |            |       |  0.71
+
+Nlocal:           4096 ave        4152 max        4065 min
+Histogram: 3 3 1 2 2 3 1 0 0 1
+Nghost:        7461.56 ave        7492 max        7421 min
+Histogram: 1 1 2 2 2 0 2 1 1 4
+Neighs:         275050 ave      282002 max      269803 min
+Histogram: 2 2 3 1 1 3 1 0 1 2
+FullNghs:       550099 ave      559788 max      544446 min
+Histogram: 4 2 1 1 3 2 0 2 0 1
+
+Total # of neighbors = 8801584
+Ave neighs/atom = 134.30151
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### [1e12] 03.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg3
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.7345955 3.7345955 3.7345955) to (111.34646 111.34646 111.34646)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.044 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 26 26 26
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 19.45 | 19.45 | 19.45 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   1690.2536     -297105.55      0             -282787.31     -674.67729    
+         1   1690.2536     -297105.55      0             -282787.31     -674.67729    
+Loop time of 0.0129779 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 6.657 ns/day, 3.605 hours/ns, 77.054 timesteps/s
+95.4% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.010865   | 0.011382   | 0.011865   |   0.3 | 87.70
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0007634  | 0.0012274  | 0.0018283  |   1.1 |  9.46
+Output  | 0.00011543 | 0.00022229 | 0.00039741 |   0.0 |  1.71
+Modify  | 7.32e-07   | 1.4444e-06 | 2.965e-06  |   0.0 |  0.01
+Other   |            | 0.000145   |            |       |  1.12
+
+Nlocal:           4096 ave        4121 max        4062 min
+Histogram: 1 0 2 1 2 2 2 3 2 1
+Nghost:         7477.5 ave        7512 max        7445 min
+Histogram: 1 1 3 3 2 1 0 2 0 3
+Neighs:         276656 ave      280895 max      272627 min
+Histogram: 2 2 2 0 2 2 2 2 0 2
+FullNghs:       553312 ave      558323 max      544651 min
+Histogram: 1 0 0 1 2 4 0 4 2 2
+
+Total # of neighbors = 8852998
+Ave neighs/atom = 135.08603
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### [1e12] 04.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg4
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.8532676 3.8532676 3.8532676) to (111.22778 111.22778 111.22778)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.042 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 26 26 26
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 19.45 | 19.46 | 19.46 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   1598.5821     -298493.1       0             -284951.41     -261.85867    
+         1   1598.5821     -298493.1       0             -284951.41     -261.85867    
+Loop time of 0.012372 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 6.984 ns/day, 3.437 hours/ns, 80.828 timesteps/s
+98.6% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.010639   | 0.011186   | 0.011762   |   0.4 | 90.42
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00044939 | 0.0010025  | 0.001577   |   1.2 |  8.10
+Output  | 8.1152e-05 | 0.00010369 | 0.00015752 |   0.0 |  0.84
+Modify  | 6.71e-07   | 1.0876e-06 | 1.923e-06  |   0.0 |  0.01
+Other   |            | 7.856e-05  |            |       |  0.63
+
+Nlocal:           4096 ave        4125 max        4051 min
+Histogram: 1 0 2 0 1 2 3 4 1 2
+Nghost:        7504.94 ave        7563 max        7459 min
+Histogram: 1 2 2 3 2 2 1 1 1 1
+Neighs:         278585 ave      283253 max      270630 min
+Histogram: 1 1 0 0 1 2 4 3 3 1
+FullNghs:       557170 ave      563640 max      546148 min
+Histogram: 1 0 0 2 0 3 3 5 1 1
+
+Total # of neighbors = 8914712
+Ave neighs/atom = 136.02771
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### [1e12] 05.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg5
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.9827294 3.9827294 3.9827294) to (111.09832 111.09832 111.09832)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.048 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 26 26 26
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 19.45 | 19.46 | 19.46 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   1502.0009     -299980.41      0             -287256.87      781.50767    
+         1   1502.0009     -299980.41      0             -287256.87      781.50767    
+Loop time of 0.0114369 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 7.555 ns/day, 3.177 hours/ns, 87.436 timesteps/s
+96.5% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0099281  | 0.010374   | 0.010849   |   0.3 | 90.71
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00044243 | 0.0008539  | 0.0013617  |   0.0 |  7.47
+Output  | 7.3157e-05 | 0.00012611 | 0.00027587 |   0.0 |  1.10
+Modify  | 5.2e-07    | 1.0533e-06 | 2.114e-06  |   0.0 |  0.01
+Other   |            | 8.181e-05  |            |       |  0.72
+
+Nlocal:           4096 ave        4122 max        4073 min
+Histogram: 2 1 1 2 3 2 1 2 1 1
+Nghost:        7529.81 ave        7569 max        7480 min
+Histogram: 3 0 0 0 2 2 4 2 1 2
+Neighs:         280710 ave      284611 max      275723 min
+Histogram: 3 0 0 1 1 2 4 0 4 1
+FullNghs:       561420 ave      566205 max      555975 min
+Histogram: 1 1 2 2 2 2 0 1 3 2
+
+Total # of neighbors = 8982714
+Ave neighs/atom = 137.06534
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### [1e12] 06.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg6
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.0864798 4.0864798 4.0864798) to (110.99457 110.99457 110.99457)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.039 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 26 26 26
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 19.45 | 19.46 | 19.46 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   1405.8995     -301493.96      0             -289584.5       290.43263    
+         1   1405.8995     -301493.96      0             -289584.5       290.43263    
+Loop time of 0.01222 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 7.070 ns/day, 3.394 hours/ns, 81.833 timesteps/s
+96.5% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.010217   | 0.010757   | 0.011359   |   0.4 | 88.03
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0005832  | 0.0011558  | 0.0018536  |   1.4 |  9.46
+Output  | 7.8347e-05 | 0.00017802 | 0.00044792 |   0.0 |  1.46
+Modify  | 4.41e-07   | 8.0394e-07 | 1.272e-06  |   0.0 |  0.01
+Other   |            | 0.0001285  |            |       |  1.05
+
+Nlocal:           4096 ave        4124 max        4070 min
+Histogram: 1 1 4 2 0 3 1 1 1 2
+Nghost:        7544.19 ave        7609 max        7498 min
+Histogram: 1 0 3 3 6 1 1 0 0 1
+Neighs:         282492 ave      288109 max      277312 min
+Histogram: 3 0 2 2 0 1 4 2 0 2
+FullNghs:       564984 ave      570215 max      558154 min
+Histogram: 1 0 0 3 4 1 1 3 1 2
+
+Total # of neighbors = 9039744
+Ave neighs/atom = 137.93555
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### [1e12] 07.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg7
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.1917373 4.1917373 4.1917373) to (110.88932 110.88932 110.88932)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.058 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 26 26 26
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 19.45 | 19.46 | 19.46 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   1301.8035     -302897.4       0             -291869.74      552.13953    
+         1   1301.8035     -302897.4       0             -291869.74      552.13953    
+Loop time of 0.011886 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 7.269 ns/day, 3.302 hours/ns, 84.133 timesteps/s
+98.8% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.010269   | 0.01059    | 0.011055   |   0.2 | 89.09
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00060504 | 0.0010328  | 0.0014219  |   1.0 |  8.69
+Output  | 8.9628e-05 | 0.00016085 | 0.0003607  |   0.0 |  1.35
+Modify  | 8.02e-07   | 1.0844e-06 | 1.434e-06  |   0.0 |  0.01
+Other   |            | 0.0001017  |            |       |  0.86
+
+Nlocal:           4096 ave        4127 max        4060 min
+Histogram: 1 1 0 3 2 4 1 1 0 3
+Nghost:        7553.44 ave        7594 max        7494 min
+Histogram: 1 0 1 1 1 2 5 2 2 1
+Neighs:         284342 ave      289127 max      278620 min
+Histogram: 1 1 2 2 0 1 2 5 1 1
+FullNghs:       568685 ave      574167 max      560001 min
+Histogram: 1 0 2 1 1 1 3 3 1 3
+
+Total # of neighbors = 9098954
+Ave neighs/atom = 138.83902
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### [1e12] 08.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg8
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.287973 4.287973 4.287973) to (110.79308 110.79308 110.79308)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.044 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 26 26 26
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 19.46 | 19.46 | 19.46 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   1199.6241     -304469.74      0             -294307.65     -107.4053     
+         1   1199.6241     -304469.74      0             -294307.65     -107.4053     
+Loop time of 0.0160278 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 5.391 ns/day, 4.452 hours/ns, 62.391 timesteps/s
+97.0% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.011465   | 0.012233   | 0.015031   |   0.7 | 76.33
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00066448 | 0.0028587  | 0.0043666  |   2.8 | 17.84
+Output  | 0.00010623 | 0.00081487 | 0.0029035  |   0.0 |  5.08
+Modify  | 3.71e-07   | 7.8581e-07 | 1.112e-06  |   0.0 |  0.00
+Other   |            | 0.0001201  |            |       |  0.75
+
+Nlocal:           4096 ave        4137 max        4069 min
+Histogram: 3 1 2 3 3 1 0 1 1 1
+Nghost:        7584.88 ave        7623 max        7541 min
+Histogram: 1 1 1 2 2 4 0 1 2 2
+Neighs:         286007 ave      289536 max      280736 min
+Histogram: 2 0 2 2 0 0 3 0 5 2
+FullNghs:       572013 ave      579135 max      565954 min
+Histogram: 2 3 0 2 1 3 1 2 1 1
+
+Total # of neighbors = 9152212
+Ave neighs/atom = 139.65167
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### [1e12] 09.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg9
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.4003202 4.4003202 4.4003202) to (110.68073 110.68073 110.68073)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.046 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 26 26 26
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 19.46 | 19.46 | 19.47 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   1099.2202     -306026.04      0             -296714.47      199.13957    
+         1   1099.2202     -306026.04      0             -296714.47      199.13957    
+Loop time of 0.012866 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 6.715 ns/day, 3.574 hours/ns, 77.724 timesteps/s
+98.6% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.010493   | 0.011145   | 0.01193    |   0.4 | 86.62
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00071701 | 0.0013412  | 0.0021167  |   1.2 | 10.42
+Output  | 0.00011595 | 0.00025882 | 0.00036195 |   0.0 |  2.01
+Modify  | 6.51e-07   | 1.3613e-06 | 4.269e-06  |   0.0 |  0.01
+Other   |            | 0.0001195  |            |       |  0.93
+
+Nlocal:           4096 ave        4121 max        4063 min
+Histogram: 1 0 1 2 1 4 2 2 2 1
+Nghost:        7613.12 ave        7662 max        7563 min
+Histogram: 1 0 2 3 1 4 2 1 1 1
+Neighs:         287969 ave      293103 max      283188 min
+Histogram: 4 0 1 1 1 0 6 2 0 1
+FullNghs:       575938 ave      580327 max      569773 min
+Histogram: 2 0 0 1 3 4 0 2 1 3
+
+Total # of neighbors = 9215012
+Ave neighs/atom = 140.60992
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### [1e12] 10.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg10
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.5085357 4.5085357 4.5085357) to (110.57252 110.57252 110.57252)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.042 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 25 25 25
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 19.46 | 19.46 | 19.47 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   1006.5288     -307659.54      0             -299133.17     -59.613597    
+         1   1006.5288     -307659.54      0             -299133.17     -59.613597    
+Loop time of 0.0124968 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 6.914 ns/day, 3.471 hours/ns, 80.021 timesteps/s
+98.6% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.01044    | 0.01108    | 0.011775   |   0.5 | 88.66
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00052053 | 0.0011855  | 0.001873   |   1.7 |  9.49
+Output  | 9.5329e-05 | 0.00014053 | 0.00024861 |   0.0 |  1.12
+Modify  | 4.9e-07    | 9.0075e-07 | 1.353e-06  |   0.0 |  0.01
+Other   |            | 8.957e-05  |            |       |  0.72
+
+Nlocal:           4096 ave        4128 max        4077 min
+Histogram: 1 3 4 2 1 3 1 0 0 1
+Nghost:        7630.62 ave        7665 max        7594 min
+Histogram: 1 3 0 3 0 2 2 2 1 2
+Neighs:         289851 ave      292920 max      287276 min
+Histogram: 1 1 2 3 2 3 2 1 0 1
+FullNghs:       579702 ave      586831 max      574377 min
+Histogram: 1 1 2 3 3 4 1 0 0 1
+
+Total # of neighbors = 9275234
+Ave neighs/atom = 141.52884
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### [1e12] 11.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg11
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.6393784 4.6393784 4.6393784) to (110.44167 110.44167 110.44167)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.051 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 25 25 25
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 19.46 | 19.71 | 21.38 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   897.11577     -309426.59      0             -301827.06      450.4403     
+         1   897.11577     -309426.59      0             -301827.06      450.4403     
+Loop time of 0.0145293 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 5.947 ns/day, 4.036 hours/ns, 68.827 timesteps/s
+96.2% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.010275   | 0.011077   | 0.013828   |   0.8 | 76.24
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00050945 | 0.0026019  | 0.0040061  |   2.3 | 17.91
+Output  | 0.00011962 | 0.00077559 | 0.0026859  |   0.0 |  5.34
+Modify  | 3.71e-07   | 1.0256e-06 | 1.684e-06  |   0.0 |  0.01
+Other   |            | 7.423e-05  |            |       |  0.51
+
+Nlocal:           4096 ave        4149 max        4053 min
+Histogram: 1 0 1 2 7 3 1 0 0 1
+Nghost:        7661.06 ave        7704 max        7611 min
+Histogram: 2 1 1 0 3 2 2 1 2 2
+Neighs:         292129 ave      297075 max      287536 min
+Histogram: 1 1 1 1 5 3 2 1 0 1
+FullNghs:       584259 ave      593422 max      575256 min
+Histogram: 1 0 2 1 7 1 2 0 1 1
+
+Total # of neighbors = 9348142
+Ave neighs/atom = 142.64133
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### [1e12] 12.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg12
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.7428199 4.7428199 4.7428199) to (110.33823 110.33823 110.33823)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 1.053 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 25 25 25
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 19.46 | 20.09 | 21.38 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   799.03376     -311002.6       0             -304233.94      311.93468    
+         1   799.03376     -311002.6       0             -304233.94      311.93468    
+Loop time of 0.0115281 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 7.495 ns/day, 3.202 hours/ns, 86.744 timesteps/s
+97.0% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.010071   | 0.010428   | 0.010769   |   0.3 | 90.46
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00051966 | 0.00087012 | 0.0012425  |   0.0 |  7.55
+Output  | 0.00012731 | 0.0001453  | 0.00017272 |   0.0 |  1.26
+Modify  | 5.82e-07   | 1.1414e-06 | 2.225e-06  |   0.0 |  0.01
+Other   |            | 8.348e-05  |            |       |  0.72
+
+Nlocal:           4096 ave        4136 max        4073 min
+Histogram: 3 0 3 5 2 0 2 0 0 1
+Nghost:        7673.06 ave        7724 max        7627 min
+Histogram: 1 2 2 2 1 2 3 2 0 1
+Neighs:         293902 ave      297178 max      290817 min
+Histogram: 2 0 1 3 4 1 2 1 0 2
+FullNghs:       587803 ave      595037 max      581676 min
+Histogram: 2 0 1 5 3 1 2 0 0 2
+
+Total # of neighbors = 9404848
+Ave neighs/atom = 143.50659
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:01
+### [1e12] 13.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg13
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.8376689 4.8376689 4.8376689) to (110.24338 110.24338 110.24338)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.050 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 25 25 25
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 19.47 | 20.78 | 21.38 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   697.35388     -312383.68      0             -306476.35      170.94955    
+         1   697.35388     -312383.68      0             -306476.35      170.94955    
+Loop time of 0.0145311 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 5.946 ns/day, 4.036 hours/ns, 68.818 timesteps/s
+98.3% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.011201   | 0.011883   | 0.013524   |   0.6 | 81.78
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00069023 | 0.0021112  | 0.0031323  |   2.2 | 14.53
+Output  | 0.00010374 | 0.00042191 | 0.0012889  |   0.0 |  2.90
+Modify  | 4.3e-07    | 7.5375e-07 | 1.242e-06  |   0.0 |  0.01
+Other   |            | 0.0001139  |            |       |  0.78
+
+Nlocal:           4096 ave        4138 max        4062 min
+Histogram: 1 3 1 1 4 1 1 2 1 1
+Nghost:        7695.19 ave        7727 max        7645 min
+Histogram: 1 0 0 2 2 2 3 2 2 2
+Neighs:         295587 ave      300275 max      291889 min
+Histogram: 1 3 1 3 2 0 3 2 0 1
+FullNghs:       591173 ave      599927 max      584679 min
+Histogram: 3 2 0 2 3 2 1 2 0 1
+
+Total # of neighbors = 9458772
+Ave neighs/atom = 144.32941
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### [1e12] 14.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg14
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.9100979 4.9100979 4.9100979) to (110.17095 110.17095 110.17095)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.044 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 25 25 25
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 21.37 | 21.38 | 21.38 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   597.67537     -313571.09      0             -308508.15     -564.12426    
+         1   597.67537     -313571.09      0             -308508.15     -564.12426    
+Loop time of 0.0113997 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 7.579 ns/day, 3.167 hours/ns, 87.721 timesteps/s
+98.4% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.010174   | 0.010431   | 0.010711   |   0.2 | 91.51
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00050229 | 0.00077797 | 0.0010816  |   0.0 |  6.82
+Output  | 7.6955e-05 | 0.00010164 | 0.00014475 |   0.0 |  0.89
+Modify  | 3.51e-07   | 7.5581e-07 | 1.634e-06  |   0.0 |  0.01
+Other   |            | 8.789e-05  |            |       |  0.77
+
+Nlocal:           4096 ave        4130 max        4075 min
+Histogram: 2 3 2 3 3 0 0 0 2 1
+Nghost:        7706.81 ave        7754 max        7662 min
+Histogram: 1 3 0 2 3 1 3 0 2 1
+Neighs:         296761 ave      300942 max      294496 min
+Histogram: 4 2 2 4 0 1 0 1 1 1
+FullNghs:       593523 ave      600931 max      588569 min
+Histogram: 3 2 2 2 3 1 0 1 1 1
+
+Total # of neighbors = 9496364
+Ave neighs/atom = 144.90302
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### [1e12] 15.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg15
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (5.0007717 5.0007717 5.0007717) to (110.08028 110.08028 110.08028)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.068 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 25 25 25
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 21.38 | 21.38 | 21.38 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   496.24372     -314587.77      0             -310384.05      199.33138    
+         1   496.24372     -314587.77      0             -310384.05      199.33138    
+Loop time of 0.0122404 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 7.059 ns/day, 3.400 hours/ns, 81.697 timesteps/s
+98.2% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.010565   | 0.011109   | 0.011611   |   0.3 | 90.76
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00045373 | 0.00093653 | 0.001484   |   0.0 |  7.65
+Output  | 0.00010064 | 0.00011389 | 0.00013414 |   0.0 |  0.93
+Modify  | 6.11e-07   | 9.5362e-07 | 1.443e-06  |   0.0 |  0.01
+Other   |            | 7.978e-05  |            |       |  0.65
+
+Nlocal:           4096 ave        4129 max        4073 min
+Histogram: 1 4 3 2 1 0 2 0 1 2
+Nghost:        7733.69 ave        7784 max        7705 min
+Histogram: 5 0 1 1 5 2 1 0 0 1
+Neighs:         298261 ave      302203 max      295488 min
+Histogram: 2 2 4 1 2 0 2 1 0 2
+FullNghs:       596522 ave      603273 max      591977 min
+Histogram: 4 1 1 5 0 0 0 2 1 2
+
+Total # of neighbors = 9544346
+Ave neighs/atom = 145.63516
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### [1e12] 16.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg16
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (5.0759303 5.0759303 5.0759303) to (110.00512 110.00512 110.00512)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.097 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 25 25 25
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 21.38 | 21.38 | 21.39 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   400.80457     -315592.07      0             -312196.83      345.65334    
+         1   400.80457     -315592.07      0             -312196.83      345.65334    
+Loop time of 0.0118436 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 7.295 ns/day, 3.290 hours/ns, 84.434 timesteps/s
+95.7% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.010476   | 0.010753   | 0.01101    |   0.2 | 90.79
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00058779 | 0.00082801 | 0.0011176  |   0.0 |  6.99
+Output  | 0.00011199 | 0.00013408 | 0.00014948 |   0.0 |  1.13
+Modify  | 6.02e-07   | 8.8825e-07 | 1.203e-06  |   0.0 |  0.01
+Other   |            | 0.0001276  |            |       |  1.08
+
+Nlocal:           4096 ave        4133 max        4070 min
+Histogram: 3 1 2 3 2 0 2 1 1 1
+Nghost:        7758.06 ave        7784 max        7728 min
+Histogram: 1 2 1 0 4 0 2 4 0 2
+Neighs:         299467 ave      303644 max      295963 min
+Histogram: 1 2 2 1 4 2 1 0 2 1
+FullNghs:       598935 ave      606090 max      593470 min
+Histogram: 3 0 3 2 3 1 0 2 1 1
+
+Total # of neighbors = 9582954
+Ave neighs/atom = 146.22427
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### [1e12] 17.boo.dump <- /scratch/negishi/aaabt/65536_1e12/restart.glass300K_N65536_1e12
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (5.1379624 5.1379624 5.1379624) to (109.94309 109.94309 109.94309)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.042 seconds
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 25 25 25
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 21.38 | 21.39 | 21.39 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   300.77429     -316527.8       0             -313979.92     -203.02637    
+         1   300.77429     -316527.8       0             -313979.92     -203.02637    
+Loop time of 0.0122101 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 7.076 ns/day, 3.392 hours/ns, 81.900 timesteps/s
+96.2% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.01058    | 0.010871   | 0.011166   |   0.2 | 89.03
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00067772 | 0.0010058  | 0.0013704  |   0.9 |  8.24
+Output  | 0.00015047 | 0.00018036 | 0.0002297  |   0.0 |  1.48
+Modify  | 5.92e-07   | 9.9706e-07 | 1.674e-06  |   0.0 |  0.01
+Other   |            | 0.0001519  |            |       |  1.24
+
+Nlocal:           4096 ave        4141 max        4065 min
+Histogram: 2 1 3 1 4 3 1 0 0 1
+Nghost:        7764.75 ave        7785 max        7729 min
+Histogram: 2 0 0 0 2 1 4 1 3 3
+Neighs:         300570 ave      305125 max      296894 min
+Histogram: 2 0 3 2 2 3 2 0 1 1
+FullNghs:       601140 ave      609877 max      594572 min
+Histogram: 2 1 2 3 2 2 2 1 0 1
+
+Total # of neighbors = 9618246
+Ave neighs/atom = 146.76279
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00
+### Done: 17 restarts converted to BOO for 1e12

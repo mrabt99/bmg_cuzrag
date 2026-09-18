@@ -1,0 +1,66 @@
+# =====================================================================
+#  Produccion 1e11 K/s (tramo 7/16) : 1300 K -> 1200 K
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - Negishi/SLURM - v4 (NPT, Pdamp=10)
+#
+#  Segunda tasa de la comparacion tipo Ryltsev (la primera, 2e10 K/s,
+#  vive en bmg_cuzrag/rate_2e10/). Mismo potencial EAM original sin tocar, mismo
+#  ensemble/parametros (NPT Pdamp=10.0/Tdamp=0.1, dt=1fs fijo).
+#
+#  Esta cadena de 16 tramos arranca (tramo 1) desde
+#  ../sweep_1e11/restart.sweep_1e11_1900K (el unico tramo de barrido a
+#  esta tasa, 2000->1900K en 1ns, sobrevivio entero sin disparar fix
+#  halt -- ver README.md). Este tramo en particular continua desde el
+#  restart del tramo anterior de esta misma cadena (ver read_restart
+#  mas abajo).
+#  Aritmetica: 100 K / 1e11 K/s = 1e-9 s = 1 ns = 1000000 pasos por
+#  tramo de 100 K. Quedan 16 tramos de 1900 a 300 K.
+#
+#  Entrada:  restart.quench_${tag}_${rate}.seg6
+#  Salida:   restart.quench_${tag}_${rate}.seg7
+#            quench_${tag}_${rate}.dump.seg7    (10 frames, cada 10K = cada 1e5 pasos)
+#            quench_${tag}_${rate}.log.dat.seg7 (T, Ep/atomo, Lx, rho, P)
+# =====================================================================
+
+variable        tag   index N65536
+variable        pot   index ../ZrCuAg.lammps.eam
+variable        rate  index 1e11
+variable        pdamp index 10.0
+
+read_restart    restart.quench_${tag}_${rate}.seg6
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001                       # 1 fs -- fijo, no tocar (VDOS/fonones)
+
+thermo          1000
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+fix             log2 all ave/time 10 100 1000 &
+                v_Tinst v_PEat v_Lbox v_Rho v_Pinst &
+                file quench_${tag}_${rate}.log.dat.seg7 &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+fix             halt_P all halt 1000 v_Pinst > 1.0e5 error hard    # |P| > ~10 GPa
+
+dump            traj all custom 100000 quench_${tag}_${rate}.dump.seg7 &
+                id type x y z vx vy vz
+dump_modify     traj sort id first yes
+dump_modify     traj format float %.8g
+
+print           "### tramo 7/16 (1e11 K/s) :  1300 K -> 1200 K"
+fix              qnpt all npt temp 1300.0 1200.0 0.1 iso 0.0 0.0 ${pdamp}
+run              1000000                        # 1 ns
+unfix            qnpt
+print           "### tramo 7/16 terminado : T=${Tinst} K  P=${Pinst} bar  Ep=${PEat} eV  Lx=${Lbox} A  rho=${Rho} g/cc"
+write_restart    restart.quench_${tag}_${rate}.seg7

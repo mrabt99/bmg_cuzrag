@@ -1,0 +1,87 @@
+# =====================================================================
+#  VALIDACION v4 (NPT, Pdamp=10.0) -- REPETICION CON OTRA SEMILLA
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - Negishi/SLURM
+#
+#  POR QUE ESTE SCRIPT: la primera validacion (job 42846192,
+#  in.quench_1e10_validate.lmp) exploto igual, mas rapido que v1
+#  (paso 1710600, ~0.71 ns de rampa, vs 1.67 ns en v1) a pesar de
+#  Pdamp=10. La temperatura salto de ~1980 K a 904609 K en <=100 pasos
+#  (<=0.1 ps) sin ninguna senal previa en T/P/Lx/rho -- demasiado
+#  rapido para ser un efecto del barostato (que actua en escala de ps).
+#  Esto sugiere un evento puntual a escala atomica (posible encuentro
+#  cercano entre 2 atomos -> pico de fuerza repulsiva EAM), no
+#  necesariamente sistematico.
+#
+#  Para chequear si es un evento raro estocastico (en vez de algo que
+#  el fix v4 deberia haber evitado pero no evito), esta corrida vuelve
+#  a partir del mismo restart.melt_N65536 pero re-generando las
+#  velocidades a 2000 K con OTRA semilla (velocity create), en vez de
+#  heredar las velocidades exactas que trae el restart. Mismo
+#  potencial, mismo Pdamp=10, misma rampa objetivo (2000->1900 K),
+#  mismos 4.5 ns / cinturones de seguridad que la primera validacion.
+#
+#  Si esta corrida NO explota (o explota en un punto muy distinto),
+#  es evidencia de que el runaway es un evento raro dependiente de la
+#  trayectoria especifica, no un fallo sistematico de v4. Si vuelve a
+#  explotar en un punto similar, es evidencia de que v4 (Pdamp=10 solo)
+#  no alcanza y el problema esta en otro lado (potencial / config
+#  inicial / limite de fuerza por paso).
+#
+#  Entrada:  restart.melt_${tag}          (posiciones/caja iguales;
+#                                           velocidades RE-GENERADAS)
+#  Salida:   quench_${tag}_${rate}.dump.validate_seed2
+#            quench_${tag}_${rate}.log.dat.validate_seed2
+#            restart.validate_seed2_${tag}_${rate}
+# =====================================================================
+
+variable        tag   index N65536
+variable        pot   index ZrCuAg.lammps.eam
+variable        rate  index 1e10
+variable        pdamp index 10.0          # ps -- v4 fix
+
+read_restart    restart.melt_${tag}
+
+# Nueva semilla: re-generamos las velocidades a 2000 K (mismas
+# posiciones/caja del restart, distribucion de Maxwell-Boltzmann con
+# un RNG distinto al que genero el restart original).
+velocity        all create 2000.0 918273645 mom yes rot yes dist gaussian
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001                       # 1 fs
+
+thermo          1000
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+fix             log2 all ave/time 10 100 1000 &
+                v_Tinst v_PEat v_Lbox v_Rho v_Pinst &
+                file quench_${tag}_${rate}.log.dat.validate_seed2 &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+fix             halt_T all halt 100 v_Tinst > 8000.0 error hard
+fix             halt_P all halt 100 v_Pinst > 1.0e5 error hard    # |P| > ~10 GPa
+
+dump            traj all custom 100000 quench_${tag}_${rate}.dump.validate_seed2 &
+                id type x y z vx vy vz
+dump_modify     traj sort id first yes
+dump_modify     traj format float %.8g
+
+print           "### VALIDACION v4 (semilla 2) : 2000 K -> 1900 K, 4.5 ns, Pdamp=${pdamp}"
+fix              qnpt all npt temp 2000.0 1900.0 0.1 iso 0.0 0.0 ${pdamp}
+run              4500000                       # 4.5 ns
+unfix            qnpt
+
+print           "### VALIDACION (semilla 2) OK (no hubo halt) : T=${Tinst} K  P=${Pinst} bar  Ep=${PEat} eV  Lx=${Lbox} A  rho=${Rho} g/cc"
+print           "### Si esto termino sin ERROR, comparar contra la primera validacion antes de lanzar la cadena real"
+
+write_restart    restart.validate_seed2_${tag}_${rate}

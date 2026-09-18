@@ -1,0 +1,293 @@
+# =====================================================================
+#  ETAPA 2 - Templado 2000 -> 300 K a 1e10 K/s  (+ relajacion final)
+#  Zr47.5 Cu47.5 Ag5  BMG  -  S3 (65536 atomos)  -  Negishi / SLURM
+#
+#  Entrada:  restart.melt_${tag}                (de in.melt)
+#  Salida:   quench_${tag}_${rate}.dump         posiciones Y VELOCIDADES cada 10 K
+#            restart.quench_${tag}_${rate}.seg#   estado exacto cada 100 K
+#            restart.glass300K_${tag}_${rate}
+#            data.glass300K_${tag}_${rate}
+#            quench_${tag}_${rate}.log.dat      T, Ep/atomo, Lx, rho, P  -> curva de Tg
+#
+#  ===================================================================
+#  HISTORIA / POR QUE ESTE SCRIPT NO ES UNA COPIA DIRECTA DE in.quench_1e12
+#  ===================================================================
+#  Hubo un intento previo (v1, otro cluster) de repetir el protocolo del
+#  profesor a 1e10 K/s con NPT y Pdamp=1.0 SIN CAMBIOS (igual que a
+#  1e12 K/s). Exploto a 1.67 ns en el liquido a 2000 K: runaway
+#  catastrofico del barostato. Causa raiz: a 1e10 K/s cada tramo de
+#  100 K dura 1e7 pasos en vez de 1e5 (100x mas pasos que a 1e12 K/s),
+#  lo que aumenta 100x la probabilidad de que una fluctuacion termica
+#  espontanea dispare una fuerza repulsiva EAM grande -> con Pdamp=1.0
+#  (barostato "nervioso", reacciona rapido) eso realimenta positivamente
+#  el barostato NPT y la caja diverge. Densidad/Lx se mantenian planas
+#  hasta el instante del colapso (no hay preaviso lento).
+#  Un cambio de timestep (dt=0.5 fs) para evitarlo tambien se descarto:
+#  compromete el analisis futuro de fonones/VDOS por autocorrelacion de
+#  velocidades, que necesita dt=1 fs fijo.
+#
+#  FIX ADOPTADO ACA (variante "v4"): mismo ensemble NPT, mismo dt=1fs,
+#  pero Pdamp SUBE de 1.0 a 10.0 ps (solo el barostato; Tdamp queda en
+#  0.1 ps, igual que el profesor). Con 10x mas inercia el barostato
+#  promedia la presion en una ventana mas larga e ignora el pico
+#  repulsivo transitorio que dispara el feedback positivo, sin dejar de
+#  permitir que la caja contraiga libremente a P=0 (a diferencia de
+#  correr a volumen fijo/NVT, que evita el runaway pero deja tension
+#  interna sin relajar durante el enfriamiento).
+#
+#  IMPORTANTE: por esto Tdamp/Pdamp SI dependen de la tasa en la
+#  practica (al menos Pdamp), a pesar de que en la escala de tiempo del
+#  barostato (0.1-1 ps) sean mucho mas cortos que la duracion nominal
+#  de un tramo en ambos casos. No asumir "no hace falta tocarlos" solo
+#  por comparar escalas de tiempo -> la evidencia empirica (v1) manda.
+#
+#  Cinturon de seguridad agregado (no existia en in.quench_1e12): fix
+#  halt hard sobre v_Tinst y v_Pinst para cortar la corrida con error
+#  limpio (en vez de NaN/Inf silencioso o quemar horas de compute)
+#  si de nuevo aparece un runaway.
+#
+#  ===================================================================
+#  ARITMETICA DEL TEMPLADO
+#  ===================================================================
+#    (2000 - 300) K / 1e10 K/s = 1.7e-7 s = 170 ns = 1.7e8 pasos de 1 fs
+#    17 tramos de 100 K (misma particion que in.quench_1e12, para poder
+#    comparar Tg entre tasas tramo a tramo):
+#      100 K / 1e10 K/s = 1e-8 s = 10 ns = 1e7 pasos por tramo
+#
+#  CAMBIOS RESPECTO A in.quench_1e12 (ademas de Pdamp):
+#    - pasos por tramo:         1e5  -> 1e7
+#    - thermo:                  100 -> 10000       (misma resolucion en T)
+#    - fix log2 ave/time:       1 100 100 -> 100 100 10000
+#    - dump traj (cada 10 K):   1e4  -> 1e6 pasos (siguen siendo 170 frames,
+#                                                   tamanos de archivo iguales)
+#
+#  NOTA SOBRE EL POTENCIAL: se copio ZrCuAg.lammps.eam junto con este
+#  script (in.quench_1e12 apuntaba a '../ZrCuAg.lammps.eam', que en la
+#  carpeta original en realidad NO existe un nivel arriba sino en la
+#  misma carpeta que los inputs -> corregido aca sin '../').
+#
+#  NOTA SOBRE LA VERSION DE LAMMPS: la corrida de referencia (1e12 K/s,
+#  quench_long.stdout) se hizo con LAMMPS (12 Dec 2018). En Negishi solo
+#  hay modulos lammps/20220623 y lammps/2022.5.04 (no hay build de 2018).
+#  Se usa lammps/20220623. eam/alloy y fix npt son estables entre
+#  versiones, pero no es una reproduccion bit-a-bit -> tenerlo en cuenta
+#  al comparar Tg contra la corrida de 1e12 K/s.
+#
+#  USO REAL DE ESTE ARCHIVO: a esta tasa el quench completo (170 ns)
+#  tarda del orden de 26 dias de computo continuo a la performance
+#  medida en el log del profesor (6.845 ns/dia, 48 MPI ranks), muy por
+#  encima de cualquier walltime de una sola cola. Este script monolitico
+#  queda como REFERENCIA / documentacion de la receta completa (diff
+#  directo contra in.quench_1e12), pero la corrida real se lanza con:
+#    1) in.quench_1e10_validate.lmp  - corrida de validacion de ~4.5 ns
+#       (2-3x el punto de explosion de v1 a 1.67 ns), para confirmar que
+#       Pdamp=10 realmente evita el runaway ANTES de comprometer la
+#       cadena completa. Un smoke test de pocos miles de pasos NO
+#       alcanza para este chequeo puntual.
+#    2) in.quench_1e10_seg01.lmp ... seg17.lmp + in.relax300K_1e10,
+#       encadenados con sbatch --dependency=afterok (NO afterany: si un
+#       segmento muere a mitad de camino no queremos que el siguiente
+#       arranque leyendo un restart inexistente o del tramo anterior).
+#  Ver chain_submit.sh y README.md en esta carpeta.
+# =====================================================================
+
+# ---------------------------------------------------------------------
+# 0. Seleccion del sistema  <-- DEBE COINCIDIR CON in.melt
+# ---------------------------------------------------------------------
+variable      tag   index N65536          # S3 :  65536 atomos
+
+variable        pot   index ZrCuAg.lammps.eam
+variable        rate  index 1e10          # solo para nombres de archivo
+variable        pdamp index 10.0          # ps -- v4 fix (era 1.0 en 1e12)
+
+# ---------------------------------------------------------------------
+# 1. Estado de partida
+# ---------------------------------------------------------------------
+read_restart    restart.melt_${tag}
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag         # <-- IDENTICA a in.melt
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001                       # 1 fs -- fijo, no tocar (VDOS/fonones)
+reset_timestep  0
+
+# ---------------------------------------------------------------------
+# 2. Salida termodinamica
+# ---------------------------------------------------------------------
+thermo          10000
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+fix             log2 all ave/time 100 100 10000 &
+                v_Tinst v_PEat v_Lbox v_Rho v_Pinst &
+                file quench_${tag}_${rate}.log.dat &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+# ---------------------------------------------------------------------
+# 2b. Cinturon de seguridad: cortar con error limpio si vuelve a
+#     aparecer el runaway de v1 (no solo NaN/Inf silencioso).
+# ---------------------------------------------------------------------
+fix             halt_T all halt 100 v_Tinst > 8000.0 error hard
+fix             halt_P all halt 100 v_Pinst > 1.0e5 error hard    # |P| > ~10 GPa
+
+# ---------------------------------------------------------------------
+# 3. Trayectoria CON VELOCIDADES (un frame cada 1e6 pasos = cada 10 K)
+# ---------------------------------------------------------------------
+dump            traj all custom 1000000 quench_${tag}_${rate}.dump &
+                id type x y z vx vy vz
+dump_modify     traj sort id first yes
+dump_modify     traj format float %.8g
+
+# ---------------------------------------------------------------------
+# 4. TEMPLADO: 17 tramos de 100 K x 1e7 pasos (10 ns por tramo)
+#    Pdamp=${pdamp} en TODOS los tramos (v4).
+# ---------------------------------------------------------------------
+print            "### tramo 1/17 :  2000 K -> 1900 K"
+fix              qnpt all npt temp 2000.0 1900.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000                       # 10 ns por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg1
+
+print            "### tramo 2/17 :  1900 K -> 1800 K"
+fix              qnpt all npt temp 1900.0 1800.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg2
+
+print            "### tramo 3/17 :  1800 K -> 1700 K"
+fix              qnpt all npt temp 1800.0 1700.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg3
+
+print            "### tramo 4/17 :  1700 K -> 1600 K"
+fix              qnpt all npt temp 1700.0 1600.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg4
+
+print            "### tramo 5/17 :  1600 K -> 1500 K"
+fix              qnpt all npt temp 1600.0 1500.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg5
+
+print            "### tramo 6/17 :  1500 K -> 1400 K"
+fix              qnpt all npt temp 1500.0 1400.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg6
+
+print            "### tramo 7/17 :  1400 K -> 1300 K"
+fix              qnpt all npt temp 1400.0 1300.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg7
+
+print            "### tramo 8/17 :  1300 K -> 1200 K"
+fix              qnpt all npt temp 1300.0 1200.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg8
+
+print            "### tramo 9/17 :  1200 K -> 1100 K"
+fix              qnpt all npt temp 1200.0 1100.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg9
+
+print            "### tramo 10/17 :  1100 K -> 1000 K"
+fix              qnpt all npt temp 1100.0 1000.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg10
+
+print            "### tramo 11/17 :  1000 K -> 900 K"
+fix              qnpt all npt temp 1000.0 900.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg11
+
+print            "### tramo 12/17 :  900 K -> 800 K"
+fix              qnpt all npt temp 900.0 800.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg12
+
+print            "### tramo 13/17 :  800 K -> 700 K"
+fix              qnpt all npt temp 800.0 700.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg13
+
+print            "### tramo 14/17 :  700 K -> 600 K"
+fix              qnpt all npt temp 700.0 600.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg14
+
+print            "### tramo 15/17 :  600 K -> 500 K"
+fix              qnpt all npt temp 600.0 500.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg15
+
+print            "### tramo 16/17 :  500 K -> 400 K"
+fix              qnpt all npt temp 500.0 400.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg16
+
+print            "### tramo 17/17 :  400 K -> 300 K"
+fix              qnpt all npt temp 400.0 300.0 0.1 iso 0.0 0.0 ${pdamp}
+run              10000000
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg17
+
+# ---------------------------------------------------------------------
+# 5. ETAPA 3 - Relajacion final a 300 K y 0 Pa, 10 ns
+#     NOTA: en la corrida de 1e12 esta etapa fallo con
+#     "ERROR: Invalid timestep reset for fix ave/time" porque fix log2
+#     seguia activo al hacer reset_timestep. Por eso, igual que el
+#     profesor, la relajacion real se corre aparte con
+#     in.relax300K_1e10 (arranca de seg17), no agregando estas lineas
+#     al final de una corrida ya lanzada.
+# ---------------------------------------------------------------------
+undump          traj
+dump            relaxtraj all custom 1000000 relax300K_${tag}_${rate}.dump &
+                id type x y z vx vy vz
+dump_modify     relaxtraj sort id first yes
+
+reset_timestep  0
+fix             relax all npt temp 300.0 300.0 0.1 iso 0.0 0.0 ${pdamp}
+run             10000000                     # 10 ns
+unfix           relax
+
+# NOTA (LAMMPS 20220623, no pasaba en la version 2018 del profesor):
+# los prints que referencian variables equal-style basadas en compute
+# temp/press DEBEN ir ANTES de write_restart/write_data/write_dump.
+# Despues de esas llamadas el compute queda "not current" y el print
+# tira "ERROR: Compute temp thermo_temp used in variable thermo
+# keyword between runs is not current". Verificado con un test de
+# sintaxis de 200 pasos antes de lanzar nada largo.
+print           "### VIDRIO LISTO  (${tag}, ${rate} K/s, Pdamp=${pdamp} ps)"
+print           "###   T        = ${Tinst} K"
+print           "###   PE/atomo = ${PEat} eV     <-- comparar entre tamanos y tasas"
+print           "###   Lx       = ${Lbox} A"
+print           "###   densidad = ${Rho} g/cc    <-- comparar entre tamanos y tasas"
+
+# ---------------------------------------------------------------------
+# 6. Entregables
+# ---------------------------------------------------------------------
+write_restart   restart.glass300K_${tag}_${rate}
+write_data      data.glass300K_${tag}_${rate}
+write_dump      all custom glass300K_${tag}_${rate}.dump id type x y z vx vy vz &
+                modify sort id

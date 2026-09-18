@@ -1,0 +1,81 @@
+# =====================================================================
+#  ETAPA 3 (continuacion) - Relajacion final 300 K, 0 Pa, 10 ns
+#  Zr47.5 Cu47.5 Ag5  BMG
+#
+#  Arranca DIRECTO desde restart.quench_${tag}_${rate}.seg17, o sea el
+#  final del templado (300 K ya alcanzados). No repite nada del templado.
+#  Pensado para el caso en que in.quench_1e12 llego hasta el final del
+#  templado sin problemas pero corto en el "run 10000000" de la Etapa 3
+#  por el error "Invalid timestep reset for fix ave/time" (fix log2
+#  seguia activo). Ese fix no existe en este script porque es un
+#  proceso de LAMMPS nuevo, asi que reset_timestep no da problema aca.
+#
+#  Entrada:  restart.quench_${tag}_${rate}.seg17
+#  Salida:   relax300K_${tag}_${rate}.dump
+#            restart.glass300K_${tag}_${rate}
+#            data.glass300K_${tag}_${rate}
+#            glass300K_${tag}_${rate}.dump
+#
+#  Compatible con LAMMPS 2018.
+#
+#  Uso:  descomentar UNA de las tres lineas de 'variable tag'
+#        (tiene que ser LA MISMA que se uso para generar el seg17)
+#        lmp -in in.relax300K_1e12
+# =====================================================================
+
+# ---------------------------------------------------------------------
+# 0. Seleccion del sistema  <-- DEBE COINCIDIR CON la corrida de templado
+# ---------------------------------------------------------------------
+# variable        tag   index N8192           # S1 :   8192 atomos
+# variable      tag   index N32768          # S2 :  32768 atomos
+variable      tag   index N65536          # S3 :  65536 atomos
+
+variable        pot   index ../ZrCuAg.lammps.eam
+variable        rate  index 1e12          # solo para nombres de archivo
+
+# ---------------------------------------------------------------------
+# 1. Estado de partida: el ULTIMO restart del templado (300 K, seg17)
+# ---------------------------------------------------------------------
+read_restart    restart.quench_${tag}_${rate}.seg17
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag         # <-- IDENTICA a in.melt / in.quench_1e12
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001                       # 1 fs
+
+thermo          100
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+# ---------------------------------------------------------------------
+# 2. ETAPA 3 - Relajacion final a 300 K y 0 Pa, 10 ns
+# ---------------------------------------------------------------------
+dump            relaxtraj all custom 1000000 relax300K_${tag}_${rate}.dump &
+                id type x y z vx vy vz
+dump_modify     relaxtraj sort id first yes
+
+reset_timestep  0
+fix             relax all npt temp 300.0 300.0 0.1 iso 0.0 0.0 1.0
+run             10000000                     # 10 ns
+unfix           relax
+
+# ---------------------------------------------------------------------
+# 3. Entregables
+# ---------------------------------------------------------------------
+write_restart   restart.glass300K_${tag}_${rate}
+write_data      data.glass300K_${tag}_${rate}
+write_dump      all custom glass300K_${tag}_${rate}.dump id type x y z vx vy vz &
+                modify sort id
+
+print           "### VIDRIO LISTO  (${tag}, ${rate} K/s)"
+print           "###   T        = ${Tinst} K"
+print           "###   PE/atomo = ${PEat} eV     <-- comparar entre tamanos y tasas"
+print           "###   Lx       = ${Lbox} A"
+print           "###   densidad = ${Rho} g/cc    <-- comparar entre tamanos y tasas"

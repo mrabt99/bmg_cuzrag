@@ -1,0 +1,60 @@
+# =====================================================================
+#  SWEEP DE TASA -- tramo unico 2000 K -> 1900 K a 1e12 K/s
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - potencial EAM ORIGINAL (sin tocar)
+#  NPT Pdamp=10.0, Tdamp=0.1, dt=1 fs (v4)
+#
+#  OBJETIVO: medir empiricamente la tasa mas lenta que este tramo (el
+#  mas caliente, el mas peligroso) tolera sin explotar. El runaway
+#  estocastico viene de un defecto conocido del core repulsivo del
+#  potencial por debajo de ~1.2 A -- NO se toca el potencial, se barre
+#  la tasa para ver hasta donde aguanta.
+#
+#  Punto de partida IDENTICO para las 7 corridas del sweep:
+#  ../restart.equil2000K_N65536_1e10 (2000 K, semilla seed2 -- la
+#  misma que corrio limpio 4.5 ns en la validacion 2, job 42847448 --
+#  + 2 ns de relajacion NPT a 2000 K constante, verificada estable
+#  paso a paso). Unica variable entre las 7 corridas: la tasa
+#  (= cuantos pasos se usan para bajar los mismos 100 K).
+#
+#  Tasa: 1e12 K/s -> 100000 pasos para 2000->1900 K
+# =====================================================================
+
+variable        tag    index N65536
+variable        pot    index ../ZrCuAg.lammps.eam
+variable        rate   index 1e12
+variable        pdamp  index 10.0
+
+read_restart    ../restart.equil2000K_${tag}_1e10
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001                       # 1 fs
+
+thermo          100
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+fix             log2 all ave/time 1 100 100 &
+                v_Tinst v_PEat v_Lbox v_Rho v_Pinst &
+                file sweep_${rate}.log.dat &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+
+print           "### SWEEP ${rate} K/s : 2000 K -> 1900 K en 100000 pasos"
+fix             qnpt all npt temp 2000.0 1900.0 0.1 iso 0.0 0.0 ${pdamp}
+run             100000
+unfix           qnpt
+
+print           "### SWEEP ${rate} OK (llego a 1900 K sin halt) : T=${Tinst} K  P=${Pinst} bar  Ep=${PEat} eV  Lx=${Lbox} A  rho=${Rho} g/cc"
+
+write_restart   restart.sweep_${rate}_1900K

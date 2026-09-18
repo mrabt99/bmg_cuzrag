@@ -1,0 +1,138 @@
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+# =====================================================================
+#  Tarea E, validacion (Etapa 2, version final -- reemplaza el intento
+#  anterior con `rerun` sobre snaps/*.dump). Mismo patron que
+#  ~/legacy_scripts/boo_seba_ejemplo.in (real EAM, no pair_style zero;
+#  read_restart + run 1, no rerun), extendido a los 4 nnn de Ryltsev
+#  (12, 14, 15, 16) + wl/hat yes para tener Wl-hat ademas de Q4/Q6.
+#
+#  Un solo caso de validacion: 2e10, restart.quench_N65536_2e10.seg8
+#  (mismo restart que boo_seba_ejemplo.in, para poder comparar
+#  columna a columna). degrees 2 4 6 -> SOLO Q4 y Q6 (nnn_l=2), NO Q2
+#  -- igual que el ejemplo del director.
+#
+#  Uso (todo via -var, sin defaults salvo el caso de validacion):
+#    lmp -in validate_boo.lmp \
+#        -var restart_file <path> -var pot_file <path> -var out_file <path>
+# =====================================================================
+
+variable restart_file index /scratch/negishi/aaabt/65536_1e10/prod_2e10/restart.quench_N65536_2e10.seg8
+variable pot_file     index /scratch/negishi/aaabt/65536_1e10/ZrCuAg.lammps.eam
+variable out_file     index /scratch/negishi/aaabt/structural_analysis/boo/validate_2e10_seg8.dump
+
+units           metal
+atom_style      atomic
+
+read_restart    ${restart_file}
+read_restart    /scratch/negishi/aaabt/65536_1e10/prod_2e10/restart.quench_N65536_2e10.seg4
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.9725055 3.9725055 3.9725055) to (111.10855 111.10855 111.10855)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.049 seconds
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot_file} Zr Cu Ag
+pair_coeff      * * /scratch/negishi/aaabt/65536_1e10/ZrCuAg.lammps.eam Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 10 check yes
+
+timestep        0.001
+reset_timestep  0
+
+# 4 computes, uno por nnn de Ryltsev; degrees 2 4 6 = solo l=4,l=6
+# (2 columnas Q), + wl/hat yes agrega 2 columnas Wl-hat mas -> 4
+# columnas por compute: Q4 Q6 W4hat W6hat
+compute cQ12 all orientorder/atom nnn 12 degrees 2 4 6 wl/hat yes
+compute cQ14 all orientorder/atom nnn 14 degrees 2 4 6 wl/hat yes
+compute cQ15 all orientorder/atom nnn 15 degrees 2 4 6 wl/hat yes
+compute cQ16 all orientorder/atom nnn 16 degrees 2 4 6 wl/hat yes
+
+# columnas en el dump, en orden:
+#   1=id 2=type
+#   3=Q4_nnn12  4=Q6_nnn12  5=W4hat_nnn12  6=W6hat_nnn12
+#   7=Q4_nnn14  8=Q6_nnn14  9=W4hat_nnn14 10=W6hat_nnn14
+#  11=Q4_nnn15 12=Q6_nnn15 13=W4hat_nnn15 14=W6hat_nnn15
+#  15=Q4_nnn16 16=Q6_nnn16 17=W4hat_nnn16 18=W6hat_nnn16
+dump 1 all custom 10 ${out_file} id type     c_cQ12[*] c_cQ14[*] c_cQ15[*] c_cQ16[*]
+dump 1 all custom 10 2e10/05.boo.dump id type     c_cQ12[*] c_cQ14[*] c_cQ15[*] c_cQ16[*]
+dump_modify 1 sort id format float "%.6f"
+
+run 1
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+WARNING: More than one instance of compute orientorder/atom (src/src/compute_orientorder_atom.cpp:203)
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 26 26 26
+  5 neighbor lists, perpetual/occasional/extra = 1 4 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (3) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (4) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+  (5) compute orientorder/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 19.45 | 19.45 | 19.46 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   1508.1321     -299928.14      0             -287152.66      733.4573     
+         1   1508.1321     -299928.14      0             -287152.66      733.4573     
+Loop time of 0.01115 on 16 procs for 1 steps with 65536 atoms
+
+Performance: 7.749 ns/day, 3.097 hours/ns, 89.686 timesteps/s
+95.6% CPU use with 16 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.009434   | 0.0098487  | 0.010474   |   0.3 | 88.33
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00047565 | 0.0010796  | 0.0015395  |   0.9 |  9.68
+Output  | 8.6173e-05 | 0.00014381 | 0.00027548 |   0.0 |  1.29
+Modify  | 5.62e-07   | 9.1119e-07 | 1.593e-06  |   0.0 |  0.01
+Other   |            | 7.706e-05  |            |       |  0.69
+
+Nlocal:           4096 ave        4123 max        4065 min
+Histogram: 1 0 3 3 0 1 3 2 0 3
+Nghost:         7514.5 ave        7547 max        7490 min
+Histogram: 1 3 2 2 3 1 1 0 2 1
+Neighs:         280577 ave      284817 max      275121 min
+Histogram: 1 1 2 2 2 0 1 2 1 4
+FullNghs:       561153 ave      566380 max      554274 min
+Histogram: 1 0 0 5 1 1 3 1 2 2
+
+Total # of neighbors = 8978452
+Ave neighs/atom = 137.00031
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00

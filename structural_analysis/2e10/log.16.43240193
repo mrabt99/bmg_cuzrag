@@ -1,0 +1,53 @@
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+# =====================================================================
+#  Etapa 0 - restart_to_dump: convierte UN restart de LAMMPS en un
+#  dump de texto (custom: id type x y z, wrapped, sin velocidades),
+#  legible por pyscal3.Trajectory y mdapy.System.
+#
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - mismo potencial EAM sin tocar
+#  usado en 65536_1e10 / 65536_1e11 / 65536_1e12.
+#
+#  Uso (variables via -var, todas overrideables desde la linea de
+#  comandos; los defaults de abajo son el caso de prueba: un restart
+#  de 2e10 K/s, la tasa completa mas simple de nombrar):
+#
+#    lmp -in restart_to_dump.lmp \
+#        -var restart_file <path/al/restart> \
+#        -var pot_file     <path/al/ZrCuAg.lammps.eam> \
+#        -var out_file     <path/de/salida.dump>
+# =====================================================================
+
+units           metal
+atom_style      atomic
+
+variable        restart_file index /scratch/negishi/aaabt/65536_1e10/prod_2e10/restart.quench_N65536_2e10.seg8
+variable        pot_file     index /scratch/negishi/aaabt/65536_1e10/ZrCuAg.lammps.eam
+variable        out_file     index /scratch/negishi/aaabt/structural_analysis/test_snaps/08.dump
+
+read_restart    ${restart_file}
+read_restart    /scratch/negishi/aaabt/65536_1e10/prod_2e10/restart.quench_N65536_2e10.seg15
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (5.0984702 5.0984702 5.0984702) to (109.98258 109.98258 109.98258)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.073 seconds
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot_file} Zr Cu Ag
+pair_coeff      * * /scratch/negishi/aaabt/65536_1e10/ZrCuAg.lammps.eam Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+# id type x y z (sin xu/yu/zu -> wrapped; sin vx vy vz -> mas liviano,
+# no hace falta para analisis estructural)
+write_dump      all custom ${out_file} id type x y z modify sort id
+write_dump      all custom 2e10/snaps/16.dump id type x y z modify sort id
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00

@@ -1,0 +1,98 @@
+# =====================================================================
+#  Produccion 2e10 K/s (tramo 2/16) : 1800 K -> 1700 K -- REINTENTO
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - Negishi/SLURM - v4 (NPT, Pdamp=10)
+#
+#  El primer intento de este tramo (job 42898959) exploto: fix halt_T
+#  disparo en el paso 15938000, es decir 2.94 ns dentro de los 5 ns del
+#  tramo (~59%), con el sistema ya a ~1750 K -- NO al arrancar el tramo,
+#  y NO a 2000 K. Mismo defecto estocastico del core del potencial que
+#  ya vimos antes, esta vez mas adelante en el enfriamiento.
+#
+#  Igual que se hizo para el tramo 1 de la corrida a 1e10 (semilla
+#  "seed2"), se reintenta desde el mismo punto (restart del tramo 1,
+#  a 1800 K) pero con las velocidades RE-GENERADAS con otra semilla,
+#  en vez de heredar las que llevaron a la explosion. Se acepta que
+#  puede volver a explotar -- si pasa, se reintenta de nuevo con otra
+#  semilla mas, tramo por tramo, en vez de asumir que hay una tasa
+#  "segura" de una vez.
+#
+#  Re-generar velocidades descarta la historia de no-equilibrio real
+#  del tramo 1 (5 ns de enfriamiento continuo) y la reemplaza por un
+#  estado re-termalizado en ese instante -- no cambia la tasa ni el
+#  protocolo, pero es una discontinuidad puntual. Para suavizar el
+#  empalme (y por las dudas de que el barostato quede en un estado
+#  raro justo despues del re-seed, como se penso para el tramo 1 de
+#  la corrida a 1e10), se agrega un hold breve de NPT a 1800 K
+#  constante (0.5 ns) antes de retomar la rampa 1800->1700 K.
+#
+#  Continuacion de sweep_2e10 (el unico de los 7 tramos de prueba que
+#  sobrevivio entero, 2000->1900K en 5 ns sin disparar fix halt). Se
+#  sigue enfriando a la MISMA tasa constante (2e10 K/s) hasta 300 K,
+#  con la misma fisica que el resto del proyecto (potencial EAM
+#  original sin tocar, NPT Pdamp=10.0/Tdamp=0.1, dt=1fs fijo).
+#
+#  Aritmetica: 100 K / 2e10 K/s = 5e-9 s = 5 ns = 5000000 pasos por
+#  tramo de 100 K (mismo numero que en sweep_2e10). Quedan 16 tramos
+#  de 1900 a 300 K.
+#
+#  Entrada:  restart.quench_${tag}_${rate}.seg1  (velocidades re-generadas, ver abajo)
+#  Salida:   restart.quench_${tag}_${rate}.seg2
+#            quench_${tag}_${rate}.dump.seg2    (10 frames, cada 10K = cada 5e5 pasos)
+#            quench_${tag}_${rate}.log.dat.seg2 (T, Ep/atomo, Lx, rho, P)
+# =====================================================================
+
+variable        tag   index N65536
+variable        pot   index ../ZrCuAg.lammps.eam
+variable        rate  index 2e10
+variable        pdamp index 10.0
+
+read_restart    restart.quench_${tag}_${rate}.seg1
+
+# Reintento: nueva semilla de velocidades a 1800 K (la trayectoria
+# anterior, heredando las velocidades del restart tal cual, exploto
+# a 2.94 ns de este mismo tramo).
+velocity        all create 1800.0 384756129 mom yes rot yes dist gaussian
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001                       # 1 fs -- fijo, no tocar (VDOS/fonones)
+
+thermo          5000
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+fix             log2 all ave/time 50 100 5000 &
+                v_Tinst v_PEat v_Lbox v_Rho v_Pinst &
+                file quench_${tag}_${rate}.log.dat.seg2 &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+fix             halt_P all halt 1000 v_Pinst > 1.0e5 error hard    # |P| > ~10 GPa
+
+dump            traj all custom 500000 quench_${tag}_${rate}.dump.seg2 &
+                id type x y z vx vy vz
+dump_modify     traj sort id first yes
+dump_modify     traj format float %.8g
+
+print           "### hold breve a 1800 K (0.5 ns) antes de retomar la rampa -- tras reintento con nueva semilla"
+fix             equil1800 all npt temp 1800.0 1800.0 0.1 iso 0.0 0.0 ${pdamp}
+run             500000                          # 0.5 ns
+unfix           equil1800
+print           "### hold terminado : T=${Tinst} K  P=${Pinst} bar  Ep=${PEat} eV  Lx=${Lbox} A  rho=${Rho} g/cc"
+write_restart   restart.equil1800K_${tag}_${rate}
+
+print           "### tramo 2/16 (2e10 K/s) :  1800 K -> 1700 K"
+fix              qnpt all npt temp 1800.0 1700.0 0.1 iso 0.0 0.0 ${pdamp}
+run              5000000                        # 5 ns
+unfix            qnpt
+print           "### tramo 2/16 terminado : T=${Tinst} K  P=${Pinst} bar  Ep=${PEat} eV  Lx=${Lbox} A  rho=${Rho} g/cc"
+write_restart    restart.quench_${tag}_${rate}.seg2

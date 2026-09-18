@@ -1,0 +1,96 @@
+# =====================================================================
+#  SEGMENTO 1 GLOBAL (2000 K -> 1900 K) -- REGENERADO CON DUMP
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - potencial EAM ORIGINAL (sin tocar)
+#  NPT Pdamp=10.0, Tdamp=0.1, dt=1 fs (v4), 1e11 K/s
+#
+#  MOTIVO: in.ramp.lmp (el sweep original de tasas, proyecto 65536_1e10/)
+#  no guardo dump de trayectoria para este segmento -- solo thermo +
+#  restart final. Mismo hueco que se encontro y se tapo para
+#  sweep_2e10/ (ver 65536_1e10/sweep_2e10/in.ramp_with_dump.lmp, mismo
+#  patron). Este script repite EXACTAMENTE la misma fisica desde el
+#  mismo restart de partida (mismas posiciones, velocidades y caja --
+#  no se re-samplea nada, ningun `velocity create`), agregando el dump
+#  que faltaba, para llenar ese hueco sin cambiar el resultado fisico.
+#
+#  IMPORTANTE sobre "la semilla": restart.equil2000K_N65536_1e10 NO es
+#  un numero de semilla, es el estado de fase completo (posiciones +
+#  velocidades de los 65536 atomos + caja) al final de 2ns de hold NPT
+#  a 2000K (semilla de velocidades "seed2", la que ya habia corrido
+#  limpio 4.5ns en la validacion 2, job 42847448, del proyecto
+#  65536_1e10/). Continuar la dinamica desde ahi -- aca y en
+#  prod_1e11/seg01 mas abajo -- no es "reusar una semilla", es resumir
+#  la MISMA trayectoria fisica real con el mismo integrador NPT y el
+#  mismo potencial. Es determinista hacia adelante (misma version de
+#  LAMMPS/librerias), igual que prod_2e10/seg01 continuo sin reseed
+#  desde restart.sweep_2e10_1900K en el proyecto anterior.
+#
+#  Determinismo esperado: mismo restart de entrada, mismo potencial,
+#  mismo Pdamp/Tdamp/dt, sin ningun `velocity create` -- la trayectoria
+#  deberia ser identica (o practicamente identica, modulo orden de suma
+#  en punto flotante si cambia el numero de ranks) a la que ya corrio en
+#  in.ramp.lmp. Se corre con los mismos 16 tasks que el original para
+#  minimizar esa diferencia, y se verifica el estado final (T~1900K)
+#  contra sweep_1e11.log.dat antes de dar esto por bueno (mismo chequeo
+#  que se hizo para sweep_2e10_redump: ultima linea del .log.dat debe
+#  coincidir byte a byte).
+#
+#  Escribe con nombres DISTINTOS a los del sweep original (no pisa
+#  restart.sweep_1e11_1900K ni sweep_1e11.log.dat, que ya los usa
+#  prod_1e11/in.quench_1e11_seg01.lmp rio abajo -- el redump es solo
+#  para completar el dump de trayectoria, el restart de partida de
+#  produccion sigue siendo el original, no el redump).
+#
+#  Punto de partida: ../restart.equil2000K_N65536_1e10 (2000 K, semilla
+#  seed2 + 2ns de hold NPT, identico al sweep original -- el nombre dice
+#  "1e10" porque es el mismo restart compartido por las 7 corridas del
+#  barrido de tasas, generado y copiado ademas al proyecto 65536_1e10/).
+#
+#  Tasa: 1e11 K/s -> 1000000 pasos para 2000->1900 K
+#  Dump: cada 100000 pasos = cada 10K -> 10 frames en el segmento
+# =====================================================================
+
+variable        tag    index N65536
+variable        pot    index ../ZrCuAg.lammps.eam
+variable        rate   index 1e11
+variable        pdamp  index 10.0
+
+read_restart    ../restart.equil2000K_${tag}_1e10
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001                       # 1 fs
+
+thermo          1000
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+fix             log2 all ave/time 10 100 1000 &
+                v_Tinst v_PEat v_Lbox v_Rho v_Pinst &
+                file sweep_${rate}_redump.log.dat &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+fix             halt_P all halt 1000 v_Pinst > 1.0e5 error hard    # |P| > ~10 GPa
+
+dump            traj all custom 100000 quench_${tag}_${rate}.dump.seg1_global &
+                id type x y z vx vy vz
+dump_modify     traj sort id first yes
+dump_modify     traj format float %.8g
+
+print           "### SEGMENTO 1 GLOBAL (redump) ${rate} K/s : 2000 K -> 1900 K en 1000000 pasos"
+fix             qnpt all npt temp 2000.0 1900.0 0.1 iso 0.0 0.0 ${pdamp}
+run             1000000
+unfix           qnpt
+
+print           "### SEGMENTO 1 (redump) OK (llego a 1900 K sin halt) : T=${Tinst} K  P=${Pinst} bar  Ep=${PEat} eV  Lx=${Lbox} A  rho=${Rho} g/cc"
+
+write_restart   restart.sweep_${rate}_1900K_redump

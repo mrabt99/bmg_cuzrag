@@ -1,0 +1,273 @@
+### [1e12] 01.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg1
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.5260308 3.5260308 3.5260308) to (111.55502 111.55502 111.55502)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.067 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 02.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg2
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.6395848 3.6395848 3.6395848) to (111.44147 111.44147 111.44147)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.078 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 03.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg3
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.7345955 3.7345955 3.7345955) to (111.34646 111.34646 111.34646)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.045 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 04.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg4
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.8532676 3.8532676 3.8532676) to (111.22778 111.22778 111.22778)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.066 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 05.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg5
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.9827294 3.9827294 3.9827294) to (111.09832 111.09832 111.09832)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.056 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 06.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg6
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.0864798 4.0864798 4.0864798) to (110.99457 110.99457 110.99457)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.043 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 07.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg7
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.1917373 4.1917373 4.1917373) to (110.88932 110.88932 110.88932)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.068 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 08.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg8
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.287973 4.287973 4.287973) to (110.79308 110.79308 110.79308)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.055 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 09.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg9
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.4003202 4.4003202 4.4003202) to (110.68073 110.68073 110.68073)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.049 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 10.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg10
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.5085357 4.5085357 4.5085357) to (110.57252 110.57252 110.57252)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.066 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 11.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg11
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.6393784 4.6393784 4.6393784) to (110.44167 110.44167 110.44167)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.048 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 12.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg12
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.7428199 4.7428199 4.7428199) to (110.33823 110.33823 110.33823)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.091 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 13.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg13
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.8376689 4.8376689 4.8376689) to (110.24338 110.24338 110.24338)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.071 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 14.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg14
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.9100979 4.9100979 4.9100979) to (110.17095 110.17095 110.17095)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.049 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 15.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg15
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (5.0007717 5.0007717 5.0007717) to (110.08028 110.08028 110.08028)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.060 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 16.dump <- /scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg16
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (5.0759303 5.0759303 5.0759303) to (110.00512 110.00512 110.00512)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.055 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### [1e12] 17.dump <- /scratch/negishi/aaabt/65536_1e12/restart.glass300K_N65536_1e12
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 12 Dec 2018, LAMMPS = 23 Jun 2022
+WARNING: Old restart file format revision. Switching to compatibility mode. (src/src/read_restart.cpp:609)
+WARNING: Restart file used different # of processors: 48 vs. 16 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (5.1379624 5.1379624 5.1379624) to (109.94309 109.94309 109.94309)
+  2 by 2 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.055 seconds
+WARNING: Calling write_dump before a full system init. (src/src/write_dump.cpp:68)
+Total wall time: 0:00:00
+### Done: 17 restarts converted for 1e12

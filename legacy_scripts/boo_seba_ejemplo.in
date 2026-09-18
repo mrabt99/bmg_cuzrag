@@ -1,0 +1,31 @@
+# =====================================================================
+#  Referencia (NO tocar, NO parametrizar): patron real que usa
+#  Jaroszewicz para BOO via LAMMPS nativo (confirmado por el director,
+#  2026-09-17). Solo da Q4/Q6 con nnn=12 implicito (default de
+#  orientorder/atom) y cutoff = el de la EAM (default de pair style,
+#  no fijado a mano). NO calcula Wl-hat ni otros nnn -- eso es
+#  trabajo nuevo (ver structural_analysis/boo/, Tarea E).
+#
+#  Restart/potencial de ejemplo abajo = el caso de validacion elegido
+#  para Tarea E (2e10, restart.quench_N65536_2e10.seg8): no es parte
+#  del patron original de Jaroszewicz, se completo para poder correr
+#  esta referencia tal cual y comparar contra la version extendida.
+# =====================================================================
+
+read_restart    /scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg8
+
+pair_style      eam/alloy
+pair_coeff      * * /scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/ZrCuAg.lammps.eam Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 10 check yes
+
+timestep        0.001
+reset_timestep  0
+
+compute         Oo all orientorder/atom degrees 2 4 6
+
+dump            1 all custom 10 /scratch/negishi/aaabt/structural_analysis/boo/baseline_seba_seg8.dump id type c_Oo[*]
+dump_modify     1 sort id format float "%.6f"
+
+run             1

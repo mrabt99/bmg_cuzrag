@@ -1,0 +1,53 @@
+# Backup local del repo git viejo de rate_2e10 (no se sube, ver rate_2e10_old_git_backup/)
+/rate_2e10_old_git_backup/
+
+# Cache de Python
+__pycache__/
+*.pyc
+
+# Trayectorias MD crudas (.dump) y variantes pesadas (>20MB) -- excluidas de git.
+# Ver HEAVY_FILES.md para el detalle de cuales son necesarias para reproducibilidad
+# y deben bajarse manualmente a la PC local.
+/for_local_download/quench_N65536_1e10.dump.validate_seed2
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg1
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg10
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg11
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg12
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg13
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg14
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg15
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg16
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg2
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg3
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg4
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg5
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg6
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg7
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg8
+/rate_1e11/prod_1e11/quench_N65536_1e11.dump.seg9
+/rate_1e11/prod_1e11/relax300K_N65536_1e11.dump
+/rate_1e11/sweep_1e11/quench_N65536_1e11.dump.seg1_global
+/rate_1e12_reference/quench_N65536_1e12.dump
+/rate_1e12_reference/relax300K_N65536_1e12.dump
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg1
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg10
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg11
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg12
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg13
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg14
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg15
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg16
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg2
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg3
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg4
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg5
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg6
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg7
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg8
+/rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg9
+/rate_2e10/prod_2e10/relax300K_N65536_2e10.dump
+/rate_2e10/quench_N65536_1e10.dump.validate
+/rate_2e10/quench_N65536_1e10.dump.validate_seed2.part_aa
+/rate_2e10/quench_N65536_1e10.dump.validate_seed2.part_ab
+/rate_2e10/quench_N65536_1e10.dump.validate_seed2.part_ac
+/rate_2e10/sweep_2e10/quench_N65536_2e10.dump.seg1_global

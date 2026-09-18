@@ -1,0 +1,8 @@
+read_restart    /scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg16
+pair_style      eam/alloy
+pair_coeff      * * ZrCuAg.lammps.eam Zr Cu Ag
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+timestep        0.001
+thermo_style    custom step temp press vol density pe etotal atoms
+run             0

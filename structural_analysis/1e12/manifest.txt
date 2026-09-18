@@ -1,0 +1,17 @@
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg1
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg2
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg3
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg4
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg5
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg6
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg7
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg8
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg9
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg10
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg11
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg12
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg13
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg14
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg15
+/scratch/negishi/aaabt/65536_1e12/restart.quench_N65536_1e12.seg16
+/scratch/negishi/aaabt/65536_1e12/restart.glass300K_N65536_1e12

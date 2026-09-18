@@ -1,0 +1,95 @@
+# =====================================================================
+#  Produccion 1e11 K/s (tramo 1/16) : 1900 K -> 1800 K -- REINTENTO
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - Negishi/SLURM - v4 (NPT, Pdamp=10)
+#
+#  El primer intento de este tramo (job 43211072) exploto: fix halt_T
+#  disparo en el paso 4456000, es decir 456000 pasos (45.6%) dentro del
+#  1000000-paso tramo, con el sistema todavia ~1850-1870K -- NO al
+#  arrancar el tramo. Mismo defecto estocastico del core del potencial
+#  documentado en bmg_cuzrag/rate_2e10/ (T promediada salto a 629354 K en una
+#  sola ventana de chequeo del fix halt). No escribio restart propio,
+#  asi que el ultimo estado bueno sigue siendo el restart del barrido.
+#
+#  Igual que se hizo para prod_2e10/seg02 en el proyecto anterior, se
+#  reintenta desde el mismo punto de partida (restart del barrido, a
+#  1900 K) pero con las velocidades RE-GENERADAS con otra semilla, mas
+#  un hold breve de NPT a 1900 K (0.5 ns) antes de retomar la rampa, en
+#  vez de heredar las velocidades que llevaron a la explosion.
+#
+#  Segunda tasa de la comparacion tipo Ryltsev (la primera, 2e10 K/s,
+#  vive en bmg_cuzrag/rate_2e10/). Mismo potencial EAM original sin tocar, mismo
+#  ensemble/parametros (NPT Pdamp=10.0/Tdamp=0.1, dt=1fs fijo).
+#
+#  Punto de partida: ../sweep_1e11/restart.sweep_1e11_1900K (el unico
+#  tramo de barrido a esta tasa, 2000->1900K en 1ns, sobrevivio entero
+#  sin disparar fix halt -- ver bmg_cuzrag/rate_2e10/README.md para la tabla
+#  completa del barrido de tasas). Esta vez SI se re-siembra la
+#  velocidad a 1900K con una semilla nueva -- no es el mismo caso que la
+#  nota anterior sobre "no es un numero de semilla": ahi se hablaba de
+#  no resembrar de entrada; aca se resiembra porque la trayectoria
+#  original de este tramo especifico ya exploto.
+#
+#  Aritmetica: 100 K / 1e11 K/s = 1e-9 s = 1 ns = 1000000 pasos por
+#  tramo de 100 K. Quedan 16 tramos de 1900 a 300 K.
+#
+#  Entrada:  ../sweep_1e11/restart.sweep_1e11_1900K (velocidades re-generadas, ver abajo)
+#  Salida:   restart.quench_${tag}_${rate}.seg1
+#            quench_${tag}_${rate}.dump.seg1    (10 frames, cada 10K = cada 1e5 pasos)
+#            quench_${tag}_${rate}.log.dat.seg1 (T, Ep/atomo, Lx, rho, P)
+# =====================================================================
+
+variable        tag   index N65536
+variable        pot   index ../ZrCuAg.lammps.eam
+variable        rate  index 1e11
+variable        pdamp index 10.0
+
+read_restart    ../sweep_1e11/restart.sweep_1e11_1900K
+
+# Reintento: nueva semilla de velocidades a 1900 K (la trayectoria
+# anterior, heredando las velocidades del restart tal cual, exploto a
+# 0.456 ns de este mismo tramo).
+velocity        all create 1900.0 725193847 mom yes rot yes dist gaussian
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001                       # 1 fs -- fijo, no tocar (VDOS/fonones)
+
+thermo          1000
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+fix             log2 all ave/time 10 100 1000 &
+                v_Tinst v_PEat v_Lbox v_Rho v_Pinst &
+                file quench_${tag}_${rate}.log.dat.seg1 &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+fix             halt_P all halt 1000 v_Pinst > 1.0e5 error hard    # |P| > ~10 GPa
+
+dump            traj all custom 100000 quench_${tag}_${rate}.dump.seg1 &
+                id type x y z vx vy vz
+dump_modify     traj sort id first yes
+dump_modify     traj format float %.8g
+
+print           "### hold breve a 1900 K (0.5 ns) antes de retomar la rampa -- tras reintento con nueva semilla"
+fix             equil1900 all npt temp 1900.0 1900.0 0.1 iso 0.0 0.0 ${pdamp}
+run             500000                          # 0.5 ns
+unfix           equil1900
+print           "### hold terminado : T=${Tinst} K  P=${Pinst} bar  Ep=${PEat} eV  Lx=${Lbox} A  rho=${Rho} g/cc"
+write_restart   restart.equil1900K_${tag}_${rate}
+
+print           "### tramo 1/16 (1e11 K/s) :  1900 K -> 1800 K"
+fix              qnpt all npt temp 1900.0 1800.0 0.1 iso 0.0 0.0 ${pdamp}
+run              1000000                        # 1 ns
+unfix            qnpt
+print           "### tramo 1/16 terminado : T=${Tinst} K  P=${Pinst} bar  Ep=${PEat} eV  Lx=${Lbox} A  rho=${Rho} g/cc"
+write_restart    restart.quench_${tag}_${rate}.seg1

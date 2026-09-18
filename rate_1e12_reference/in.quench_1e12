@@ -1,0 +1,245 @@
+# =====================================================================
+#  ETAPA 2 - Templado 2000 -> 300 K a 1e12 K/s  (+ relajacion final)
+#  Zr47.5 Cu47.5 Ag5  BMG  -  serie de tamanos S1 / S2 / S3
+#
+#  Entrada:  restart.melt_${tag}                (de in.melt)
+#  Salida:   quench_${tag}_${rate}.dump         posiciones Y VELOCIDADES cada 10 K
+#            restart.quench_${tag}_${rate}.seg#   estado exacto cada 100 K
+#            restart.glass300K_${tag}_${rate}
+#            data.glass300K_${tag}_${rate}
+#            quench_${tag}_${rate}.log.dat      T, Ep/atomo, Lx, rho  -> curva de Tg
+#
+#  ARITMETICA DEL TEMPLADO
+#    (2000 - 300) K / 1e12 K/s = 1.7e-9 s = 1.7 ns = 1.7e6 pasos de 1 fs
+#    Se parte en 17 tramos de 100 K (misma particion que la version 1e10,
+#    para poder comparar Tg entre tasas tramo a tramo):
+#      100 K / 1e12 K/s = 1e-10 s = 0.1 ns = 100 ps = 1e5 pasos por tramo
+#    La rampa global sigue siendo lineal y equivalente a un unico run,
+#    pero se puede retomar si se cae el nodo.
+#
+#  CAMBIOS RESPECTO A LA VERSION 1e10 K/s (factor 100x mas rapido):
+#    - pasos por tramo:         1e7  -> 1e5
+#    - thermo:                  10000 -> 100      (misma resolucion en T)
+#    - fix log2 ave/time:       100 100 10000 -> 1 100 100
+#    - dump traj (cada 10 K):   1e6  -> 1e4 pasos (sigue dando 170 frames,
+#                                                   tamanos de archivo iguales)
+#    - nombres de salida:       se agrego el sufijo ${rate} para no pisar
+#                                los archivos de la corrida a 1e10 K/s
+#    - Tdamp/Pdamp del termostato-barostato NO cambian: son tiempos de
+#      respuesta del algoritmo (0.1 ps / 1.0 ps), no dependen de la tasa,
+#      y siguen siendo mucho menores que la duracion de cada tramo (100 ps)
+#
+#  Compatible con LAMMPS 2018 (todos los contadores estan escritos a mano,
+#  sin round() ni $(expr:%f))
+#
+#  Uso:  descomentar UNA de las tres lineas de 'variable tag'
+#        lmp -in in.quench_1e12
+# =====================================================================
+
+# ---------------------------------------------------------------------
+# 0. Seleccion del sistema  <-- DEBE COINCIDIR CON in.melt
+# ---------------------------------------------------------------------
+# variable        tag   index N8192           # S1 :   8192 atomos
+# variable      tag   index N32768          # S2 :  32768 atomos
+variable      tag   index N65536          # S3 :  65536 atomos
+
+variable        pot   index ../ZrCuAg.lammps.eam
+variable        rate  index 1e12          # solo para nombres de archivo
+
+# ---------------------------------------------------------------------
+# 1. Estado de partida
+#     read_restart trae caja, tipos, posiciones Y velocidades exactas.
+# ---------------------------------------------------------------------
+read_restart    restart.melt_${tag}
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag         # <-- IDENTICA a in.melt
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001                       # 1 fs
+reset_timestep  0
+
+# ---------------------------------------------------------------------
+# 2. Salida termodinamica
+# ---------------------------------------------------------------------
+thermo          100
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+# Registro para la curva Ep vs T (Fig. 1) en cada tamano/tasa.
+# Regalo: permite mostrar que Tg tambien es independiente del tamano,
+# sin ningun costo de computo adicional.
+fix             log2 all ave/time 1 100 100 &
+                v_Tinst v_PEat v_Lbox v_Rho &
+                file quench_${tag}_${rate}.log.dat &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)"
+
+# ---------------------------------------------------------------------
+# 3. Trayectoria CON VELOCIDADES
+#     Un frame cada 1e4 pasos = cada 10 K -> 170 frames.
+#     Se guardan vx vy vz ademas de las posiciones: hacen falta para
+#     arrancar las corridas NVE de Green-Kubo a cada temperatura y para
+#     cualquier analisis vibracional (VDOS, flujo de calor) posterior.
+#
+#     Tamano aproximado del archivo (igual que a 1e10 K/s, mismos 170 frames):
+#       S1  ~  90 MB
+#       S2  ~ 360 MB
+#       S3  ~ 720 MB
+# ---------------------------------------------------------------------
+dump            traj all custom 10000 quench_${tag}_${rate}.dump &
+                id type x y z vx vy vz
+dump_modify     traj sort id first yes
+
+# Precision extra en el volcado. Si esta linea da error en la version
+# 2018, borrarla sin mas: el formato por defecto (%g) igual sirve.
+dump_modify     traj format float %.8g
+
+# ---------------------------------------------------------------------
+# 4. TEMPLADO: 17 tramos de 100 K x 1e5 pasos (100 ps por tramo)
+#
+#    NOTA: los 17 tramos estan escritos explicitamente (sin label/next/jump)
+#    en lugar del loop clasico. "jump SELF" reabre y rebobina (rewind) el
+#    propio archivo de entrada, y eso es poco confiable corriendo en
+#    paralelo (MPI) o cuando el script se pasa por stdin en vez de -in:
+#    ver "ERROR: Label wasn't found in input script". Desenrollar el loop
+#    da exactamente el mismo resultado fisico y funciona siempre, en
+#    serie o en paralelo.
+# ---------------------------------------------------------------------
+print            "### tramo 1/17 :  2000 K -> 1900 K"
+fix              qnpt all npt temp 2000.0 1900.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg1
+
+print            "### tramo 2/17 :  1900 K -> 1800 K"
+fix              qnpt all npt temp 1900.0 1800.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg2
+
+print            "### tramo 3/17 :  1800 K -> 1700 K"
+fix              qnpt all npt temp 1800.0 1700.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg3
+
+print            "### tramo 4/17 :  1700 K -> 1600 K"
+fix              qnpt all npt temp 1700.0 1600.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg4
+
+print            "### tramo 5/17 :  1600 K -> 1500 K"
+fix              qnpt all npt temp 1600.0 1500.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg5
+
+print            "### tramo 6/17 :  1500 K -> 1400 K"
+fix              qnpt all npt temp 1500.0 1400.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg6
+
+print            "### tramo 7/17 :  1400 K -> 1300 K"
+fix              qnpt all npt temp 1400.0 1300.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg7
+
+print            "### tramo 8/17 :  1300 K -> 1200 K"
+fix              qnpt all npt temp 1300.0 1200.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg8
+
+print            "### tramo 9/17 :  1200 K -> 1100 K"
+fix              qnpt all npt temp 1200.0 1100.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg9
+
+print            "### tramo 10/17 :  1100 K -> 1000 K"
+fix              qnpt all npt temp 1100.0 1000.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg10
+
+print            "### tramo 11/17 :  1000 K -> 900 K"
+fix              qnpt all npt temp 1000.0 900.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg11
+
+print            "### tramo 12/17 :  900 K -> 800 K"
+fix              qnpt all npt temp 900.0 800.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg12
+
+print            "### tramo 13/17 :  800 K -> 700 K"
+fix              qnpt all npt temp 800.0 700.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg13
+
+print            "### tramo 14/17 :  700 K -> 600 K"
+fix              qnpt all npt temp 700.0 600.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg14
+
+print            "### tramo 15/17 :  600 K -> 500 K"
+fix              qnpt all npt temp 600.0 500.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg15
+
+print            "### tramo 16/17 :  500 K -> 400 K"
+fix              qnpt all npt temp 500.0 400.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg16
+
+print            "### tramo 17/17 :  400 K -> 300 K"
+fix              qnpt all npt temp 400.0 300.0 0.1 iso 0.0 0.0 1.0
+run              100000                        # 100 ps por tramo
+unfix            qnpt
+write_restart    restart.quench_${tag}_${rate}.seg17
+
+# ---------------------------------------------------------------------
+# 5. ETAPA 3 - Relajacion final a 300 K y 0 Pa, 10 ns
+#     (sin cambios: es una relajacion a T constante, independiente de
+#      la tasa de templado usada para llegar hasta aca)
+#     (si se quiere separar en otro script, cortar aca y arrancar de
+#      restart.quench_${tag}_${rate}.seg17)
+# ---------------------------------------------------------------------
+undump          traj
+dump            relaxtraj all custom 1000000 relax300K_${tag}_${rate}.dump &
+                id type x y z vx vy vz
+dump_modify     relaxtraj sort id first yes
+
+reset_timestep  0
+fix             relax all npt temp 300.0 300.0 0.1 iso 0.0 0.0 1.0
+run             10000000                     # 10 ns
+unfix           relax
+
+# ---------------------------------------------------------------------
+# 6. Entregables
+# ---------------------------------------------------------------------
+write_restart   restart.glass300K_${tag}_${rate}
+write_data      data.glass300K_${tag}_${rate}
+write_dump      all custom glass300K_${tag}_${rate}.dump id type x y z vx vy vz &
+                modify sort id
+
+print           "### VIDRIO LISTO  (${tag}, ${rate} K/s)"
+print           "###   T        = ${Tinst} K"
+print           "###   PE/atomo = ${PEat} eV     <-- comparar entre tamanos y tasas"
+print           "###   Lx       = ${Lbox} A"
+print           "###   densidad = ${Rho} g/cc    <-- comparar entre tamanos y tasas"

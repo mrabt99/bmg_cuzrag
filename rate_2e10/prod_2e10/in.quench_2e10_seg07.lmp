@@ -1,0 +1,63 @@
+# =====================================================================
+#  Produccion 2e10 K/s (tramo 7/16) : 1300 K -> 1200 K
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - Negishi/SLURM - v4 (NPT, Pdamp=10)
+#
+#  Continuacion de sweep_2e10 (el unico de los 7 tramos de prueba que
+#  sobrevivio entero, 2000->1900K en 5 ns sin disparar fix halt). Se
+#  sigue enfriando a la MISMA tasa constante (2e10 K/s) hasta 300 K,
+#  con la misma fisica que el resto del proyecto (potencial EAM
+#  original sin tocar, NPT Pdamp=10.0/Tdamp=0.1, dt=1fs fijo).
+#
+#  Aritmetica: 100 K / 2e10 K/s = 5e-9 s = 5 ns = 5000000 pasos por
+#  tramo de 100 K (mismo numero que en sweep_2e10). Quedan 16 tramos
+#  de 1900 a 300 K.
+#
+#  Entrada:  restart.quench_${tag}_${rate}.seg6
+#  Salida:   restart.quench_${tag}_${rate}.seg7
+#            quench_${tag}_${rate}.dump.seg7    (10 frames, cada 10K = cada 5e5 pasos)
+#            quench_${tag}_${rate}.log.dat.seg7 (T, Ep/atomo, Lx, rho, P)
+# =====================================================================
+
+variable        tag   index N65536
+variable        pot   index ../ZrCuAg.lammps.eam
+variable        rate  index 2e10
+variable        pdamp index 10.0
+
+read_restart    restart.quench_${tag}_${rate}.seg6
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001                       # 1 fs -- fijo, no tocar (VDOS/fonones)
+
+thermo          5000
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+fix             log2 all ave/time 50 100 5000 &
+                v_Tinst v_PEat v_Lbox v_Rho v_Pinst &
+                file quench_${tag}_${rate}.log.dat.seg7 &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+fix             halt_P all halt 1000 v_Pinst > 1.0e5 error hard    # |P| > ~10 GPa
+
+dump            traj all custom 500000 quench_${tag}_${rate}.dump.seg7 &
+                id type x y z vx vy vz
+dump_modify     traj sort id first yes
+dump_modify     traj format float %.8g
+
+print           "### tramo 7/16 (2e10 K/s) :  1300 K -> 1200 K"
+fix              qnpt all npt temp 1300.0 1200.0 0.1 iso 0.0 0.0 ${pdamp}
+run              5000000                        # 5 ns
+unfix            qnpt
+print           "### tramo 7/16 terminado : T=${Tinst} K  P=${Pinst} bar  Ep=${PEat} eV  Lx=${Lbox} A  rho=${Rho} g/cc"
+write_restart    restart.quench_${tag}_${rate}.seg7

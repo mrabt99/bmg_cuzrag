@@ -1,0 +1,77 @@
+# =====================================================================
+#  VALIDACION del fix v4 (NPT, Pdamp=10.0) antes de comprometer la
+#  cadena completa de 17 tramos + relax.
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - Negishi/SLURM
+#
+#  POR QUE ESTE SCRIPT: v1 (Pdamp=1.0, mismo valor que a 1e12 K/s)
+#  exploto en runaway de barostato a 1.67 ns dentro del primer tramo
+#  (2000 K -> 1900 K). Un smoke test de pocos miles de pasos (~unos ps)
+#  NO habria detectado ese fallo. Esta corrida hace ~4.5 ns (2.7x el
+#  punto de explosion de v1) con Pdamp=10.0, monitoreando T y P con
+#  resolucion fina, para confirmar que el fix realmente evita el
+#  runaway antes de lanzar la cadena de produccion (17 x 10 ns).
+#
+#  IMPORTANTE: esta corrida NO reemplaza a in.quench_1e10_seg01.lmp.
+#  Son 4.5 ns (4.5e6 pasos) de validacion, no los 10 ns (1e7 pasos)
+#  completos del tramo 1 real -> escribe a archivos con sufijo
+#  "validate", no pisa las salidas de seg1. Si esta corrida termina
+#  bien, lanzar la cadena real empezando por seg01.
+#
+#  Entrada:  restart.melt_${tag}          (mismo punto de partida que seg1)
+#  Salida:   quench_${tag}_${rate}.dump.validate       (~45 frames, cada 0.1 ns)
+#            quench_${tag}_${rate}.log.dat.validate    (T, Ep/atomo, Lx, rho, P
+#                                                        cada 1000 pasos = 1 ps)
+#            restart.validate_${tag}_${rate}           (solo de referencia)
+# =====================================================================
+
+variable        tag   index N65536
+variable        pot   index ZrCuAg.lammps.eam
+variable        rate  index 1e10
+variable        pdamp index 10.0          # ps -- v4 fix (era 1.0 en v1 -> exploto)
+
+read_restart    restart.melt_${tag}
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001                       # 1 fs
+
+thermo          1000
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+# Muestreo fino (cada 1 ps) para poder ver el momento exacto en que v1
+# empezo a divergir (1.67 ns) si volviera a pasar.
+fix             log2 all ave/time 10 100 1000 &
+                v_Tinst v_PEat v_Lbox v_Rho v_Pinst &
+                file quench_${tag}_${rate}.log.dat.validate &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+fix             halt_T all halt 100 v_Tinst > 8000.0 error hard
+fix             halt_P all halt 100 v_Pinst > 1.0e5 error hard    # |P| > ~10 GPa
+
+dump            traj all custom 100000 quench_${tag}_${rate}.dump.validate &
+                id type x y z vx vy vz
+dump_modify     traj sort id first yes
+dump_modify     traj format float %.8g
+
+print           "### VALIDACION v4 : 2000 K -> 1900 K (target del tramo 1), 4.5 ns, Pdamp=${pdamp}"
+fix              qnpt all npt temp 2000.0 1900.0 0.1 iso 0.0 0.0 ${pdamp}
+run              4500000                       # 4.5 ns -- 2.7x el punto de explosion de v1 (1.67 ns)
+unfix            qnpt
+
+# NOTA (LAMMPS 20220623): print con variables equal-style DEBE ir antes
+# de write_restart o el compute temp/press queda "not current" (visto
+# en el test de sintaxis de 200 pasos).
+print           "### VALIDACION OK (no hubo halt) : T=${Tinst} K  P=${Pinst} bar  Ep=${PEat} eV  Lx=${Lbox} A  rho=${Rho} g/cc"
+print           "### Si esto termino sin ERROR, lanzar la cadena real desde in.quench_1e10_seg01.lmp"
+
+write_restart    restart.validate_${tag}_${rate}
