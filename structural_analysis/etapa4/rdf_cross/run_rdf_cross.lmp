@@ -1,0 +1,38 @@
+# =====================================================================
+#  Etapa 4 / Tarea 5 - RDF cruzado Cu-Zr de UN restart, run 0.
+#  Mismo r-grid que Tareas 1/3/4: 500 bins, 0..10 A (dr = 0.02 A).
+#  compute rdf con 3 pares (itype jtype):
+#    * *  -> total (all-all), sanity check vs Tarea 1
+#    1 2  -> Zr centro, Cu vecino
+#    2 1  -> Cu centro, Zr vecino (debe coincidir con 1 2: g_ij(r)=g_ji(r); sanity de simetria)
+#  Salida (fix ave/time vector): index r g_total coord_total g_ZrCu coord_ZrCu g_CuZr coord_CuZr
+#
+#  Uso: lmp -in run_rdf_cross.lmp -var restart_file <p> -var pot_file <p> \
+#           -var out_file <salida.txt>
+# =====================================================================
+variable restart_file index none
+variable pot_file     index /scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/ZrCuAg.lammps.eam
+variable out_file     index rdf_cross.txt
+
+units           metal
+atom_style      atomic
+read_restart    ${restart_file}
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot_file} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+comm_modify     cutoff 12.5   # rdf cutoff + skin (2.0) = 12.0
+
+compute         rdf all rdf 500 * * 1 2 2 1 cutoff 10.0
+fix             rdf all ave/time 1 1 1 c_rdf[*] file ${out_file} mode vector
+
+variable        rho equal atoms/vol
+group           gZr type 1
+group           gCu type 2
+group           gAg type 3
+thermo_style    custom step atoms temp lx ly lz vol v_rho
+thermo          1
+run             0
+print "QC_BOX lx=$(lx:%.6f) ly=$(ly:%.6f) lz=$(lz:%.6f) natoms=$(atoms) numdens=$(v_rho:%.6f) nZr=$(count(gZr)) nCu=$(count(gCu)) nAg=$(count(gAg))"

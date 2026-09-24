@@ -1,0 +1,15 @@
+1e12  glass300  all T= 300 r_pico=2.81 rc=3.75 g(rc)=0.396 centros=65536 <CN>=12.82 area=1.0000
+1e12  glass300  Cu  T= 300 r_pico=2.81 rc=3.75 g(rc)=0.396 centros=31130 <CN>=11.59 area=1.0000
+1e12  liquid    all T=1200 r_pico=2.79 rc=3.93 g(rc)=0.566 centros=65536 <CN>=13.35 area=1.0000
+1e12  liquid    Cu  T=1200 r_pico=2.79 rc=3.93 g(rc)=0.566 centros=31130 <CN>=12.56 area=1.0000
+1e11  glass300  all T= 300 r_pico=2.81 rc=3.79 g(rc)=0.385 centros=65536 <CN>=13.00 area=1.0000
+1e11  glass300  Cu  T= 300 r_pico=2.81 rc=3.79 g(rc)=0.385 centros=31130 <CN>=11.74 area=1.0000
+1e11  liquid    all T=1200 r_pico=2.81 rc=3.83 g(rc)=0.570 centros=65536 <CN>=12.76 area=1.0000
+1e11  liquid    Cu  T=1200 r_pico=2.81 rc=3.83 g(rc)=0.570 centros=31130 <CN>=11.96 area=1.0000
+2e10  glass300  all T= 300 r_pico=2.81 rc=3.73 g(rc)=0.374 centros=65536 <CN>=12.77 area=1.0000
+2e10  glass300  Cu  T= 300 r_pico=2.81 rc=3.73 g(rc)=0.374 centros=31130 <CN>=11.50 area=1.0000
+2e10  liquid    all T=1200 r_pico=2.77 rc=3.89 g(rc)=0.566 centros=65536 <CN>=13.12 area=1.0000
+2e10  liquid    Cu  T=1200 r_pico=2.77 rc=3.89 g(rc)=0.566 centros=31130 <CN>=12.32 area=1.0000
+ref ico: area=1.0000  bins mas altos (deg)=[np.float64(63.5), np.float64(116.5), np.float64(178.5), np.float64(179.5)]
+ref hcp: area=1.0000  bins mas altos (deg)=[np.float64(59.5), np.float64(60.5), np.float64(90.5), np.float64(120.5)]
+fig_C escrita

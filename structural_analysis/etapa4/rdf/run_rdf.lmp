@@ -1,0 +1,33 @@
+# =====================================================================
+#  Etapa 4 / Tarea 1 - RDF total (all-all) de UN restart, run 0.
+#  r-grid fijo para las 3 tasas: 500 bins, 0..10 A (dr = 0.02 A).
+#  compute rdf: g_total y coordinacion acumulada N(<r) por atomo.
+#  Ag es especie propia en el potencial (Zr Cu Ag); el RDF total las
+#  incluye a todas.
+#
+#  Uso: lmp -in run_rdf.lmp -var restart_file <p> -var pot_file <p> \
+#           -var out_file <salida.txt>
+# =====================================================================
+variable restart_file index none
+variable pot_file     index /scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/ZrCuAg.lammps.eam
+variable out_file     index rdf.txt
+
+units           metal
+atom_style      atomic
+read_restart    ${restart_file}
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot_file} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+comm_modify     cutoff 12.5   # rdf cutoff + skin (2.0) = 12.0
+
+compute         rdf all rdf 500 cutoff 10.0
+fix             rdf all ave/time 1 1 1 c_rdf[*] file ${out_file} mode vector
+
+variable        rho equal atoms/vol
+thermo_style    custom step atoms temp lx ly lz vol v_rho
+thermo          1
+run             0
+print "QC_BOX lx=$(lx:%.6f) ly=$(ly:%.6f) lz=$(lz:%.6f) natoms=$(atoms) numdens=$(v_rho:%.6f)"

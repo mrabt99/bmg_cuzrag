@@ -1,0 +1,4 @@
+especie,tipo_cluster,regimen,N_pool_2e10,N_pool_1e12,razon,error,T_usados,nota
+Zr,Z14,vitreo,1405,1231,1.1413,0.0446,500 400 300,
+Zr,Z15,vitreo,2592,2141,1.2106,0.0354,500 400 300,
+Zr,Z16,vitreo,1357,1110,1.2225,0.0495,500 400 300,"Z16 exacto <0,0,12,4> es limite superior: degenerado en Cu-Zr (Lu et al., Phys. Rev. B 102, 184201, 2020)"

@@ -1,0 +1,78 @@
+=== 2e10 ===
+  Voronoi Index: columna j = caras con (j+1) aristas (Euler ok en 100.00% de los atomos)
+  CN global: media=13.986
+  histograma CN (global): 9:5 10:513 11:3391 12:12155 13:11618 14:10127 15:12934 16:10614 17:3648 18:489 19:42
+  CN Zr: media=15.41 moda=15
+  CN Cu: media=12.56 moda=12
+  CN Ag: media=14.02 moda=14
+  bimodal global en 12 y 15 (maximos locales): True
+  chequeo CN (media 13.5-14.5, moda Cu=12 / Ag=14 / Zr=15): OK
+  --- clases excluyentes (las del render) [2e10] ---
+  clase             N     Zr     Cu     Ag
+  ico-BOO         770      1    755     14
+  ico-Voronoi    2333     15   2224     94
+  Z16-Voronoi     451    451      0      0
+  Z15-Voronoi     877    872      2      3
+  Z14-Voronoi     522    506      2     14
+  resto         60583  29284  28147   3152
+  suma = 65536
+  --- mascaras crudas SIN prioridad (categorias distintas, no se suman) ---
+  ico-BOO         770      1    755     14
+  ico-Voronoi    3084     16   2960    108
+  Z16-Voronoi     451    451      0      0
+  Z15-Voronoi     877    872      2      3
+  Z14-Voronoi     522    506      2     14
+  ico-BOO vs Etapa 3 (tabla_clusters_51, 300 K): 770 vs 770 -> OK
+  -> ovito_out/2e10_snapshot.png
+=== 1e11 ===
+  Voronoi Index: columna j = caras con (j+1) aristas (Euler ok en 100.00% de los atomos)
+  CN global: media=13.993
+  histograma CN (global): 9:8 10:502 11:3274 12:12010 13:11904 14:10150 15:12889 16:10534 17:3694 18:533 19:37
+  CN Zr: media=15.41 moda=15
+  CN Cu: media=12.57 moda=12
+  CN Ag: media=14.02 moda=14
+  bimodal global en 12 y 15 (maximos locales): True
+  chequeo CN (media 13.5-14.5, moda Cu=12 / Ag=14 / Zr=15): OK
+  --- clases excluyentes (las del render) [1e11] ---
+  clase             N     Zr     Cu     Ag
+  ico-BOO         575      0    567      8
+  ico-Voronoi    2166     27   2046     93
+  Z16-Voronoi     408    408      0      0
+  Z15-Voronoi     832    827      1      4
+  Z14-Voronoi     511    497      6      8
+  resto         61044  29370  28510   3164
+  suma = 65536
+  --- mascaras crudas SIN prioridad (categorias distintas, no se suman) ---
+  ico-BOO         575      0    567      8
+  ico-Voronoi    2730     27   2603    100
+  Z16-Voronoi     408    408      0      0
+  Z15-Voronoi     832    827      1      4
+  Z14-Voronoi     511    497      6      8
+  ico-BOO vs Etapa 3 (tabla_clusters_51, 300 K): 575 vs 575 -> OK
+  -> ovito_out/1e11_snapshot.png
+=== 1e12 ===
+  Voronoi Index: columna j = caras con (j+1) aristas (Euler ok en 100.00% de los atomos)
+  CN global: media=14.008
+  histograma CN (global): 9:6 10:509 11:3211 12:11561 13:12097 14:10519 15:12853 16:10467 17:3677 18:589 19:44
+  CN Zr: media=15.41 moda=15
+  CN Cu: media=12.61 moda=12
+  CN Ag: media=13.96 moda=14
+  bimodal global en 12 y 15 (maximos locales): False
+  chequeo CN (media 13.5-14.5, moda Cu=12 / Ag=14 / Zr=15): OK
+  --- clases excluyentes (las del render) [1e12] ---
+  clase             N     Zr     Cu     Ag
+  ico-BOO         438      1    428      9
+  ico-Voronoi    2039     22   1919     98
+  Z16-Voronoi     383    383      0      0
+  Z15-Voronoi     772    767      0      5
+  Z14-Voronoi     465    445      6     14
+  resto         61439  29511  28777   3151
+  suma = 65536
+  --- mascaras crudas SIN prioridad (categorias distintas, no se suman) ---
+  ico-BOO         438      1    428      9
+  ico-Voronoi    2456     23   2326    107
+  Z16-Voronoi     383    383      0      0
+  Z15-Voronoi     772    767      0      5
+  Z14-Voronoi     465    445      6     14
+  ico-BOO vs Etapa 3 (tabla_clusters_51, 300 K): 438 vs 438 -> OK
+  -> ovito_out/1e12_snapshot.png

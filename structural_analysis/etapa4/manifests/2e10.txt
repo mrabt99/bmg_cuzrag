@@ -1,0 +1,17 @@
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/sweep_2e10/restart.sweep_2e10_1900K
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg1
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg2
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg3
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg4
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg5
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg6
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg7
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg8
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg9
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg10
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg11
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg12
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg13
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg14
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg15
+/scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.glass300K_N65536_2e10

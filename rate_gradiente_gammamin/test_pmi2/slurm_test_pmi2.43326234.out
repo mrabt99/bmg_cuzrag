@@ -1,0 +1,126 @@
+=== A: srun --mpi=pmi2 ===
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+  restoring atom style atomic from restart
+  orthogonal box = (3.9725055 3.9725055 3.9725055) to (111.10855 111.10855 111.10855)
+  3 by 4 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.045 seconds
+### tramo 1/12 (gradmin, 2.000e+10 K/s) :  1500 K -> 1400 K
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 26 26 26
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 28500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 5.217 | 5.22 | 5.222 Mbytes
+   Step          Temp          Press          Volume        Density         PotEng         TotEng    
+  28500000   1508.1321      733.4573       1229721.6      6.9831194     -299928.14     -287152.66    
+  28503000   1401.64        633.88278      1222427.4      7.0247874     -301264.61     -289391.22    
+Loop time of 9.7128 on 48 procs for 3000 steps with 65536 atoms
+
+Performance: 26.686 ns/day, 0.899 hours/ns, 308.871 timesteps/s
+99.1% CPU use with 48 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 7.7804     | 7.9738     | 8.2344     |   3.8 | 82.10
+Neigh   | 0.14156    | 0.14459    | 0.14769    |   0.3 |  1.49
+Comm    | 0.99526    | 1.2594     | 1.4393     |   9.6 | 12.97
+Output  | 7.8447e-05 | 7.9044e-05 | 8.5159e-05 |   0.0 |  0.00
+Modify  | 0.2331     | 0.26716    | 0.30491    |   3.7 |  2.75
+Other   |            | 0.06772    |            |       |  0.70
+
+Nlocal:        1365.33 ave        1391 max        1348 min
+Histogram: 2 5 11 6 8 10 2 2 0 2
+Nghost:         4031.4 ave        4068 max        3988 min
+Histogram: 1 0 3 7 10 8 9 5 4 1
+Neighs:        94115.6 ave       97508 max       91710 min
+Histogram: 2 5 8 5 14 7 5 1 0 1
+
+Total # of neighbors = 4517547
+Ave neighs/atom = 68.932297
+Neighbor list builds = 58
+Dangerous builds = 0
+### tramo 1/12 terminado : T=1401.64004356067 K  P=633.882777410249 bar  Ep=-4.59693307515141 eV  Lx=106.923793145344 A  rho=7.02478739129203 g/cc
+System init for write_restart ...
+Total wall time: 0:00:09
+=== fin A (exit 0) ===
+=== B: mpirun ===
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+  restoring atom style atomic from restart
+  orthogonal box = (3.9725055 3.9725055 3.9725055) to (111.10855 111.10855 111.10855)
+  3 by 4 by 4 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.009 seconds
+### tramo 1/12 (gradmin, 2.000e+10 K/s) :  1500 K -> 1400 K
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 8.5
+  binsize = 4.25, bins = 26 26 26
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 28500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 5.217 | 5.22 | 5.222 Mbytes
+   Step          Temp          Press          Volume        Density         PotEng         TotEng    
+  28500000   1508.1321      733.4573       1229721.6      6.9831194     -299928.14     -287152.66    
+  28503000   1401.64        633.88278      1222427.4      7.0247874     -301264.61     -289391.22    
+Loop time of 9.08543 on 48 procs for 3000 steps with 65536 atoms
+
+Performance: 28.529 ns/day, 0.841 hours/ns, 330.199 timesteps/s
+99.2% CPU use with 48 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 7.6488     | 7.7843     | 8.0483     |   2.7 | 85.68
+Neigh   | 0.14171    | 0.14513    | 0.16733    |   0.9 |  1.60
+Comm    | 0.59523    | 0.8103     | 0.97452    |   9.7 |  8.92
+Output  | 7.8207e-05 | 8.016e-05  | 0.00010091 |   0.0 |  0.00
+Modify  | 0.21183    | 0.26889    | 0.33644    |   7.5 |  2.96
+Other   |            | 0.07668    |            |       |  0.84
+
+Nlocal:        1365.33 ave        1391 max        1348 min
+Histogram: 2 5 11 6 8 10 2 2 0 2
+Nghost:         4031.4 ave        4068 max        3988 min
+Histogram: 1 0 3 7 10 8 9 5 4 1
+Neighs:        94115.6 ave       97508 max       91710 min
+Histogram: 2 5 8 5 14 7 5 1 0 1
+
+Total # of neighbors = 4517547
+Ave neighs/atom = 68.932297
+Neighbor list builds = 58
+Dangerous builds = 0
+### tramo 1/12 terminado : T=1401.64004356067 K  P=633.882777410249 bar  Ep=-4.59693307515141 eV  Lx=106.923793145344 A  rho=7.02478739129203 g/cc
+System init for write_restart ...
+Total wall time: 0:00:09
+=== fin B (exit 0) ===

@@ -1,0 +1,79 @@
+# =====================================================================
+#  Tasa GRADUADA hacia gamma_min (Ryltsev) -- tramo 11/12 : 500 K -> 400 K
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - Negishi/SLURM - v4 (NPT, Pdamp=10)
+#
+#  CORRIDA EXPLORATORIA -- no es parte de la comparacion de tasas
+#  constantes de la tesis (2e10/1e11/1e12). Ver README.md de este
+#  directorio para el proposito completo.
+#
+#  Ventana 1500->700K con tasa interpolada logaritmicamente entre
+#  2e10 K/s (tramo 1) y 1.5e9 K/s (tramo 8, = gamma_min de Ryltsev),
+#  factor ~1.4478 entre tramos consecutivos. Por debajo de 700K (tramos
+#  9-12) se vuelve a una tasa rapida (1e11 K/s) porque el sistema ya es
+#  no-ergodico y enfriar mas lento ahi no cambia la estructura final.
+#
+#  Tasa de este tramo: 1.000000e+11 K/s -> 100K / tasa = 1000000 pasos
+#  (1.000 ns), dt=1fs fijo (igual que el resto del proyecto).
+#
+#  Mismo potencial EAM sin parchear, mismo ensemble NPT Pdamp=10.0/
+#  Tdamp=0.1, derivado del script de produccion de la cadena 2e10
+#  (rate_2e10/prod_2e10/in.quench_2e10_seg04.lmp).
+#
+#  RECUPERACION ANTE EXPLOSION EN ESTE TRAMO (distinto del protocolo
+#  usado en zona caliente >1500K de la cadena 2e10): NO hacer hold
+#  isotermico -- un hold cerca de Tg es envejecimiento extra en la
+#  variable que se esta midiendo. Volver al restart de ENTRADA de este
+#  mismo tramo y relanzar con `velocity all create 500.0 <nueva_seed>
+#  mom yes rot yes dist gaussian` inmediatamente antes del `fix qnpt`,
+#  sin tiempo de espera adicional a esa T. Si este tramo explota mas de
+#  2-3 veces, no insistir: reportar y cortar la cadena aca.
+#
+#  Entrada:  restart.quench_N65536_gradmin.seg10
+#  Salida:   restart.quench_${tag}_${rate}.seg11
+#            quench_${tag}_${rate}.dump.seg11    (10 frames)
+#            quench_${tag}_${rate}.log.dat.seg11 (T, Ep/atomo, Lx, rho, P)
+# =====================================================================
+
+variable        tag   index N65536
+variable        pot   index ZrCuAg.lammps.eam
+variable        rate  index gradmin
+variable        pdamp index 10.0
+
+read_restart    restart.quench_N65536_gradmin.seg10
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001                       # 1 fs -- fijo, no tocar (VDOS/fonones)
+
+thermo          1000
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+fix             log2 all ave/time 10 100 1000 &
+                v_Tinst v_PEat v_Lbox v_Rho v_Pinst &
+                file quench_${tag}_${rate}.log.dat.seg11 &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+fix             halt_P all halt 1000 v_Pinst > 1.0e5 error hard    # |P| > ~10 GPa
+
+dump            traj all custom 100000 quench_${tag}_${rate}.dump.seg11 &
+                id type x y z vx vy vz
+dump_modify     traj sort id first yes
+dump_modify     traj format float %.8g
+
+print           "### tramo 11/12 (gradmin, 1.000e+11 K/s) :  500 K -> 400 K"
+fix              qnpt all npt temp 500.0 400.0 0.1 iso 0.0 0.0 ${pdamp}
+run              1000000                        # 1.000 ns
+unfix            qnpt
+print           "### tramo 11/12 terminado : T=${Tinst} K  P=${Pinst} bar  Ep=${PEat} eV  Lx=${Lbox} A  rho=${Rho} g/cc"
+write_restart    restart.quench_${tag}_${rate}.seg11

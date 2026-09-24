@@ -28,6 +28,14 @@ __pycache__/
 /rate_1e11/prod_1e11/relax300K_N65536_1e11.dump
 /rate_1e11/sweep_1e11/quench_N65536_1e11.dump.seg1_global
 /rate_1e12_reference/quench_N65536_1e12.dump
+
+# Gamma_min gradient chain -- raw trajectory segments (>=20MB)
+/rate_gradiente_gammamin/quench_N65536_gradmin.dump.seg01
+/rate_gradiente_gammamin/quench_N65536_gradmin.dump.seg02
+/rate_gradiente_gammamin/quench_N65536_gradmin.dump.seg03
+/rate_gradiente_gammamin/quench_N65536_gradmin.dump.seg04
+/rate_gradiente_gammamin/quench_N65536_gradmin.dump.seg05
+/rate_gradiente_gammamin/quench_N65536_gradmin.dump.seg06
 /rate_1e12_reference/relax300K_N65536_1e12.dump
 /rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg1
 /rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg10

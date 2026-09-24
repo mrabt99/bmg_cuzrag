@@ -1,0 +1,1157 @@
+### [1e11] 01 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/sweep_1e11/restart.sweep_1e11_1900K
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 16 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.518455 3.518455 3.518455) to (111.5626 111.5626 111.5626)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.067 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 26 26 26
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 4000000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 15.47 | 15.47 | 15.47 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+   4000000       65536   1912.3414      108.04414      108.04414      108.04414      1261257.3      0.05196085   
+Loop time of 5.77575e-06 on 8 procs for 0 steps with 65536 atoms
+
+123.4% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 5.776e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8238 max        8140 min
+Histogram: 1 0 1 0 0 4 0 1 0 1
+Nghost:          17448 ave       17513 max       17399 min
+Histogram: 1 2 0 1 1 1 0 1 0 1
+Neighs:         546267 ave      550885 max      537206 min
+Histogram: 1 0 0 0 1 1 0 2 1 2
+
+Total # of neighbors = 4370139
+Ave neighs/atom = 66.683029
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=108.044142 ly=108.044142 lz=108.044142 natoms=65536 numdens=0.051961 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 02 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg1
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.6436733 3.6436733 3.6436733) to (111.43738 111.43738 111.43738)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.079 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 26 26 26
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 5500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 15.46 | 15.46 | 15.46 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+   5500000       65536   1796.4657      107.79371      107.79371      107.79371      1252507.1      0.052323854  
+Loop time of 5.6105e-06 on 8 procs for 0 steps with 65536 atoms
+
+124.8% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 5.61e-06   |            |       |100.00
+
+Nlocal:           8192 ave        8236 max        8170 min
+Histogram: 1 3 1 0 2 0 0 0 0 1
+Nghost:        17489.5 ave       17523 max       17459 min
+Histogram: 1 1 0 0 3 0 1 1 0 1
+Neighs:         550213 ave      555993 max      543478 min
+Histogram: 1 2 0 0 0 2 0 0 1 2
+
+Total # of neighbors = 4401701
+Ave neighs/atom = 67.164627
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=107.793706 ly=107.793706 lz=107.793706 natoms=65536 numdens=0.052324 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 03 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg2
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.7486379 3.7486379 3.7486379) to (111.33241 111.33241 111.33241)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.040 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 26 26 26
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 6500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 15.38 | 15.56 | 15.86 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+   6500000       65536   1700.2135      107.58378      107.58378      107.58378      1245203.6      0.052630752  
+Loop time of 4.46837e-06 on 8 procs for 0 steps with 65536 atoms
+
+53.2% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 4.468e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8224 max        8151 min
+Histogram: 1 1 0 0 1 0 1 2 1 1
+Nghost:        17577.2 ave       17613 max       17537 min
+Histogram: 1 0 0 3 0 0 1 1 1 1
+Neighs:         553714 ave      561740 max      547547 min
+Histogram: 3 0 1 0 1 0 1 0 0 2
+
+Total # of neighbors = 4429709
+Ave neighs/atom = 67.591995
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=107.583777 ly=107.583777 lz=107.583777 natoms=65536 numdens=0.052631 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 04 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg3
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.8720458 3.8720458 3.8720458) to (111.20901 111.20901 111.20901)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.016 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 26 26 26
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 7500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 15.47 | 15.62 | 15.86 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+   7500000       65536   1600.5976      107.33696      107.33696      107.33696      1236653.1      0.052994652  
+Loop time of 5.633e-06 on 8 procs for 0 steps with 65536 atoms
+
+150.9% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 5.633e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8218 max        8151 min
+Histogram: 1 0 1 0 1 0 1 1 1 2
+Nghost:        17611.2 ave       17679 max       17574 min
+Histogram: 2 0 0 4 1 0 0 0 0 1
+Neighs:         557786 ave      563875 max      548601 min
+Histogram: 1 0 0 0 1 3 0 0 2 1
+
+Total # of neighbors = 4462290
+Ave neighs/atom = 68.089142
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=107.336961 ly=107.336961 lz=107.336961 natoms=65536 numdens=0.052995 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 05 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg4
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (3.9823435 3.9823435 3.9823435) to (111.09871 111.09871 111.09871)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.045 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 26 26 26
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 8500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 15.47 | 15.75 | 15.86 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+   8500000       65536   1502.7209      107.11637      107.11637      107.11637      1229044.2      0.053322738  
+Loop time of 4.6485e-06 on 8 procs for 0 steps with 65536 atoms
+
+112.9% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 4.648e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8230 max        8162 min
+Histogram: 1 1 1 0 2 1 1 0 0 1
+Nghost:        17667.2 ave       17694 max       17623 min
+Histogram: 1 0 0 1 1 0 1 1 0 3
+Neighs:         561496 ave      564987 max      555546 min
+Histogram: 1 0 0 0 0 2 1 1 2 1
+
+Total # of neighbors = 4491969
+Ave neighs/atom = 68.542007
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=107.116366 ly=107.116366 lz=107.116366 natoms=65536 numdens=0.053323 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 06 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg5
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.0740694 4.0740694 4.0740694) to (111.00698 111.00698 111.00698)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.044 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 26 26 26
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 9500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 15.48 | 15.81 | 15.86 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+   9500000       65536   1403.0709      106.93291      106.93291      106.93291      1222740.2      0.053597648  
+Loop time of 6.30075e-06 on 8 procs for 0 steps with 65536 atoms
+
+125.0% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 6.301e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8234 max        8142 min
+Histogram: 1 0 0 1 1 2 1 1 0 1
+Nghost:        17685.1 ave       17716 max       17654 min
+Histogram: 1 1 0 0 2 1 1 1 0 1
+Neighs:         564488 ave      572446 max      559692 min
+Histogram: 2 3 0 0 0 1 0 0 0 2
+
+Total # of neighbors = 4515902
+Ave neighs/atom = 68.907196
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=106.932914 ly=106.932914 lz=106.932914 natoms=65536 numdens=0.053598 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 07 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg6
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.189718 4.189718 4.189718) to (110.89133 110.89133 110.89133)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.076 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 26 26 26
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 10500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 15.48 | 15.79 | 15.86 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+  10500000       65536   1301.0333      106.70162      106.70162      106.70162      1214823        0.053946955  
+Loop time of 5.21988e-06 on 8 procs for 0 steps with 65536 atoms
+
+64.7% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 5.22e-06   |            |       |100.00
+
+Nlocal:           8192 ave        8226 max        8149 min
+Histogram: 2 0 0 0 0 2 1 1 0 2
+Nghost:        17763.4 ave       17797 max       17723 min
+Histogram: 1 1 0 1 1 0 1 1 0 2
+Neighs:         568548 ave      579257 max      559836 min
+Histogram: 1 1 1 2 0 1 0 0 1 1
+
+Total # of neighbors = 4548383
+Ave neighs/atom = 69.402817
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=106.701617 ly=106.701617 lz=106.701617 natoms=65536 numdens=0.053947 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 08 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg7
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.2891202 4.2891202 4.2891202) to (110.79193 110.79193 110.79193)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.078 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 26 26 26
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 11500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 15.86 | 15.86 | 15.87 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+  11500000       65536   1193.818       106.50281      106.50281      106.50281      1208045.3      0.054249621  
+Loop time of 6.49225e-06 on 8 procs for 0 steps with 65536 atoms
+
+123.2% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 6.492e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8214 max        8168 min
+Histogram: 1 1 0 1 0 1 3 0 0 1
+Nghost:        17822.2 ave       17869 max       17792 min
+Histogram: 1 1 0 2 2 1 0 0 0 1
+Neighs:         572013 ave      578213 max      563779 min
+Histogram: 1 0 1 0 2 0 1 1 0 2
+
+Total # of neighbors = 4576106
+Ave neighs/atom = 69.825836
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=106.502812 ly=106.502812 lz=106.502812 natoms=65536 numdens=0.054250 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 09 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg8
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.3966764 4.3966764 4.3966764) to (110.68438 110.68438 110.68438)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.041 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 26 26 26
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 12500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 15.78 | 15.86 | 15.87 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+  12500000       65536   1105.1173      106.2877       106.2877       106.2877       1200740.1      0.05457967   
+Loop time of 4.2855e-06 on 8 procs for 0 steps with 65536 atoms
+
+55.4% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 4.286e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8231 max        8158 min
+Histogram: 1 1 2 0 0 1 1 0 0 2
+Nghost:          17853 ave       17908 max       17804 min
+Histogram: 1 0 3 0 0 1 0 1 1 1
+Neighs:         575803 ave      582357 max      567823 min
+Histogram: 2 0 0 0 1 1 1 0 1 2
+
+Total # of neighbors = 4606422
+Ave neighs/atom = 70.288422
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=106.287700 ly=106.287700 lz=106.287700 natoms=65536 numdens=0.054580 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 10 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg9
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.5168071 4.5168071 4.5168071) to (110.56425 110.56425 110.56425)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.103 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 25 25 25
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 13500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 15.87 | 15.87 | 15.87 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+  13500000       65536   1000.2573      106.04744      106.04744      106.04744      1192615.8      0.054951479  
+Loop time of 5.17725e-06 on 8 procs for 0 steps with 65536 atoms
+
+60.4% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 5.177e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8228 max        8168 min
+Histogram: 2 0 1 2 0 1 0 1 0 1
+Nghost:        17937.4 ave       17963 max       17919 min
+Histogram: 2 1 0 2 0 0 1 0 1 1
+Neighs:         579924 ave      583556 max      577418 min
+Histogram: 1 2 1 0 1 0 2 0 0 1
+
+Total # of neighbors = 4639396
+Ave neighs/atom = 70.791565
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=106.047438 ly=106.047438 lz=106.047438 natoms=65536 numdens=0.054951 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 11 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg10
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.6284556 4.6284556 4.6284556) to (110.4526 110.4526 110.4526)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.078 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 25 25 25
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 14500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 15.78 | 15.91 | 16.25 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+  14500000       65536   900.52172      105.82414      105.82414      105.82414      1185098        0.055300069  
+Loop time of 6.29325e-06 on 8 procs for 0 steps with 65536 atoms
+
+123.1% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 6.293e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8226 max        8152 min
+Histogram: 1 1 0 0 1 1 1 1 1 1
+Nghost:        17944.9 ave       18012 max       17834 min
+Histogram: 1 0 0 1 2 0 0 0 2 2
+Neighs:         583924 ave      589320 max      579825 min
+Histogram: 1 1 1 0 2 2 0 0 0 1
+
+Total # of neighbors = 4671393
+Ave neighs/atom = 71.2798
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=105.824141 ly=105.824141 lz=105.824141 natoms=65536 numdens=0.055300 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 12 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg11
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.746922 4.746922 4.746922) to (110.33413 110.33413 110.33413)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.049 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 25 25 25
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 15500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 15.87 | 16.11 | 16.64 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+  15500000       65536   792.97676      105.58721      105.58721      105.58721      1177155.7      0.055673177  
+Loop time of 6.47487e-06 on 8 procs for 0 steps with 65536 atoms
+
+125.5% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 6.475e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8209 max        8174 min
+Histogram: 1 1 1 0 2 0 0 0 1 2
+Nghost:        18029.4 ave       18103 max       17983 min
+Histogram: 1 2 2 0 0 1 1 0 0 1
+Neighs:         587936 ave      590364 max      584869 min
+Histogram: 1 1 1 1 0 0 0 1 0 3
+
+Total # of neighbors = 4703484
+Ave neighs/atom = 71.76947
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=105.587209 ly=105.587209 lz=105.587209 natoms=65536 numdens=0.055673 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 13 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg12
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.8543947 4.8543947 4.8543947) to (110.22666 110.22666 110.22666)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.039 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 25 25 25
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 16500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 16.26 | 16.4 | 16.64 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+  16500000       65536   698.01414      105.37226      105.37226      105.37226      1169981.3      0.05601457   
+Loop time of 4.58237e-06 on 8 procs for 0 steps with 65536 atoms
+
+54.6% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 4.582e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8218 max        8165 min
+Histogram: 2 0 0 2 0 0 0 3 0 1
+Nghost:        18082.9 ave       18131 max       18042 min
+Histogram: 2 0 1 0 2 1 0 0 0 2
+Neighs:         591767 ave      595058 max      588922 min
+Histogram: 1 2 0 1 0 1 0 1 1 1
+
+Total # of neighbors = 4734137
+Ave neighs/atom = 72.237198
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=105.372263 ly=105.372263 lz=105.372263 natoms=65536 numdens=0.056015 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 14 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg13
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.940092 4.940092 4.940092) to (110.14096 110.14096 110.14096)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.048 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 25 25 25
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 17500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 16.26 | 16.4 | 16.64 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+  17500000       65536   599.17165      105.20087      105.20087      105.20087      1164281.4      0.056288795  
+Loop time of 7.02563e-06 on 8 procs for 0 steps with 65536 atoms
+
+55.2% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 7.026e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8240 max        8166 min
+Histogram: 3 1 0 1 1 0 0 1 0 1
+Nghost:        18110.1 ave       18161 max       18063 min
+Histogram: 1 1 0 3 0 0 0 1 1 1
+Neighs:         594652 ave      599633 max      592057 min
+Histogram: 3 1 1 1 0 0 0 0 1 1
+
+Total # of neighbors = 4757214
+Ave neighs/atom = 72.589325
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=105.200869 ly=105.200869 lz=105.200869 natoms=65536 numdens=0.056289 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 15 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg14
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (5.0172261 5.0172261 5.0172261) to (110.06383 110.06383 110.06383)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.035 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 25 25 25
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 18500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 16.26 | 16.45 | 16.65 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+  18500000       65536   498.42588      105.0466       105.0466       105.0466       1159167        0.056537152  
+Loop time of 6.15813e-06 on 8 procs for 0 steps with 65536 atoms
+
+123.8% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 6.158e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8213 max        8174 min
+Histogram: 1 1 0 1 1 2 0 1 0 1
+Nghost:        18159.8 ave       18183 max       18121 min
+Histogram: 1 0 1 0 0 2 0 1 1 2
+Neighs:         597307 ave      599977 max      596067 min
+Histogram: 2 3 1 0 0 0 0 0 1 1
+
+Total # of neighbors = 4778457
+Ave neighs/atom = 72.913467
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=105.046600 ly=105.046600 lz=105.046600 natoms=65536 numdens=0.056537 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 16 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg15
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (5.0915588 5.0915588 5.0915588) to (109.98949 109.98949 109.98949)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.051 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 25 25 25
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 19500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 16.26 | 16.46 | 16.65 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+  19500000       65536   402.0873       104.89793      104.89793      104.89793      1154252.5      0.056777873  
+Loop time of 4.33825e-06 on 8 procs for 0 steps with 65536 atoms
+
+123.9% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 4.338e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8225 max        8169 min
+Histogram: 2 1 0 2 0 0 1 1 0 1
+Nghost:        18186.1 ave       18248 max       18127 min
+Histogram: 1 0 1 1 2 1 0 1 0 1
+Neighs:         599662 ave      602884 max      596651 min
+Histogram: 1 1 0 2 0 1 1 0 0 2
+
+Total # of neighbors = 4797295
+Ave neighs/atom = 73.200912
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=104.897935 ly=104.897935 lz=104.897935 natoms=65536 numdens=0.056778 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### [1e11] 17 <- /scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/prod_1e11/restart.glass300K_N65536_1e11
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (5.1552131 5.1552131 5.1552131) to (109.92584 109.92584 109.92584)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.080 seconds
+31129 atoms in group gZr
+31130 atoms in group gCu
+3277 atoms in group gAg
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 25 25 25
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 30500000
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 16.26 | 16.45 | 16.65 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+  30500000       65536   300.55448      104.77063      104.77063      104.77063      1150055        0.0569851    
+Loop time of 6.55713e-06 on 8 procs for 0 steps with 65536 atoms
+
+68.6% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 6.557e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8241 max        8148 min
+Histogram: 1 0 0 4 1 0 0 0 0 2
+Nghost:          18216 ave       18269 max       18161 min
+Histogram: 1 0 2 0 1 0 1 2 0 1
+Neighs:         601726 ave      606644 max      597269 min
+Histogram: 1 0 2 1 2 0 0 0 0 2
+
+Total # of neighbors = 4813806
+Ave neighs/atom = 73.45285
+Neighbor list builds = 0
+Dangerous builds = 0
+QC_BOX lx=104.770626 ly=104.770626 lz=104.770626 natoms=65536 numdens=0.056985 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00
+### Done: 17 configs for 1e11

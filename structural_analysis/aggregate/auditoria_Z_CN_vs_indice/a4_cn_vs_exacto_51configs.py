@@ -1,0 +1,11 @@
+import pandas as pd, numpy as np
+pd.set_option("display.width",250)
+f=pd.read_csv("a2_recalculo_51configs.csv",dtype={"rate":str})
+ex=pd.read_csv("../../voronoi/abundance_voronoi.csv",dtype={"rate":str}); ex["tc"]=ex.tipo_cluster.str.removesuffix("_voronoi")
+m=f.merge(ex[["rate","T","especie","tc","fraccion"]],on=["rate","T","especie","tc"])
+print("filas",len(f),len(ex),len(m)," max|exact_recalc - CSV| =",(m.exact_cols25-m.fraccion).abs().max())
+z=f[f.tc!="ico"].copy(); z["ratio"]=z.cn_default/z.exact_cols25.replace(0,np.nan)
+print("\nCN==k (teselacion default) / exacto:"); print(z.groupby(["especie","tc"]).ratio.agg(["min","median","max"]).round(1))
+print("\nfraccion de los atomos con CN==k que SI tienen el indice exacto (Zr):")
+print(f[(f.especie=="Zr")&(f.tc!="ico")].groupby("tc").frac_cn_que_es_exacto.agg(["min","median","max"]).round(3))
+s=f[(f.rate=="2e10")&(f["T"]==300)&(f.tc!="ico")]; print(s.round(4).to_string(index=False))

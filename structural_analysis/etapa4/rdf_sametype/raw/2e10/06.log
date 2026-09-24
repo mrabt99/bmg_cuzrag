@@ -1,0 +1,104 @@
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+# =====================================================================
+#  Etapa 4 / Tarea 4 - RDF de pares mismo-tipo (Zr-Zr y Cu-Cu) de UN restart, run 0.
+#  Mismo r-grid que Tareas 1 y 3: 500 bins, 0..10 A (dr = 0.02 A).
+#  compute rdf con 3 pares (itype jtype):
+#    * *  -> total (all-all), sanity check vs Tarea 1
+#    1 1  -> Zr-Zr (ambos vecinos type 1)
+#    2 2  -> Cu-Cu (ambos vecinos type 2)
+#  Salida (fix ave/time vector): index r g_total coord_total g_ZrZr coord_ZrZr g_CuCu coord_CuCu
+#
+#  Uso: lmp -in run_rdf_sametype.lmp -var restart_file <p> -var pot_file <p> \
+#           -var out_file <salida.txt>
+# =====================================================================
+variable restart_file index none
+variable pot_file     index /scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/ZrCuAg.lammps.eam
+variable out_file     index rdf_sametype.txt
+
+units           metal
+atom_style      atomic
+read_restart    ${restart_file}
+read_restart    /scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/prod_2e10/restart.quench_N65536_2e10.seg5
+Reading restart file ...
+  restart file = 23 Jun 2022, LAMMPS = 23 Jun 2022
+WARNING: Restart file used different # of processors: 48 vs. 8 (src/src/read_restart.cpp:654)
+  restoring atom style atomic from restart
+  orthogonal box = (4.0680182 4.0680182 4.0680182) to (111.01303 111.01303 111.01303)
+  2 by 2 by 2 MPI processor grid
+  pair style eam/alloy stores no restart info
+  65536 atoms
+  read_restart CPU = 0.017 seconds
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot_file} Zr Cu Ag
+pair_coeff      * * /scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/ZrCuAg.lammps.eam Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+comm_modify     cutoff 12.5   # rdf cutoff + skin (2.0) = 12.0
+
+compute         rdf all rdf 500 * * 1 1 2 2 cutoff 10.0
+fix             rdf all ave/time 1 1 1 c_rdf[*] file ${out_file} mode vector
+fix             rdf all ave/time 1 1 1 c_rdf[*] file raw/2e10/06.rdf.txt mode vector
+
+variable        rho equal atoms/vol
+group           gZr type 1
+31129 atoms in group gZr
+group           gCu type 2
+31130 atoms in group gCu
+group           gAg type 3
+3277 atoms in group gAg
+thermo_style    custom step atoms temp lx ly lz vol v_rho
+thermo          1
+run             0
+WARNING: No fixes with time integration, atoms won't move (src/src/verlet.cpp:60)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8.5
+  ghost atom cutoff = 12.5
+  binsize = 4.25, bins = 26 26 26
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair eam/alloy, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+  (2) compute rdf, occasional
+      attributes: half, newton on, cut 12
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 15.39 | 15.75 | 15.86 Mbytes
+   Step        Atoms         Temp            Lx             Ly             Lz           Volume         v_rho     
+  33500000       65536   1396.4047      106.94502      106.94502      106.94502      1223155.4      0.053579454  
+Loop time of 5.26262e-06 on 8 procs for 0 steps with 65536 atoms
+
+140.1% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 5.263e-06  |            |       |100.00
+
+Nlocal:           8192 ave        8236 max        8157 min
+Histogram: 2 0 1 1 0 2 1 0 0 1
+Nghost:        17686.8 ave       17774 max       17626 min
+Histogram: 2 0 1 1 2 0 0 1 0 1
+Neighs:         564374 ave      569469 max      557132 min
+Histogram: 1 1 0 0 1 0 1 2 0 2
+
+Total # of neighbors = 4514996
+Ave neighs/atom = 68.893372
+Neighbor list builds = 0
+Dangerous builds = 0
+print "QC_BOX lx=$(lx:%.6f) ly=$(ly:%.6f) lz=$(lz:%.6f) natoms=$(atoms) numdens=$(v_rho:%.6f) nZr=$(count(gZr)) nCu=$(count(gCu)) nAg=$(count(gAg))"
+QC_BOX lx=106.945016 ly=106.945016 lz=106.945016 natoms=65536 numdens=0.053579 nZr=31129 nCu=31130 nAg=3277
+Total wall time: 0:00:00

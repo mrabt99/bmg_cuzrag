@@ -1,0 +1,9 @@
+especie,metodo,regimen,N_pool_2e10,N_pool_1e12,razon,error
+Cu,BOO,liquido,67,55,1.2182,0.2217
+Cu,BOO,vitreo,1797,1030,1.7447,0.0682
+Zr,Voronoi,liquido,254,292,0.8699,0.0746
+Zr,Voronoi,vitreo,63,88,0.7159,0.1182
+Cu,Voronoi,liquido,3479,3379,1.0296,0.0249
+Cu,Voronoi,vitreo,8128,6254,1.2996,0.0219
+Ag,Voronoi,liquido,199,174,1.1437,0.1187
+Ag,Voronoi,vitreo,349,310,1.1258,0.0879

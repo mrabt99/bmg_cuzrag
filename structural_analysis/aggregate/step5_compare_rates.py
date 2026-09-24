@@ -27,9 +27,11 @@ CLUSTER_TITLE = {
     # incluida): W6_hat en vez del caracter unicode/mojibake.
     "n_ico_boo": "Icosaedrico (BOO: q6>=0.6, W6_hat<=-0.16, nnn=12)",
     "n_ico_voronoi": "Icosaedrico (Voronoi: indice <0,0,12,0>)",
-    "n_Z14": "Frank-Kasper Z14 (Voronoi CN==14)",
-    "n_Z15": "Frank-Kasper Z15 (Voronoi CN==15)",
-    "n_Z16": "Frank-Kasper Z16 (Voronoi CN==16)",
+    # CN total (Coordination de OVITO), NO indice de Voronoi exacto: no es
+    # Frank-Kasper. Ver auditoria_Z_CN_vs_indice/INFORME.md.
+    "n_Z14": "Coordinacion CN==14 (Voronoi, umbral de cara; no es Frank-Kasper)",
+    "n_Z15": "Coordinacion CN==15 (Voronoi, umbral de cara; no es Frank-Kasper)",
+    "n_Z16": "Coordinacion CN==16 (Voronoi, umbral de cara; no es Frank-Kasper)",
 }
 
 # piso minimo de conteo CRUDO (no fraccion) exigido en AMBAS tasas (2e10
@@ -74,10 +76,16 @@ for rate in RATES:
                 T, np.array([int(r[rawcol]) for r in sub]))
 
 # ------------------------------------------------ figuras por tipo de cluster
-# OJO: hoy solo se regenera n_ico_boo (fix cosmetico del titulo). Las
-# otras 4 (n_ico_voronoi, Z14, Z15, Z16) ya estan bien y no se toca su
-# PNG -- la logica de esta figura no cambio para ellas, solo se excluyen
-# del loop de escritura para no arriesgar el archivo sin necesidad.
+# OJO: hoy solo se regenera n_ico_boo. Las otras 4 (n_ico_voronoi, Z14,
+# Z15, Z16) estan OBSOLETAS y sus PNG viven en obsoleto/: salen de
+# abundancia_<tasa>.csv (pipeline A, step2), es decir Voronoi con
+# relative_face_threshold=0.01 / edge_threshold=0.1 (los radios de Slater
+# nunca se aplicaban: bug de compute(0)). Z14/Z15/Z16 son Coordination ==
+# 14/15/16, NO el indice exacto <0,0,12,k>, asi que no son Frank-Kasper y
+# no son comparables con tabla_fk_zr.csv. Version vigente (OVITO default,
+# indice exacto): figs/compare_rates_*.png (step12). Ver
+# auditoria_Z_CN_vs_indice/INFORME.md. Se excluyen del loop de escritura
+# a proposito: no regenerarlas.
 for col in ["n_ico_boo"]:
     fig, axes = plt.subplots(1, 3, figsize=(14, 4.3), sharex=True)
     for ax, sp in zip(axes, SPECIES):
@@ -155,6 +163,9 @@ for ax, sp in zip(axes, SPECIES):
     ax.invert_xaxis()
     ax.axhline(1.0, color="#898781", lw=1, ls=":")
     ax.grid(alpha=0.15, axis="y")
+# OJO: esta figura esta OBSOLETA (parte Voronoi con umbral de cara); la
+# version movida esta en obsoleto/. Reejecutar step5 la vuelve a escribir
+# aqui: no usarla.
 axes[0].set_ylabel(f"razon n_ico({SLOW}) / n_ico({FAST})")
 axes[0].legend(frameon=False)
 fig.suptitle(f"Sensibilidad a la tasa: razon icosaedrico {SLOW} (lenta) / "
