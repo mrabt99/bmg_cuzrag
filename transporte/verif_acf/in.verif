@@ -1,0 +1,36 @@
+# Verificacion de la normalizacion de fix ave/correlate (lammps/20220623).
+# Misma serie (pxy pxz pyz cada 2 fs) por dos caminos: fix ave/correlate y fix ave/time (serie cruda -> numpy).
+variable        rst    index  ../cal_1200K_2e10/cal_npt.restart
+variable        pot    index  ../../rate_2e10/ZrCuAg.lammps.eam
+variable        vmean  index  0
+variable        nnvt   index  10000          # 10 ps
+variable        nprod  index  100000         # 0.1 ns -> 50000 muestras
+variable        nrep   index  500            # lags 0..499 (x 2 fs = ~1 ps)
+
+read_restart    ${rst}
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+timestep        0.001
+
+if "${vmean} > 0" then "variable s equal (${vmean}/vol)^(1.0/3.0)" "change_box all x scale ${s} y scale ${s} z scale ${s} remap"
+
+variable        Tinst equal temp
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+thermo          10000
+thermo_style    custom step temp press vol pe ke etotal
+
+velocity        all create 1200.0 3003 mom yes rot yes dist gaussian
+fix             nvt all nvt temp 1200.0 1200.0 0.1
+run             ${nnvt}
+unfix           nvt
+
+reset_timestep  0
+variable        pxy equal pxy
+variable        pxz equal pxz
+variable        pyz equal pyz
+fix             fs all ave/time 2 1 2 v_pxy v_pxz v_pyz file verif_series.dat
+fix             SS all ave/correlate 2 ${nrep} ${nprod} v_pxy v_pxz v_pyz type auto file verif_corr.dat ave running
+fix             nve all nve
+run             ${nprod}

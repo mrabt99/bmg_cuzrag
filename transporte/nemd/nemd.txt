@@ -1,0 +1,5 @@
+n= 4 L= 209.6 A  bloques est.= 15  kappa=0.695 +- 0.005 (est, 3 superbloques) +- 0.010 (rango ajuste (0.5, 0.6, 0.7): 0.685, 0.695, 0.705)  |dT/dz| mitades = 0.2009, 0.2186 K/A  Tmin/Tmax = 290.1/311.0 K
+n= 8 L= 419.2 A  bloques est.= 20  kappa=0.709 +- 0.007 (est, 4 superbloques) +- 0.005 (rango ajuste (0.5, 0.6, 0.7): 0.704, 0.709, 0.713)  |dT/dz| mitades = 0.2032, 0.2080 K/A  Tmin/Tmax = 278.7/320.5 K
+n=16 L= 838.4 A  bloques est.= 20  kappa=0.722 +- 0.003 (est, 4 superbloques) +- 0.005 (rango ajuste (0.5, 0.6, 0.7): 0.728, 0.722, 0.718)  |dT/dz| mitades = 0.2018, 0.2023 K/A  Tmin/Tmax = 257.0/342.3 K
+extrapolacion 1/kappa vs 1/L: kappa_inf = 0.731 W/m/K (pendiente 14.94 A m K/W)
+referencia GK, mismo vidrio: 0.779 +- 0.017 W/m/K

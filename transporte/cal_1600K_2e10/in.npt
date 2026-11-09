@@ -1,0 +1,44 @@
+# Paso 1 de 2: equilibrado NPT a T fija, P=0. Mide el volumen medio.
+# Uso: lmp -in in.npt -var rst <restart> -var T 1200 -var nsteps 200000 -var tag cal
+variable        rst    index  ../../rate_1e11/prod_1e11/restart.quench_N65536_1e11.seg7
+variable        pot    index  ../../rate_2e10/ZrCuAg.lammps.eam
+variable        T      index  1200.0
+variable        nsteps index  200000          # 200 ps
+variable        pdamp  index  10.0
+variable        tag    index  cal
+
+read_restart    ${rst}
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+timestep        0.001
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        vv equal vol
+variable        pp equal pe
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+# halts tempranos (patologia del EAM a alta T, ver size_8192/README.md): distancia minima y densidad
+compute         pl all pair/local dist
+compute         dmin all reduce min c_pl
+variable        dmin equal c_dmin
+variable        rho equal density
+fix             halt_d all halt 1000 v_dmin < 1.5 error hard
+fix             halt_r all halt 1000 v_rho < 6.0 error hard
+fix             halt_P all halt 1000 v_Pinst > 1.0e5 error hard
+
+thermo          1000
+thermo_style    custom step temp press vol density pe etotal
+
+variable        nhalf equal ${nsteps}/2   # 1ra mitad = relajacion; el volumen se promedia en la 2da
+fix             vavg all ave/time 10 100 1000 v_Tinst v_Pinst v_vv v_pp file ${tag}_npt.log.dat
+
+fix             npt all npt temp ${T} ${T} 0.1 iso 0.0 0.0 ${pdamp}
+run             ${nhalf}
+fix             vmean all ave/time 10 50 500 v_vv ave running
+run             ${nhalf}
+variable        vm equal f_vmean
+print           "variable vmean equal ${vm}" file ${tag}_vmean.inc
+print           "### NPT listo: Vmean = ${vm} A^3"
+write_restart   ${tag}_npt.restart

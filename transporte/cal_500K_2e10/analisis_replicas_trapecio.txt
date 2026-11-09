@@ -1,0 +1,16 @@
+# analisis_replicas.py (trapecio, 2026-11-04) T=500 V=1158650.87220149
+# eta (mPa s): por replica (media de 10 bloques) y global (sem sobre 30 bloques)
+t= 1 ps  reps: 20.813  16.236  17.754   global: 18.268 +- 0.807   (4.4%)
+t= 2 ps  reps: 40.388  31.193  34.417   global: 35.333 +- 1.618   (4.6%)
+t= 3 ps  reps: 59.852  46.175  50.950   global: 52.326 +- 2.411   (4.6%)
+t= 5 ps  reps: 98.614  75.911  83.738   global: 86.087 +- 4.018   (4.7%)
+t=10 ps  reps: 194.736  149.945  165.438   global: 170.040 +- 8.080   (4.8%)
+# kappa (W/m/K): por replica (media de 10 bloques) y global (sem sobre 30 bloques)
+t= 1 ps  reps: 0.817  0.812  0.791   global: 0.806 +- 0.015   (1.9%)
+t= 2 ps  reps: 0.820  0.830  0.775   global: 0.808 +- 0.023   (2.9%)
+t= 3 ps  reps: 0.916  0.866  0.737   global: 0.839 +- 0.028   (3.4%)
+t= 5 ps  reps: 0.878  0.953  0.768   global: 0.866 +- 0.042   (4.9%)
+t=10 ps  reps: 0.929  0.942  0.798   global: 0.890 +- 0.058   (6.5%)
+cal_r1: D(Zr,Cu,Ag)[1e-9 m2/s]= [np.float64(0.0), np.float64(0.0), np.float64(0.0)]  Tmean=499.14  Etot -310918.0->-310918.0
+cal_r2: D(Zr,Cu,Ag)[1e-9 m2/s]= [np.float64(0.0), np.float64(0.0), np.float64(0.0)]  Tmean=500.21  Etot -310900.0->-310900.0
+cal_r3: D(Zr,Cu,Ag)[1e-9 m2/s]= [np.float64(0.0), np.float64(0.0), np.float64(0.0)]  Tmean=502.25  Etot -310862.0->-310862.0

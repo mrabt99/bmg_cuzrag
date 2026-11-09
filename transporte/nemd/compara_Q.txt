@@ -1,0 +1,3 @@
+L8      Q=0.50 eV/ps  bloques est.= 20  kappa = 0.709 +- 0.007 (est, 4 superbloques) +- 0.005 (ajuste)  dT/dz = 0.2056 K/A  curvatura d2T/dz2 = +1.61e-06, +1.95e-04 K/A^2  Tmin/Tmax = 278.7/320.5
+L8q025  Q=0.25 eV/ps  bloques est.= 40  kappa = 0.708 +- 0.032 (est, 8 superbloques) +- 0.004 (ajuste)  dT/dz = 0.1029 K/A  curvatura d2T/dz2 = -2.88e-04, +1.86e-04 K/A^2  Tmin/Tmax = 287.6/309.3
+diferencia kappa(Q=0.25) - kappa(Q=0.5) = -0.001 +- 0.033 (0.0 sigma, estadistico)

@@ -1,0 +1,24 @@
+# Relajacion final a 300 K y 0 Pa, 10 ns (como rate_1e12_reference/in.relax300K_1e12: NPT iso Tdamp 0.1 Pdamp 1.0).
+variable        fac   index 1.0
+variable        pot   index ../../rate_2e10/ZrCuAg.lammps.eam
+read_restart    restart.quench_N8192_1e12.T300
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+timestep        0.001
+reset_timestep  0
+compute         pl all pair/local dist
+compute         dmin all reduce min c_pl
+variable        dmin equal c_dmin
+variable        rho equal density
+fix             halt_d all halt 1000 v_dmin < 1.5 error hard
+fix             halt_r all halt 1000 v_rho < 6.0 error hard
+thermo          10000
+thermo_style    custom step temp press vol density pe etotal c_dmin
+restart         1000000 restart.relax_N8192.a restart.relax_N8192.b
+fix             relax all npt temp 300.0 300.0 0.1 iso 0.0 0.0 1.0
+variable        n equal round(10000000*${fac})
+run             ${n}
+write_restart   restart.glass300K_N8192_1e12
+print           "### RELAX LISTO"

@@ -1,0 +1,5 @@
+VFT: eta0 = 1.089 mPa s, B = D*T0 = 1132 K, T0 = 586 K (rango chi2+1: 555-614 K), D = 1.9
+chi2/dof VFT = 4.5/5; Arrhenius (Ea = 0.387 eV) chi2/dof = 80.3/6
+predicciones VFT: 800 K -> 216 mPa s (cota medida >= 300), 700 K -> 2.24e+04 mPa s
+fragilidad m en Tg=700 K (solo orientativa, extrapolada): 26
+residuos (eta_VFT/eta - 1): 900:-0.052, 1000:+0.068, 1100:-0.019, 1200:-0.019, 1300:-0.014, 1400:-0.010, 1500:+0.005, 1600:+0.012

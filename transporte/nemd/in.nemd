@@ -1,0 +1,76 @@
+# NEMD directo (fix ehex, Wirnsberger et al. 2015) para kappa del vidrio a 300 K.
+# Celda: vidrio de 8192 at. a 1e12 (size_8192/restart.glass300K_N8192_1e12, 52.4 A de lado), llevado al V medio
+# de cal_300K_1e12_N8192 y replicado n veces en z -> L = n*52.4 A. Fuente (+Q) y sumidero (-Q) de ancho w,
+# separados L/2: cold en [zlo, zlo+w], hot en [zlo+L/2, zlo+L/2+w]. El flujo se reparte en dos mitades: J = Q/(2A).
+# part=1: lee el vidrio, reescala, replica, velocidades nuevas, NVT 50 ps, reset_timestep, y nchunk pasos NVE+ehex.
+# part>1: lee ${tag}.part<part-1>.restart y sigue (mismo reloj).
+# Salidas por tramo: ${tag}_p<part>_Tprof.dat (perfil T(z), bloques de 100 ps), ${tag}_p<part>_thermo.dat, restart.
+# Uso: lmp -in in.nemd -var n 8 -var tag L8 -var part 1 -var seed 801 [-var Q 0.5] [-var fac 0.001]
+variable        pot    index  ../../rate_2e10/ZrCuAg.lammps.eam
+variable        glass  index  ../size_8192/restart.glass300K_N8192_1e12
+variable        vmean  index  143891.93343795      # V medio NPT 300 K de cal_300K_1e12_N8192 (8192 at.)
+variable        T      index  300.0
+variable        n      index  8
+variable        Q      index  0.5                  # eV/ps inyectados en hot y extraidos en cold
+variable        w      index  10.0                 # ancho de cada reservorio (A)
+variable        bw     index  5.0                  # ancho de bin del perfil (A)
+variable        seed   index  801
+variable        tag    index  L8
+variable        part   index  1
+variable        fac    index  1.0                  # escala de pasos (pruebas de sintaxis)
+variable        nnvt   equal  round(50000*${fac})      # 50 ps
+variable        nchunk equal  round(1000000*${fac})    # 1 ns por tramo
+variable        nblk   equal  round(100000*${fac})     # bloque del perfil: 100 ps
+variable        prev   equal  ${part}-1
+if "${part} > 1" then "jump SELF leer_cont"
+read_restart    ${glass}
+jump            SELF setup
+label           leer_cont
+read_restart    ${tag}.part${prev}.restart
+label           setup
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+timestep        0.001
+if "${part} > 1" then "jump SELF regiones"
+variable        s equal (${vmean}/vol)^(1.0/3.0)
+change_box      all x scale ${s} y scale ${s} z scale ${s} remap
+replicate       1 1 ${n}
+label           regiones
+variable        z0 equal zlo
+variable        Lz equal lz
+variable        cz1 equal ${z0}+${w}
+variable        hz0 equal ${z0}+0.5*${Lz}
+variable        hz1 equal ${hz0}+${w}
+region          cold block INF INF INF INF ${z0} ${cz1} units box
+region          hot  block INF INF INF INF ${hz0} ${hz1} units box
+# halts (patologia del EAM, ver size_8192/README.md)
+variable        Tinst equal temp
+variable        rho equal density
+compute         pl all pair/local dist
+compute         dmin all reduce min c_pl
+variable        dmin equal c_dmin
+fix             halt_T all halt 1000 v_Tinst > 2000.0 error hard
+fix             halt_d all halt 1000 v_dmin < 1.5 error hard
+fix             halt_r all halt 1000 v_rho < 6.0 error hard
+thermo          10000
+thermo_style    custom step temp press pe ke etotal c_dmin
+if "${part} > 1" then "jump SELF prod"
+velocity        all create ${T} ${seed} mom yes rot yes dist gaussian
+fix             nvt all nvt temp ${T} ${T} 0.1
+run             ${nnvt}
+unfix           nvt
+reset_timestep  0
+label           prod
+variable        Qneg equal -${Q}
+fix             nve all nve
+fix             fhot  all ehex 1 ${Q}    region hot
+fix             fcold all ehex 1 ${Qneg} region cold
+compute         cc all chunk/atom bin/1d z lower ${bw} units box
+fix             prof all ave/chunk 10 $(v_nblk/10) ${nblk} cc temp density/mass norm sample file ${tag}_p${part}_Tprof.dat
+variable        et equal etotal
+fix             ft all ave/time 1000 1 1000 v_Tinst c_thermo_pe v_et file ${tag}_p${part}_thermo.dat
+run             ${nchunk}
+write_restart   ${tag}.part${part}.restart
+print           "### NEMD TRAMO ${part} LISTO (${tag}, n=${n}, Lz=${Lz} A, Q=${Q} eV/ps)"

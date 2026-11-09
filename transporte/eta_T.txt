@@ -1,0 +1,17 @@
+ T    nrep  t1(ps)  eta[t1,3t1]   sem   pend+-boot     meseta  Zhang40  |  kappa   sem  meseta |  D_Zr  D_Cu  D_Ag (1e-9 m2/s)
+ 1000   6    4.02      15.71    0.64   +0.136+-0.096  si      15.80  |  0.864 0.014  si   | 0.488  0.678  0.621
+ 1100   3    2.44      10.05    0.45   +0.178+-0.098  si      10.35  |  0.879 0.017  si   | 0.863  1.194  1.070
+ 1200   3    1.56       7.02    0.29   +0.117+-0.089  si       6.91  |  0.877 0.017  si   | 1.307  1.730  1.609
+ 1300   3    1.13       5.39    0.16   +0.170+-0.072  NO       5.17  |  0.913 0.018  si   | 1.811  2.424  2.154
+ 1400   3    0.97       4.42    0.10   +0.096+-0.064  si       4.60  |  0.893 0.022  si   | 2.371  3.128  2.868
+ 1500   3    0.76       3.74    0.09   +0.048+-0.073  si       4.28  |  0.911 0.019  si   | 2.984  3.911  3.609
+ 1600   3    0.63       3.29    0.07   +0.104+-0.062  si       3.55  |  0.890 0.017  si   | 3.625  4.731  4.270
+900 K (eta_largo.py, 3x3 ns, bloques de 500 ps, ventana [20,60] ps): eta = 42.3 +- 2.7 mPa s, kappa = 0.824 +- 0.009
+Arrhenius (1000-1600 K): Ea = 0.359 eV; extrapolado a 900 K: 23.6 mPa s (medido 42.3)
+Stokes-Einstein T=1000: eta*D_Cu/T = 0.0107 (mPa s 1e-9 m2/s / K)
+Stokes-Einstein T=1100: eta*D_Cu/T = 0.0109 (mPa s 1e-9 m2/s / K)
+Stokes-Einstein T=1200: eta*D_Cu/T = 0.0101 (mPa s 1e-9 m2/s / K)
+Stokes-Einstein T=1300: eta*D_Cu/T = 0.0101 (mPa s 1e-9 m2/s / K)
+Stokes-Einstein T=1400: eta*D_Cu/T = 0.0099 (mPa s 1e-9 m2/s / K)
+Stokes-Einstein T=1500: eta*D_Cu/T = 0.0098 (mPa s 1e-9 m2/s / K)
+Stokes-Einstein T=1600: eta*D_Cu/T = 0.0097 (mPa s 1e-9 m2/s / K)

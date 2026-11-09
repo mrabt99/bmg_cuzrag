@@ -1,0 +1,61 @@
+# NVE largo por tramos de 1 ns, para eta a T cerca de Tg (la ACF de presion necesita ventanas de 100-200 ps).
+# part=1: lee cal_npt.restart, reescala a vmean, velocidades nuevas (seed), NVT 20 ps, y NVE nchunk pasos.
+# part>1: lee ${tag}.part<part-1>.restart y sigue en NVE (trayectoria continua, mismo reloj).
+# Cada tramo escribe ${tag}_p<part>_press.dat (cada 2 fs), _hflux.dat (5 fs), _thermo.dat, _msd.dat y ${tag}.part<part>.restart.
+# Uso: lmp -in in.nve_long -var tag long_r4 -var part 1 -var seed 4004 -var T 800.0 -var vmean <A^3>
+variable        pot    index  ../../rate_2e10/ZrCuAg.lammps.eam
+variable        T      index  800.0
+variable        vmean  index  0
+variable        seed   index  4004
+variable        tag    index  long_r4
+variable        part   index  1
+variable        nnvt   index  20000          # 20 ps (solo part 1)
+variable        nchunk index  1000000        # 1 ns por tramo
+variable        sp     index  2
+variable        sj     index  5
+variable        prev   equal  ${part}-1
+if "${part} > 1" then "jump SELF leer_cont"
+read_restart    cal_npt.restart
+jump            SELF setup
+label           leer_cont
+read_restart    ${tag}.part${prev}.restart
+label           setup
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+timestep        0.001
+group           Zr type 1
+group           Cu type 2
+group           Ag type 3
+variable        Tinst equal temp
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+thermo          10000
+thermo_style    custom step temp press vol pe ke etotal
+if "${part} > 1" then "jump SELF prod"
+variable        s equal (${vmean}/vol)^(1.0/3.0)
+change_box      all x scale ${s} y scale ${s} z scale ${s} remap
+velocity        all create ${T} ${seed} mom yes rot yes dist gaussian
+fix             nvt all nvt temp ${T} ${T} 0.1
+run             ${nnvt}
+unfix           nvt
+reset_timestep  0
+label           prod
+compute         pt all pressure thermo_temp
+compute         ke all ke/atom
+compute         pe all pe/atom
+compute         st all stress/atom NULL virial
+compute         hf all heat/flux ke pe st
+compute         mZr Zr msd
+compute         mCu Cu msd
+compute         mAg Ag msd
+fix             fp all ave/time ${sp} 1 ${sp} c_pt[1] c_pt[2] c_pt[3] c_pt[4] c_pt[5] c_pt[6] file ${tag}_p${part}_press.dat
+fix             fj all ave/time ${sj} 1 ${sj} c_hf[1] c_hf[2] c_hf[3] file ${tag}_p${part}_hflux.dat
+fix             fm all ave/time 1000 1 1000 c_mZr[4] c_mCu[4] c_mAg[4] file ${tag}_p${part}_msd.dat
+variable        vv equal vol
+variable        et equal etotal
+fix             ft all ave/time 1000 1 1000 v_Tinst c_thermo_pe v_vv v_et file ${tag}_p${part}_thermo.dat
+fix             nve all nve
+run             ${nchunk}
+write_restart   ${tag}.part${part}.restart
+print           "### TRAMO ${part} LISTO (${tag})"
