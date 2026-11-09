@@ -1,0 +1,16 @@
+tasa,config,T_nominal,especie,N_total_especie,N_ico_BOO,N_ico_Voronoi,N_Z14,N_Z15,N_Z16
+qgrad_ext,14,600,Ag,3277,6,107,17,1,1
+qgrad_ext,14,600,Cu,31130,439,3150,5,1,1
+qgrad_ext,14,600,Zr,31129,2,22,421,888,410
+qgrad_ext,15,500,Ag,3277,10,119,13,4,0
+qgrad_ext,15,500,Cu,31130,580,3228,2,0,1
+qgrad_ext,15,500,Zr,31129,0,28,490,947,451
+qgrad_ext,16,400,Ag,3277,16,121,17,3,2
+qgrad_ext,16,400,Cu,31130,756,3316,4,0,0
+qgrad_ext,16,400,Zr,31129,0,35,473,1018,497
+qgrad_ext,17u,300,Ag,3277,15,137,14,5,1
+qgrad_ext,17u,300,Cu,31130,976,3512,8,1,0
+qgrad_ext,17u,300,Zr,31129,2,26,497,1040,485
+qgrad_ext,17r,300,Ag,3277,18,127,10,6,2
+qgrad_ext,17r,300,Cu,31130,934,3466,4,0,0
+qgrad_ext,17r,300,Zr,31129,0,16,499,1038,498

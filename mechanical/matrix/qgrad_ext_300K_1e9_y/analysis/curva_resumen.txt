@@ -1,0 +1,5 @@
+qgrad_ext_300K_1e9_y: eje y ; archivo tens_qgrad_ext_300K_1e9_y.curve.dat (200 puntos, strain 0.0005 - 0.1995)
+E (ajuste lineal, strain <= 0.01, 10 puntos) = 55.9 +- 0.7 GPa
+sigma_max = 2.537 GPa en strain = 0.0675   (suavizado 5 puntos: 2.530 GPa en 0.0675)
+sigma_flujo (media 0.15-0.2, 50 puntos) = 1.392 +- 0.037 GPa ; delta_sigma = 1.145 GPa
+verificacion: |tensiones laterales| max = 0.0038 GPa ; T = 300.02 +- 0.23 K

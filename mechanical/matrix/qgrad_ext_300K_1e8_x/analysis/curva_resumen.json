@@ -1,0 +1,17 @@
+{
+ "label": "qgrad_ext_300K_1e8_x",
+ "dir": "x",
+ "n": 200,
+ "E": 56.9922193939394,
+ "E_err": 0.19889502539968246,
+ "sigma_max": 2.29019,
+ "eps_sigma_max": 0.0565049,
+ "sigma_max_smooth": 2.278158,
+ "eps_sigma_max_smooth": 0.056504900000000004,
+ "sigma_flow": 1.1972232,
+ "sigma_flow_sd": 0.025581676912052768,
+ "delta_sigma": 1.0929668,
+ "lateral_max": 0.00118327,
+ "T_mean": 300.00606500000004,
+ "T_sd": 0.10443323596920656
+}

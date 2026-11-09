@@ -1,0 +1,56 @@
+# =====================================================================
+#  Referencias Laves (Cu2Zr, C15 o C14): relajacion 0 K con el EAM real + termalizacion NPT 300 K,
+#  con los MISMOS computes de BOO que el pipeline (orientorder/atom nnn 12/14/15/16, degrees 2 4 6, wl/hat yes).
+#  Uso: lmp -in laves_ref.lmp -var tag C15 -var data refs/C15_init.data -var baro iso|aniso
+#  Salidas (refs/): <tag>_relaxed0K.data, <tag>_0K.pos.dump, <tag>_0K.boo.dump, <tag>_300K.pos.dump (10 frames),
+#                   <tag>_300K.boo.dump (10 frames), <tag>_300K.thermo.txt ; el log imprime E/atomo y red a 0 K.
+# =====================================================================
+variable tag   index C15
+variable data  index refs/C15_init.data
+variable baro  index iso
+variable pot   index /scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/ZrCuAg.lammps.eam
+
+units           metal
+atom_style      atomic
+read_data       ${data}
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+thermo          200
+thermo_style    custom step temp pe press vol lx ly lz xy xz yz
+
+# ---- 0 K: relajar caja (0 bar) + posiciones
+fix             fr all box/relax ${baro} 0.0 vmax 0.001
+min_style       cg
+minimize        1.0e-14 1.0e-14 20000 200000
+unfix           fr
+minimize        1.0e-14 1.0e-14 20000 200000
+variable        e0 equal pe/atoms
+print           "### ${tag} 0K: E/atomo = $(v_e0:%.6f) eV ; vol/atomo = $(vol/atoms:%.5f) A^3 ; lx=$(lx:%.5f) ly=$(ly:%.5f) lz=$(lz:%.5f) xy=$(xy:%.5f)"
+write_data      refs/${tag}_relaxed0K.data
+compute         cQ12 all orientorder/atom nnn 12 degrees 2 4 6 wl/hat yes
+compute         cQ14 all orientorder/atom nnn 14 degrees 2 4 6 wl/hat yes
+compute         cQ15 all orientorder/atom nnn 15 degrees 2 4 6 wl/hat yes
+compute         cQ16 all orientorder/atom nnn 16 degrees 2 4 6 wl/hat yes
+dump            d0p all custom 1 refs/${tag}_0K.pos.dump id type x y z
+dump            d0b all custom 1 refs/${tag}_0K.boo.dump id type c_cQ12[*] c_cQ14[*] c_cQ15[*] c_cQ16[*]
+dump_modify     d0b sort id format float "%.6f"
+run             0
+undump          d0p
+undump          d0b
+
+# ---- 300 K, 0 bar (mismos Tdamp=0.1 ps / Pdamp=10 ps que el proyecto), dt = 1 fs
+reset_timestep  0
+timestep        0.001
+velocity        all create 300.0 4928459 mom yes rot yes dist gaussian
+fix             th all npt temp 300.0 300.0 0.1 ${baro} 0.0 0.0 10.0
+run             30000
+dump            d3p all custom 1000 refs/${tag}_300K.pos.dump id type x y z
+dump            d3b all custom 1000 refs/${tag}_300K.boo.dump id type c_cQ12[*] c_cQ14[*] c_cQ15[*] c_cQ16[*]
+dump_modify     d3b sort id format float "%.6f"
+dump_modify     d3p sort id
+fix             av all ave/time 100 10 1000 v_e0 c_thermo_temp file refs/${tag}_300K.thermo.txt
+run             10000
+variable        vat equal vol/atoms
+print           "### ${tag} 300K: E/atomo = $(v_e0:%.6f) eV ; vol/atomo = $(v_vat:%.5f) A^3 ; T=$(temp:%.1f)"

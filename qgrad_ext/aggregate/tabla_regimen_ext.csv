@@ -1,0 +1,53 @@
+referencia,especie,tipo_cluster,T_usados,N_pool_ext,N_pool_ref,razon_ext/ref,error,(razon-1)/error,nota
+2e10,Ag,Z14_voronoi,,,,,,,NO CALCULABLE (N<20)
+2e10,Ag,Z15_voronoi,,,,,,,NO CALCULABLE (N<20)
+2e10,Ag,Z16_voronoi,,,,,,,NO CALCULABLE (N<20)
+2e10,Ag,ico_voronoi,500 400 300,367,332,1.1054,0.0837,1.26,
+2e10,Cu,Z14_voronoi,,,,,,,NO CALCULABLE (N<20)
+2e10,Cu,Z15_voronoi,,,,,,,NO CALCULABLE (N<20)
+2e10,Cu,Z16_voronoi,,,,,,,NO CALCULABLE (N<20)
+2e10,Cu,ico_boo,500 400 300,2270,1797,1.2632,0.0399,6.60,
+2e10,Cu,ico_voronoi,500 400 300,10010,8545,1.1714,0.0173,9.94,
+2e10,Zr,Z14_voronoi,500 400 300,1462,1405,1.0406,0.0389,1.04,
+2e10,Zr,Z15_voronoi,500 400 300,3003,2592,1.1586,0.0311,5.10,
+2e10,Zr,Z16_voronoi,500 400 300,1446,1357,1.0656,0.0403,1.63,
+2e10,Zr,ico_voronoi,,,,,,,NO CALCULABLE (N<20)
+1e11,Ag,Z14_voronoi,,,,,,,NO CALCULABLE (N<20)
+1e11,Ag,Z15_voronoi,,,,,,,NO CALCULABLE (N<20)
+1e11,Ag,Z16_voronoi,,,,,,,NO CALCULABLE (N<20)
+1e11,Ag,ico_voronoi,500 400 300,367,320,1.1469,0.0877,1.67,
+1e11,Cu,Z14_voronoi,,,,,,,NO CALCULABLE (N<20)
+1e11,Cu,Z15_voronoi,,,,,,,NO CALCULABLE (N<20)
+1e11,Cu,Z16_voronoi,,,,,,,NO CALCULABLE (N<20)
+1e11,Cu,ico_boo,500 400 300,2270,1388,1.6354,0.0557,11.40,
+1e11,Cu,ico_voronoi,500 400 300,10010,7611,1.3152,0.0200,15.76,
+1e11,Zr,Z14_voronoi,500 400 300,1462,1344,1.0878,0.0411,2.14,
+1e11,Zr,Z15_voronoi,500 400 300,3003,2386,1.2586,0.0345,7.49,
+1e11,Zr,Z16_voronoi,500 400 300,1446,1216,1.1891,0.0463,4.09,
+1e11,Zr,ico_voronoi,500,28,22,1.2727,0.3626,0.75,
+1e12,Ag,Z14_voronoi,,,,,,,NO CALCULABLE (N<20)
+1e12,Ag,Z15_voronoi,,,,,,,NO CALCULABLE (N<20)
+1e12,Ag,Z16_voronoi,,,,,,,NO CALCULABLE (N<20)
+1e12,Ag,ico_voronoi,500 400 300,367,313,1.1725,0.0902,1.91,
+1e12,Cu,Z14_voronoi,,,,,,,NO CALCULABLE (N<20)
+1e12,Cu,Z15_voronoi,,,,,,,NO CALCULABLE (N<20)
+1e12,Cu,Z16_voronoi,,,,,,,NO CALCULABLE (N<20)
+1e12,Cu,ico_boo,500 400 300,2270,1030,2.2039,0.0828,14.54,
+1e12,Cu,ico_voronoi,500 400 300,10010,6599,1.5169,0.0241,21.49,
+1e12,Zr,Z14_voronoi,500 400 300,1462,1231,1.1877,0.0459,4.08,
+1e12,Zr,Z15_voronoi,500 400 300,3003,2141,1.4026,0.0397,10.15,
+1e12,Zr,Z16_voronoi,500 400 300,1446,1110,1.3027,0.0520,5.82,
+1e12,Zr,ico_voronoi,500 400,63,46,1.3696,0.2656,1.39,
+qgrad,Ag,Z14_voronoi,,,,,,,NO CALCULABLE (N<20)
+qgrad,Ag,Z15_voronoi,,,,,,,NO CALCULABLE (N<20)
+qgrad,Ag,Z16_voronoi,,,,,,,NO CALCULABLE (N<20)
+qgrad,Ag,ico_voronoi,500 400 300,367,347,1.0576,0.0792,0.73,
+qgrad,Cu,Z14_voronoi,,,,,,,NO CALCULABLE (N<20)
+qgrad,Cu,Z15_voronoi,,,,,,,NO CALCULABLE (N<20)
+qgrad,Cu,Z16_voronoi,,,,,,,NO CALCULABLE (N<20)
+qgrad,Cu,ico_boo,500 400 300,2270,2144,1.0588,0.0319,1.84,
+qgrad,Cu,ico_voronoi,500 400 300,10010,9445,1.0598,0.0152,3.93,
+qgrad,Zr,Z14_voronoi,500 400 300,1462,1452,1.0069,0.0373,0.18,
+qgrad,Zr,Z15_voronoi,500 400 300,3003,2638,1.1384,0.0304,4.55,
+qgrad,Zr,Z16_voronoi,500 400 300,1446,1378,1.0493,0.0395,1.25,
+qgrad,Zr,ico_voronoi,400,35,24,1.4583,0.3865,1.19,

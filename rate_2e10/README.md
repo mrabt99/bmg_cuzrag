@@ -76,6 +76,17 @@ cosa.
 | 16 | 500→400 K | `prod_2e10/` (seg15) | `restart.quench_N65536_2e10.seg15` |
 | 17 | 400→300 K | `prod_2e10/` (seg16) | `restart.quench_N65536_2e10.seg16` |
 
+**Ojo con la numeración (aclarado 2026-11-04).** Hay dos esquemas que NO coinciden:
+- `prod_2e10/` numera `segN` desde 1900 K: `segN` termina a (1900 − 100·N) K, o sea `N = # global − 1`.
+  Ej.: `prod_2e10/seg10` es 1000→900 K y `restart…seg10` está a 900 K.
+- Los `in.quench_1e10_segNN.lmp` de este directorio (intento abandonado a 1e10) usan numeración global: `segN`
+  es 2000−100·(N−1) → 2000−100·N K. Ej.: `in.quench_1e10_seg10.lmp` es 1100→1000 K, es decir, 100 K
+  más arriba que el `seg10` de `prod_2e10/`.
+Al buscar "el restart a T", usar la columna "Archivo de restart" de la tabla de arriba. Verificado leyendo la
+temperatura de las velocidades de cada restart de `prod_2e10/` (LAMMPS `run 0`): seg9 = 1000 K, seg10 = 904,
+seg11 = 799, seg12 = 705, seg13 = 597, seg14 = 498, seg15 = 401 K (T instantánea; el valor nominal es el redondo
+más cercano). Los cálculos de transporte (`transporte/cal_<T>K_2e10`) parten de estos restarts.
+
 Segmentos 14-15 (700→500 K) son los que cruzan la banda de Tg de referencia (664-692 K) —
 zona más sensible para chequear cristalización o cualquier anomalía estructural.
 

@@ -1,0 +1,51 @@
+36 casos cargados
+== f_ico(Cu) (media sobre x,y,z) a eps=0, en el pico, a 0.20; perdida relativa al pico y a 0.20; supervivencia a 0.20; <CN> global cambio 0.01/pico/0.20
+  2e10      1e8   f0=0.0959 f_base=0.0942 f_pk=0.0867 f_020=0.0665 | loss_pk=9.6% loss_020=30.7% | surv_base=0.759 surv_020=0.157 | dCN 0.01=+0.0040 pk=+0.0287 020=+0.0507 | sigma_max=1.960 d_sigma=0.825
+  2e10      1e9   f0=0.0959 f_base=0.0947 f_pk=0.0831 f_020=0.0599 | loss_pk=13.3% loss_020=37.5% | surv_base=0.762 surv_020=0.142 | dCN 0.01=+0.0058 pk=+0.0374 020=+0.0678 | sigma_max=2.262 d_sigma=0.967
+  2e10      1e10  f0=0.0959 f_base=0.0933 f_pk=0.0769 f_020=0.0504 | loss_pk=19.8% loss_020=47.5% | surv_base=0.744 surv_020=0.142 | dCN 0.01=+0.0075 pk=+0.0574 020=+0.1025 | sigma_max=2.793 d_sigma=1.020
+  1e11      1e8   f0=0.0844 f_base=0.0839 f_pk=0.0770 f_020=0.0650 | loss_pk=8.8% loss_020=23.0% | surv_base=0.729 surv_020=0.124 | dCN 0.01=+0.0035 pk=+0.0247 020=+0.0423 | sigma_max=1.734 d_sigma=0.630
+  1e11      1e9   f0=0.0844 f_base=0.0830 f_pk=0.0745 f_020=0.0586 | loss_pk=11.7% loss_020=30.6% | surv_base=0.726 surv_020=0.122 | dCN 0.01=+0.0033 pk=+0.0367 020=+0.0543 | sigma_max=2.041 d_sigma=0.790
+  1e11      1e10  f0=0.0844 f_base=0.0835 f_pk=0.0704 f_020=0.0494 | loss_pk=16.6% loss_020=41.5% | surv_base=0.729 surv_020=0.128 | dCN 0.01=+0.0030 pk=+0.0516 020=+0.0886 | sigma_max=2.629 d_sigma=0.934
+  1e12      1e8   f0=0.0754 f_base=0.0734 f_pk=0.0696 f_020=0.0629 | loss_pk=7.6% loss_020=16.5% | surv_base=0.697 surv_020=0.098 | dCN 0.01=+0.0061 pk=+0.0212 020=+0.0303 | sigma_max=1.426 d_sigma=0.353
+  1e12      1e9   f0=0.0754 f_base=0.0742 f_pk=0.0664 f_020=0.0594 | loss_pk=11.9% loss_020=21.2% | surv_base=0.703 surv_020=0.101 | dCN 0.01=+0.0032 pk=+0.0286 020=+0.0397 | sigma_max=1.792 d_sigma=0.575
+  1e12      1e10  f0=0.0754 f_base=0.0743 f_pk=0.0612 f_020=0.0488 | loss_pk=18.8% loss_020=35.3% | surv_base=0.709 surv_020=0.108 | dCN 0.01=+0.0011 pk=+0.0481 020=+0.0753 | sigma_max=2.400 d_sigma=0.755
+  qgrad_ext 1e8   f0=0.1121 f_base=0.1117 f_pk=0.1002 f_020=0.0753 | loss_pk=10.6% loss_020=32.9% | surv_base=0.786 surv_020=0.243 | dCN 0.01=+0.0027 pk=+0.0316 020=+0.0625 | sigma_max=2.275 d_sigma=1.022
+  qgrad_ext 1e9   f0=0.1121 f_base=0.1125 f_pk=0.0962 f_020=0.0677 | loss_pk=14.2% loss_020=39.6% | surv_base=0.791 surv_020=0.199 | dCN 0.01=+0.0024 pk=+0.0448 020=+0.0745 | sigma_max=2.548 d_sigma=1.158
+  qgrad_ext 1e10  f0=0.1121 f_base=0.1124 f_pk=0.0910 f_020=0.0574 | loss_pk=18.8% loss_020=48.8% | surv_base=0.785 surv_020=0.172 | dCN 0.01=+0.0016 pk=+0.0573 020=+0.1101 | sigma_max=3.066 d_sigma=1.242
+== correlaciones (n = 4 muestras)
+  sigma_max    vs PE0        @ 1e8  : r = -1.00
+  sigma_max    vs PE0        @ 1e9  : r = -1.00
+  sigma_max    vs PE0        @ 1e10 : r = -1.00
+  sigma_max    vs fico_Cu_0  @ 1e8  : r = +0.99
+  sigma_max    vs fico_Cu_0  @ 1e9  : r = +1.00
+  sigma_max    vs fico_Cu_0  @ 1e10 : r = +0.99
+  sigma_max    vs cnZr_0     @ 1e8  : r = -0.79
+  sigma_max    vs cnZr_0     @ 1e9  : r = -0.81
+  sigma_max    vs cnZr_0     @ 1e10 : r = -0.81
+  sigma_max    vs cn15Zr_0   @ 1e8  : r = +0.66
+  sigma_max    vs cn15Zr_0   @ 1e9  : r = +0.67
+  sigma_max    vs cn15Zr_0   @ 1e10 : r = +0.69
+  delta_sigma  vs PE0        @ 1e8  : r = -1.00
+  delta_sigma  vs PE0        @ 1e9  : r = -1.00
+  delta_sigma  vs PE0        @ 1e10 : r = -0.99
+  delta_sigma  vs fico_Cu_0  @ 1e8  : r = +0.98
+  delta_sigma  vs fico_Cu_0  @ 1e9  : r = +0.99
+  delta_sigma  vs fico_Cu_0  @ 1e10 : r = +0.99
+  delta_sigma  vs cnZr_0     @ 1e8  : r = -0.75
+  delta_sigma  vs cnZr_0     @ 1e9  : r = -0.78
+  delta_sigma  vs cnZr_0     @ 1e10 : r = -0.79
+  delta_sigma  vs cn15Zr_0   @ 1e8  : r = +0.59
+  delta_sigma  vs cn15Zr_0   @ 1e9  : r = +0.62
+  delta_sigma  vs cn15Zr_0   @ 1e10 : r = +0.72
+  eps_peak     vs PE0        @ 1e8  : r = -0.96
+  eps_peak     vs PE0        @ 1e9  : r = -0.98
+  eps_peak     vs PE0        @ 1e10 : r = -0.91
+  eps_peak     vs fico_Cu_0  @ 1e8  : r = +0.96
+  eps_peak     vs fico_Cu_0  @ 1e9  : r = +0.97
+  eps_peak     vs fico_Cu_0  @ 1e10 : r = +0.91
+  eps_peak     vs cnZr_0     @ 1e8  : r = -0.76
+  eps_peak     vs cnZr_0     @ 1e9  : r = -0.74
+  eps_peak     vs cnZr_0     @ 1e10 : r = -0.68
+  eps_peak     vs cn15Zr_0   @ 1e8  : r = +0.80
+  eps_peak     vs cn15Zr_0   @ 1e9  : r = +0.74
+  eps_peak     vs cn15Zr_0   @ 1e10 : r = +0.83

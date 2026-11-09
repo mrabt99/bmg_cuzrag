@@ -1,0 +1,30 @@
+# ETAPA PREVIA (una sola vez): caja = PROMEDIO de un NPT corto a T y P = 0 (no la instantanea del restart), y estado de referencia en NVT.
+include init.mod
+read_restart ${rst}
+include potential.mod
+
+# --- 1) NPT de nnpt pasos: promedio de lx, ly, lz (iso -> los tres iguales)
+variable Lx equal lx
+variable Ly equal ly
+variable Lz equal lz
+fix mant all npt temp ${temp} ${temp} ${tdamp} iso 0.0 0.0 ${pdamp}
+fix avbox all ave/time ${nevery} ${nrepn} ${nnpt} v_Lx v_Ly v_Lz
+run ${nnpt}
+print "### NPT ${nnpt} pasos: caja PROMEDIO Lx = $(f_avbox[1]:%.5f) Ly = $(f_avbox[2]:%.5f) Lz = $(f_avbox[3]:%.5f) A ; instantanea final Lx = $(lx:%.5f) A"
+variable sx equal $(f_avbox[1]/lx)
+variable sy equal $(f_avbox[2]/ly)
+variable sz equal $(f_avbox[3]/lz)
+change_box all x scale ${sx} y scale ${sy} z scale ${sz} remap
+print "### caja fijada al promedio: Lx = $(lx:%.5f) Ly = $(ly:%.5f) Lz = $(lz:%.5f) A ; vol = $(vol:%.1f) A^3 ; densidad = $(density:%.5f) g/cc"
+unfix mant
+unfix avbox
+change_box all triclinic                 # tilt = 0; hace falta para las cizallas
+
+# --- 2) estado de referencia en NVT (diagnostico: la presion promedio deberia ser ~0)
+fix therm all nvt temp ${temp} ${temp} ${tdamp}
+run ${nequil}
+fix avp all ave/time ${nevery} ${nrepr} ${nrun} c_thermo_press[1] c_thermo_press[2] c_thermo_press[3] c_thermo_press[4] c_thermo_press[5] c_thermo_press[6]
+fix ser all ave/time ${nevery} ${nreps} ${nser} c_thermo_press[1] c_thermo_press[2] c_thermo_press[3] c_thermo_press[4] c_thermo_press[5] c_thermo_press[6] file ser_ref.dat
+run ${nrun}
+print "### REFERENCIA NVT (${nrun} pasos) presion media [bar]: pxx = $(f_avp[1]:%.1f) pyy = $(f_avp[2]:%.1f) pzz = $(f_avp[3]:%.1f) pxy = $(f_avp[4]:%.1f) pxz = $(f_avp[5]:%.1f) pyz = $(f_avp[6]:%.1f)"
+write_restart restart.equil

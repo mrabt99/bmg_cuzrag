@@ -1,0 +1,11 @@
+# Repo publico: codigo, inputs, documentacion y resultados.
+# Quedan solo en Negishi: restarts, trayectorias (.dump), arrays intermedios (.npz) y logs de LAMMPS/Slurm.
+*.restart
+restart.*
+*.dump
+*.dump.*
+*.npz
+log.*
+*.log
+*.out
+*.err

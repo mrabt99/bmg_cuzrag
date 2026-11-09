@@ -1,0 +1,22 @@
+dir = elastic_qgrad/300K ; up = 0.005 ; volumen = 1149030.3 A^3 ; rho = 7.4735 g/cc ; n = 5.7036e+28 atomos/m^3
+Cij [GPa] (filas: tension xx yy zz yz xz xy; columnas: deformacion), tal como salen de las columnas:
+      130.92     92.12     92.40      0.00     -0.02      0.08
+       92.09    130.87     92.23      0.22      0.04      0.28
+       92.55     92.25    131.18     -0.44     -0.12     -0.33
+       -0.06      0.36     -0.26     18.97     -0.03     -0.29
+        0.35      0.06     -0.11      0.13     19.16      0.09
+        0.08      0.13     -0.48     -0.00      0.24     19.21
+error estandar (bloques de 5 ps) [GPa]:
+        0.08      0.07      0.07      0.07      0.06      0.05
+        0.09      0.06      0.07      0.06      0.06      0.06
+        0.06      0.06      0.10      0.08      0.07      0.06
+        0.05      0.06      0.05      0.06      0.06      0.03
+        0.06      0.06      0.05      0.05      0.06      0.05
+        0.05      0.04      0.05      0.06      0.06      0.06
+asimetria maxima |Cij - Cji| = 0.37 GPa (la matriz se simetriza)
+isotropia: <C11,C22,C33> = 130.99 ; <C12,C13,C23> = 92.27 ; <C44,C55,C66> = 19.11 ; (C11-C12)/2 = 19.36 (debe coincidir con C44 si es isotropo) ; A_U = 0.0018
+Voigt: K =  105.18  G =  19.21  E =  54.33 GPa  nu = 0.4139  vL =   4183  vT =   1603  vm =   1818 m/s  Theta_D =  208.4 K
+Reuss: K =  105.18  G =  19.20  E =  54.31 GPa  nu = 0.4139  vL =   4183  vT =   1603  vm =   1818 m/s  Theta_D =  208.4 K
+Hill : K =  105.18  G =  19.21  E =  54.32 GPa  nu = 0.4139  vL =   4183  vT =   1603  vm =   1818 m/s  Theta_D =  208.4 K
+Hill, error estandar (Monte Carlo sobre los errores de Cij): K = 0.02  G = 0.02  E = 0.06  nu = 0.00  Theta_D = 0.12
+Referencia: Theta_D de Mendez = 312 K ; piloto de traccion 2e10 (300 K, 1e9 1/s): E = 54.6 GPa, nu ~ 0.41

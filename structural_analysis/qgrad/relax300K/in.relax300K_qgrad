@@ -1,0 +1,58 @@
+# =====================================================================
+#  Relajacion final 300 K, 0 Pa, 10 ns -- corrida graduada qgrad
+#  (equivalente de in.relax300K_2e10/1e11/1e12: mismo ensemble NPT
+#  Pdamp=10, Tdamp=0.1, dt=1fs, misma duracion, mismos fixes/dump).
+#  Arranca de restart.quench_N65536_gradmin.seg12 (301 K, sin relajar).
+#  NO modifica nada de rate_gradiente_gammamin/ (solo lee el restart);
+#  todo lo generado queda en structural_analysis/qgrad/relax300K/.
+# =====================================================================
+variable        tag   index N65536
+variable        pot   index /scratch/negishi/aaabt/bmg_cuzrag/rate_gradiente_gammamin/ZrCuAg.lammps.eam
+variable        rate  index qgrad
+variable        pdamp index 10.0
+
+read_restart    /scratch/negishi/aaabt/bmg_cuzrag/rate_gradiente_gammamin/restart.quench_N65536_gradmin.seg12
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001
+
+thermo          10000
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+fix             log2 all ave/time 100 100 10000 &
+                v_Tinst v_PEat v_Lbox v_Rho v_Pinst &
+                file relax300K_${tag}_${rate}.log.dat &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+fix             halt_P all halt 1000 v_Pinst > 1.0e5 error hard
+
+dump            relaxtraj all custom 1000000 relax300K_${tag}_${rate}.dump &
+                id type x y z vx vy vz
+dump_modify     relaxtraj sort id first yes
+
+fix             relax all npt temp 300.0 300.0 0.1 iso 0.0 0.0 ${pdamp}
+run             10000000                     # 10 ns
+unfix           relax
+
+print           "### VIDRIO LISTO  (${tag}, ${rate}, Pdamp=${pdamp} ps)"
+print           "###   T        = ${Tinst} K"
+print           "###   PE/atomo = ${PEat} eV"
+print           "###   Lx       = ${Lbox} A"
+print           "###   densidad = ${Rho} g/cc"
+
+write_restart   restart.glass300K_${tag}_${rate}
+write_data      data.glass300K_${tag}_${rate}
+write_dump      all custom glass300K_${tag}_${rate}.dump id type x y z vx vy vz &
+                modify sort id

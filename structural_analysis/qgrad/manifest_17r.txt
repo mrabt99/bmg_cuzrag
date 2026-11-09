@@ -1,0 +1,1 @@
+17r /scratch/negishi/aaabt/bmg_cuzrag/structural_analysis/qgrad/relax300K/restart.glass300K_N65536_qgrad

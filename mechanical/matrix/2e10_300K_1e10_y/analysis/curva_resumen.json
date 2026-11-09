@@ -1,0 +1,17 @@
+{
+ "label": "2e10_300K_1e10_y",
+ "dir": "y",
+ "n": 200,
+ "E": 54.97085272727272,
+ "E_err": 1.6294788447824,
+ "sigma_max": 2.81058,
+ "eps_sigma_max": 0.075495,
+ "sigma_max_smooth": 2.7926520000000004,
+ "eps_sigma_max_smooth": 0.077495,
+ "sigma_flow": 1.753183,
+ "sigma_flow_sd": 0.07133255052418716,
+ "delta_sigma": 1.057397,
+ "lateral_max": 0.0369927,
+ "T_mean": 300.24457,
+ "T_sd": 0.6111096833629773
+}

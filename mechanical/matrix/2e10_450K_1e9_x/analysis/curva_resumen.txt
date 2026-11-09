@@ -1,0 +1,5 @@
+2e10_450K_1e9_x: eje x ; archivo tens_2e10_450K_1e9_x.curve.dat (200 puntos, strain 0.0005 - 0.1995)
+E (ajuste lineal, strain <= 0.01, 10 puntos) = 48.8 +- 0.3 GPa
+sigma_max = 2.015 GPa en strain = 0.0575   (suavizado 5 puntos: 2.005 GPa en 0.0585)
+sigma_flujo (media 0.15-0.2, 50 puntos) = 1.063 +- 0.027 GPa ; delta_sigma = 0.952 GPa
+verificacion: |tensiones laterales| max = 0.0068 GPa ; T = 450.01 +- 0.36 K

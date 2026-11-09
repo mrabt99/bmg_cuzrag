@@ -1,0 +1,5 @@
+14 /scratch/negishi/aaabt/bmg_cuzrag/qgrad_ext/restart.quench_N65536_gradext.seg09
+15 /scratch/negishi/aaabt/bmg_cuzrag/qgrad_ext/restart.quench_N65536_gradext.seg10
+16 /scratch/negishi/aaabt/bmg_cuzrag/qgrad_ext/restart.quench_N65536_gradext.seg11
+17r /scratch/negishi/aaabt/bmg_cuzrag/qgrad_ext/restart.glass300K_N65536_gradext
+17u /scratch/negishi/aaabt/bmg_cuzrag/qgrad_ext/restart.quench_N65536_gradext.seg12

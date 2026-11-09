@@ -1,0 +1,12 @@
+06 /scratch/negishi/aaabt/bmg_cuzrag/rate_gradiente_gammamin/restart.quench_N65536_gradmin.seg01
+07 /scratch/negishi/aaabt/bmg_cuzrag/rate_gradiente_gammamin/restart.quench_N65536_gradmin.seg02
+08 /scratch/negishi/aaabt/bmg_cuzrag/rate_gradiente_gammamin/restart.quench_N65536_gradmin.seg03
+09 /scratch/negishi/aaabt/bmg_cuzrag/rate_gradiente_gammamin/restart.quench_N65536_gradmin.seg04
+10 /scratch/negishi/aaabt/bmg_cuzrag/rate_gradiente_gammamin/restart.quench_N65536_gradmin.seg05
+11 /scratch/negishi/aaabt/bmg_cuzrag/rate_gradiente_gammamin/restart.quench_N65536_gradmin.seg06
+12 /scratch/negishi/aaabt/bmg_cuzrag/rate_gradiente_gammamin/restart.quench_N65536_gradmin.seg07
+13 /scratch/negishi/aaabt/bmg_cuzrag/rate_gradiente_gammamin/restart.quench_N65536_gradmin.seg08
+14 /scratch/negishi/aaabt/bmg_cuzrag/rate_gradiente_gammamin/restart.quench_N65536_gradmin.seg09
+15 /scratch/negishi/aaabt/bmg_cuzrag/rate_gradiente_gammamin/restart.quench_N65536_gradmin.seg10
+16 /scratch/negishi/aaabt/bmg_cuzrag/rate_gradiente_gammamin/restart.quench_N65536_gradmin.seg11
+17u /scratch/negishi/aaabt/bmg_cuzrag/rate_gradiente_gammamin/restart.quench_N65536_gradmin.seg12

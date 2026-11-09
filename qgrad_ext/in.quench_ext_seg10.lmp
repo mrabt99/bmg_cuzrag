@@ -1,0 +1,82 @@
+# =====================================================================
+#  RAMA qgrad_ext (plan A): copia derivada de in.quench_grad_seg08.lmp (qgrad). Extiende/ajusta el perfil por debajo de 700 K.
+#  Solo cambian: rampa de T, nombres de archivos (rate=gradext) y restart de entrada. dt, ensemble, Tdamp/Pdamp, potencial,
+#  fix halt y frecuencias de thermo/ave-time/dump son IDENTICOS a qgrad. Generado por build_inputs.py.
+#  Tasa GRADUADA hacia gamma_min (Ryltsev) -- tramo 10 (RAMA ext) : 550 K -> 500 K
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - Negishi/SLURM - v4 (NPT, Pdamp=10)
+#
+#  CORRIDA EXPLORATORIA -- no es parte de la comparacion de tasas
+#  constantes de la tesis (2e10/1e11/1e12). Ver README.md de este
+#  directorio para el proposito completo.
+#
+#  Ventana 1500->700K con tasa interpolada logaritmicamente entre
+#  2e10 K/s (tramo 1) y 1.5e9 K/s (tramo 8, = gamma_min de Ryltsev),
+#  factor ~1.4478 entre tramos consecutivos. Por debajo de 700K (tramos
+#  9-12) se vuelve a una tasa rapida (1e11 K/s) porque el sistema ya es
+#  no-ergodico y enfriar mas lento ahi no cambia la estructura final.
+#
+#  Tasa de este tramo: 1.500000e+09 K/s -> 50K / tasa = 33333334 pasos
+#  (33.333 ns), dt=1fs fijo (igual que el resto del proyecto).
+#
+#  Mismo potencial EAM sin parchear, mismo ensemble NPT Pdamp=10.0/
+#  Tdamp=0.1, derivado del script de produccion de la cadena 2e10
+#  (rate_2e10/prod_2e10/in.quench_2e10_seg04.lmp).
+#
+#  RECUPERACION ANTE EXPLOSION EN ESTE TRAMO (distinto del protocolo
+#  usado en zona caliente >1500K de la cadena 2e10): NO hacer hold
+#  isotermico -- un hold cerca de Tg es envejecimiento extra en la
+#  variable que se esta midiendo. Volver al restart de ENTRADA de este
+#  mismo tramo y relanzar con `velocity all create 550.0 <nueva_seed>
+#  mom yes rot yes dist gaussian` inmediatamente antes del `fix qnpt`,
+#  sin tiempo de espera adicional a esa T. Si este tramo explota mas de
+#  2-3 veces, no insistir: reportar y cortar la cadena aca.
+#
+#  Entrada:  restart.quench_N65536_gradext.seg10a
+#  Salida:   restart.quench_${tag}_${rate}.seg10
+#            quench_${tag}_${rate}.dump.seg10    (10 frames)
+#            quench_${tag}_${rate}.log.dat.seg10 (T, Ep/atomo, Lx, rho, P)
+# =====================================================================
+
+variable        tag   index N65536
+variable        pot   index ZrCuAg.lammps.eam
+variable        rate  index gradext
+variable        pdamp index 10.0
+
+read_restart    restart.quench_N65536_gradext.seg10a
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001                       # 1 fs -- fijo, no tocar (VDOS/fonones)
+
+thermo          66700
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+fix             log2 all ave/time 667 100 66700 &
+                v_Tinst v_PEat v_Lbox v_Rho v_Pinst &
+                file quench_${tag}_${rate}.log.dat.seg10 &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+fix             halt_P all halt 1000 v_Pinst > 1.0e5 error hard    # |P| > ~10 GPa
+
+dump            traj all custom 6666667 quench_${tag}_${rate}.dump.seg10 &
+                id type x y z vx vy vz
+dump_modify     traj sort id first yes
+dump_modify     traj format float %.8g
+
+print           "### tramo 10 ext (gradext, 1.500e+09 K/s) :  550 K -> 500 K"
+fix              qnpt all npt temp 550.0 500.0 0.1 iso 0.0 0.0 ${pdamp}
+run              33333334                        # 33.333 ns
+unfix            qnpt
+print           "### tramo 10 ext terminado : T=${Tinst} K  P=${Pinst} bar  Ep=${PEat} eV  Lx=${Lbox} A  rho=${Rho} g/cc"
+write_restart    restart.quench_${tag}_${rate}.seg10

@@ -1,0 +1,129 @@
+# =====================================================================
+#  ENSAYO DE TRACCION PILOTO -- vidrio Zr47.5 Cu47.5 Ag5, N=65536
+#  Traccion uniaxial en x a T y tasa de deformacion constantes (NPT en y, z).
+#
+#  Uso:  lmp -in in.tension_pilot -var sample 2e10 -var T 300 -var erate 1e9
+#    sample : 2e10 | 1e11 | 1e12      (elige el restart del vidrio relajado)
+#    T      : temperatura en K
+#    erate  : tasa de deformacion en 1/s  (1e9 s^-1 = 1e-3 1/ps)
+#  Valida para erate <= 1e10 (las frecuencias de salida se derivan de erate;
+#  con tasas mas altas el promedio de la curva queda con menos de 100 muestras).
+#
+#  Etapas:  1) mantenimiento 50 ps (NPT isotropico, presion 0)
+#           2) traccion hasta strain = emax (fix deform en x; NPT solo en y, z)
+#  Opcionales: -var nhold 50000 (pasos de mantenimiento)  -var emax 0.2
+#  Contador de pasos: se reinicia a 0 al leer el restart -> etapa 1 = pasos
+#  0..nhold, etapa 2 = nhold..nhold+nsteps. Strain (ingenieria) = (lx - L0)/L0.
+#  La curva (ave/time) promedia en multiplos absolutos de n_curve: conviene
+#  nhold multiplo de n_curve (1000 con erate=1e9); 50000 y 1000 lo cumplen.
+# =====================================================================
+
+# ---- parametros (se pueden cambiar con -var en la linea de comandos) ----
+variable sample index 2e10
+variable T      index 300
+variable erate  index 1e9
+variable pdamp  index 1.0               # ps, para el barostato (pedido por el usuario)
+variable emax   index 0.2               # deformacion final
+variable nhold  index 50000             # pasos de mantenimiento (etapa 1); 50000 = 50 ps
+
+variable tag    string tens_${sample}_${T}K_${erate}_x
+
+# ---- restart del vidrio segun la muestra (solo se LEE) ----
+variable base   string /scratch/negishi/aaabt/bmg_cuzrag
+if "${sample} == 2e10" then "variable rpath string ${base}/rate_2e10/prod_2e10/restart.glass300K_N65536_2e10"
+if "${sample} == 1e11" then "variable rpath string ${base}/rate_1e11/prod_1e11/restart.glass300K_N65536_1e11"
+if "${sample} == 1e12" then "variable rpath string ${base}/rate_1e12_reference/restart.glass300K_N65536_1e12"
+# si sample no es ninguna de las tres, rpath queda sin definir y LAMMPS aborta en read_restart
+variable pot    index  ${base}/rate_2e10/ZrCuAg.lammps.eam
+
+# ---- cuentas derivadas de la tasa ----
+variable dt      equal 0.001                     # ps (= 1 fs, NO cambiar)
+variable erps    equal ${erate}*1e-12            # tasa en 1/ps
+variable estep   equal ${erps}*${dt}             # deformacion por paso
+variable nsteps  equal round(${emax}/${estep})   # pasos de la etapa 2 (200000 si erate=1e9)
+variable n_curve equal round(0.001/${estep})     # un punto de la curva cada delta-eps = 0.001
+variable n_dump  equal round(0.005/${estep})     # un dump cada delta-eps = 0.005
+variable n_rst   equal round(0.05/${estep})      # un restart cada delta-eps = 0.05
+variable nev     equal round(${n_curve}/100)     # ave/time: 100 muestras por intervalo
+
+print "### tag=${tag}  restart=${rpath}"
+print "### erate=${erate} 1/s = ${erps} 1/ps ; estep=${estep} ; pasos etapa 2=${nsteps}"
+print "### frecuencias (pasos): curva=${n_curve} (muestreo cada ${nev}) dump=${n_dump} restart=${n_rst}"
+
+# ---- sistema: restart + potencial (pair_coeff IGUAL que en el temple) ----
+read_restart    ${rpath}
+reset_timestep  0                                # se hace ahora, antes de crear ningun fix
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        ${dt}                            # 1 fs (necesario para analisis de fonones)
+# NO se recrean velocidades: se usan las del restart.
+
+# ---- variables de medida ----
+variable Tinst equal temp
+variable PEat  equal pe/atoms
+variable Lx    equal lx
+variable Ly    equal ly
+variable Lz    equal lz
+variable Vol   equal vol
+
+# ---- seguridad: temperatura ----
+fix             halt_T all halt 1000 v_Tinst > 1500.0 error hard
+
+# =====================================================================
+#  ETAPA 1: mantenimiento 50 ps, NPT isotropico, presion 0, sin drag
+# =====================================================================
+thermo          1000
+thermo_style    custom step temp press pxx pyy pzz lx ly lz pe
+fix             mant all npt temp ${T} ${T} 0.1 iso 0.0 0.0 ${pdamp}
+run             ${nhold}
+unfix           mant
+
+# estado de referencia + dimensiones de la caja CONGELADAS ($(...) se evalua ahora)
+write_restart   ${tag}.ref.restart
+variable L0     equal $(lx)
+variable Ly0    equal $(ly)
+variable Lz0    equal $(lz)
+variable LYMAX  equal 1.1*${Ly0}
+variable LZMAX  equal 1.1*${Lz0}
+print "### L0 = ${L0} A   Ly0 = ${Ly0} A   Lz0 = ${Lz0} A   (halt si ly > ${LYMAX} o lz > ${LZMAX})"
+
+# seguridad: en traccion ly y lz solo pueden achicarse
+fix             halt_ly all halt 1000 v_Ly > ${LYMAX} error hard
+fix             halt_lz all halt 1000 v_Lz > ${LZMAX} error hard
+
+# =====================================================================
+#  ETAPA 2: traccion uniaxial en x
+# =====================================================================
+variable strain equal (lx-${L0})/${L0}
+variable sxx    equal -pxx/10000                 # bar -> GPa (1 GPa = 1e4 bar); traccion = positivo
+variable syy    equal -pyy/10000
+variable szz    equal -pzz/10000
+
+# curva sigma-epsilon: se define AHORA (no antes) para que la 1a linea no incluya la etapa 1
+fix             curve all ave/time ${nev} 100 ${n_curve} &
+                v_strain v_sxx v_syy v_szz v_Tinst v_PEat v_Lx v_Ly v_Lz v_Vol &
+                file ${tag}.curve.dat &
+                title1 "# curva promediada cada delta-eps=0.001 (strain = promedio del intervalo)" &
+                title2 "# step strain sxx(GPa) syy(GPa) szz(GPa) T(K) PE(eV/atom) lx(A) ly(A) lz(A) vol(A^3)"
+
+# dump y restart se alinean con el INICIO de la etapa 2 (paso nhold) aunque nhold no sea multiplo de n_dump/n_rst:
+# la variable devuelve el proximo paso de salida = nhold + k*N
+variable        dnext equal ${nhold}+(floor((step-${nhold})/${n_dump})+1)*${n_dump}
+variable        rnext equal ${nhold}+(floor((step-${nhold})/${n_rst})+1)*${n_rst}
+dump            traj all custom ${n_dump} ${tag}.dump id type x y z vx vy vz
+dump_modify     traj sort id first yes every v_dnext   # first yes -> incluye el paso nhold (strain 0)
+restart         v_rnext ${tag}.*.restart         # pasos nhold + k*n_rst  (strain 0.05, 0.10, ...)
+
+thermo          1000
+thermo_style    custom step temp press pxx pyy pzz lx ly lz pe v_strain v_sxx
+
+fix             tens all npt temp ${T} ${T} 0.1 y 0.0 0.0 ${pdamp} z 0.0 0.0 ${pdamp}
+fix             def  all deform 1 x erate ${erps} units box remap x
+run             ${nsteps}
+
+print "### TRACCION TERMINADA: strain final = $(v_strain)  sxx = $(v_sxx) GPa  T = ${Tinst} K"

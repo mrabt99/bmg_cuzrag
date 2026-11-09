@@ -1,0 +1,4 @@
+# Time-averaged data for fix ser
+# TimeStep c_thermo_press[1] c_thermo_press[2] c_thermo_press[3] c_thermo_press[4] c_thermo_press[5] c_thermo_press[6]
+98505000 -339.527 210.771 112.059 105.138 -194.749 -26.3222
+98506000 -267.104 165.625 130.705 112.529 -156.951 -24.0473

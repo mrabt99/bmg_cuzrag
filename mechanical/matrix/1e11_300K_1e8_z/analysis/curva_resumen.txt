@@ -1,0 +1,5 @@
+1e11_300K_1e8_z: eje z ; archivo tens_1e11_300K_1e8_z.curve.dat (200 puntos, strain 0.0005 - 0.1995)
+E (ajuste lineal, strain <= 0.01, 10 puntos) = 51.3 +- 0.2 GPa
+sigma_max = 1.784 GPa en strain = 0.0505   (suavizado 5 puntos: 1.780 GPa en 0.0525)
+sigma_flujo (media 0.15-0.2, 50 puntos) = 1.111 +- 0.038 GPa ; delta_sigma = 0.673 GPa
+verificacion: |tensiones laterales| max = 0.0011 GPa ; T = 300.01 +- 0.11 K

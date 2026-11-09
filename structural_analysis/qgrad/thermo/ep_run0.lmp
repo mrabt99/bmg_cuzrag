@@ -1,0 +1,17 @@
+# Ep/atomo instantaneo de UN restart de vidrio relajado (run 0), mismo potencial que todo el proyecto.
+# Uso: lmp -in ep_run0.lmp -var restart_file <path> -var tag <nombre>
+variable restart_file index none
+variable tag          index none
+variable pot          index /scratch/negishi/aaabt/bmg_cuzrag/rate_2e10/ZrCuAg.lammps.eam
+units           metal
+atom_style      atomic
+read_restart    ${restart_file}
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+variable        epat equal pe/atoms
+thermo_style    custom step atoms temp pe v_epat lx vol press
+thermo          1
+run             0
+print "EP_RUN0 tag=${tag} natoms=$(atoms) T=$(temp:%.3f) Ep_at=$(v_epat:%.6f) Lx=$(lx:%.5f) P=$(press:%.2f)"

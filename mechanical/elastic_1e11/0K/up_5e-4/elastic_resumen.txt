@@ -1,0 +1,14 @@
+dir = elastic_1e11/0K/up_5e-4 ; up = 0.0005 ; volumen = 1137351.2 A^3 ; rho = 7.5503 g/cc ; n = 5.7622e+28 atomos/m^3
+Cij [GPa] (filas: tension xx yy zz yz xz xy; columnas: deformacion), tal como salen de las columnas:
+      141.67     96.86     96.54     -0.25      0.06     -0.09
+       96.87    141.09     96.71     -0.01     -0.08      0.10
+       96.57     96.69    141.99      0.16      0.07     -0.17
+       -0.24     -0.03      0.16     22.27      0.07     -0.06
+        0.06     -0.08      0.08      0.07     22.58     -0.26
+       -0.12      0.13     -0.18     -0.06     -0.27     22.20
+asimetria maxima |Cij - Cji| = 0.03 GPa (la matriz se simetriza)
+isotropia: <C11,C22,C33> = 141.58 ; <C12,C13,C23> = 96.71 ; <C44,C55,C66> = 22.35 ; (C11-C12)/2 = 22.44 (debe coincidir con C44 si es isotropo) ; A_U = 0.0010
+Voigt: K =  111.67  G =  22.38  E =  62.94 GPa  nu = 0.4061  vL =   4329  vT =   1722  vm =   1951 m/s  Theta_D =  224.3 K
+Reuss: K =  111.66  G =  22.38  E =  62.93 GPa  nu = 0.4061  vL =   4329  vT =   1722  vm =   1950 m/s  Theta_D =  224.3 K
+Hill : K =  111.67  G =  22.38  E =  62.93 GPa  nu = 0.4061  vL =   4329  vT =   1722  vm =   1951 m/s  Theta_D =  224.3 K
+Referencia: Theta_D de Mendez = 312 K ; piloto de traccion 2e10 (300 K, 1e9 1/s): E = 54.6 GPa, nu ~ 0.41

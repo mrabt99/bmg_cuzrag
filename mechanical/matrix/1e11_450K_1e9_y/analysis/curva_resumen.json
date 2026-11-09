@@ -1,0 +1,17 @@
+{
+ "label": "1e11_450K_1e9_y",
+ "dir": "y",
+ "n": 200,
+ "E": 47.11268666666667,
+ "E_err": 0.7437486629367469,
+ "sigma_max": 1.79165,
+ "eps_sigma_max": 0.062504,
+ "sigma_max_smooth": 1.787962,
+ "eps_sigma_max_smooth": 0.057504,
+ "sigma_flow": 1.058,
+ "sigma_flow_sd": 0.02947310825488349,
+ "delta_sigma": 0.7336499999999999,
+ "lateral_max": 0.00631805,
+ "T_mean": 450.039035,
+ "T_sd": 0.3612425830034419
+}

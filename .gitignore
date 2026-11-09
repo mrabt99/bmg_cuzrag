@@ -59,3 +59,12 @@ __pycache__/
 /rate_2e10/quench_N65536_1e10.dump.validate_seed2.part_ab
 /rate_2e10/quench_N65536_1e10.dump.validate_seed2.part_ac
 /rate_2e10/sweep_2e10/quench_N65536_2e10.dump.seg1_global
+/rate_gradiente_gammamin/quench_N65536_gradmin.dump.seg07
+/rate_gradiente_gammamin/quench_N65536_gradmin.dump.seg08
+/rate_gradiente_gammamin/quench_N65536_gradmin.dump.seg09
+/rate_gradiente_gammamin/quench_N65536_gradmin.dump.seg10
+/rate_gradiente_gammamin/quench_N65536_gradmin.dump.seg11
+/rate_gradiente_gammamin/quench_N65536_gradmin.dump.seg12
+
+# Repo publico: PDFs de papers (copyright) y plan personal de tesis no se suben
+/referencias/*.pdf

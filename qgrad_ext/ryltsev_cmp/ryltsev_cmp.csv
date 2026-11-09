@@ -1,0 +1,5 @@
+curva,N_ico_BOO,vecinos_ico_<4.5A_medio,azar_medio,factor_agrupacion,std_azar,N_Z16_BOO_estricto,N_Z16_BOO_q6window,N_Z16Zr+icoCu_Voronoi,cluster_mayor
+2e10,770,1.252,0.256,4.898,0.022,0,2383,3411,30
+1e11,575,0.950,0.190,5.000,0.033,0,2284,3011,29
+qgrad,903,1.415,0.299,4.730,0.026,0,2340,3749,51
+qgrad_ext,952,1.441,0.313,4.602,0.026,0,2267,3964,49

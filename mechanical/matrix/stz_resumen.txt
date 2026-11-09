@@ -1,0 +1,24 @@
+2e10      1e8   eps_pico=0.05 | activos 1a ventana=0.10% pico=1.83% estacionario(0.12-0.20)=7.20% | inicio(3x la 1a ventana)=0.03 | tam.medio>=2: pico=10.0 est=36.9 (control 3.0) | mayor est=2208 (control 17) | frac en clusters>=5: est=0.94 (control 0.18)
+1e11      1e8   eps_pico=0.05 | activos 1a ventana=0.10% pico=1.55% estacionario(0.12-0.20)=4.15% | inicio(3x la 1a ventana)=0.03 | tam.medio>=2: pico=8.2 est=15.0 (control 2.5) | mayor est=339 (control 8) | frac en clusters>=5: est=0.87 (control 0.04)
+1e12      1e8   eps_pico=0.05 | activos 1a ventana=0.10% pico=2.30% estacionario(0.12-0.20)=3.82% | inicio(3x la 1a ventana)=0.03 | tam.medio>=2: pico=9.1 est=13.9 (control 2.4) | mayor est=280 (control 8) | frac en clusters>=5: est=0.85 (control 0.03)
+qgrad_ext 1e8   eps_pico=0.06 | activos 1a ventana=0.10% pico=2.80% estacionario(0.12-0.20)=8.48% | inicio(3x la 1a ventana)=0.03 | tam.medio>=2: pico=15.6 est=58.2 (control 3.4) | mayor est=3890 (control 23) | frac en clusters>=5: est=0.96 (control 0.26)
+2e10      1e9   eps_pico=0.06 | activos 1a ventana=0.10% pico=1.30% estacionario(0.12-0.20)=5.10% | inicio(3x la 1a ventana)=0.04 | tam.medio>=2: pico=6.8 est=16.1 (control 2.6) | mayor est=309 (control 10) | frac en clusters>=5: est=0.88 (control 0.07)
+1e11      1e9   eps_pico=0.06 | activos 1a ventana=0.10% pico=1.51% estacionario(0.12-0.20)=4.40% | inicio(3x la 1a ventana)=0.04 | tam.medio>=2: pico=6.6 est=13.6 (control 2.5) | mayor est=293 (control 9) | frac en clusters>=5: est=0.85 (control 0.05)
+1e12      1e9   eps_pico=0.06 | activos 1a ventana=0.10% pico=1.82% estacionario(0.12-0.20)=3.62% | inicio(3x la 1a ventana)=0.03 | tam.medio>=2: pico=6.9 est=10.6 (control 2.4) | mayor est=143 (control 8) | frac en clusters>=5: est=0.82 (control 0.02)
+qgrad_ext 1e9   eps_pico=0.07 | activos 1a ventana=0.10% pico=2.18% estacionario(0.12-0.20)=7.18% | inicio(3x la 1a ventana)=0.04 | tam.medio>=2: pico=9.6 est=29.2 (control 3.0) | mayor est=1439 (control 17) | frac en clusters>=5: est=0.92 (control 0.17)
+2e10      1e10  eps_pico=0.08 | activos 1a ventana=0.10% pico=0.93% estacionario(0.12-0.20)=2.93% | inicio(3x la 1a ventana)=0.06 | tam.medio>=2: pico=4.1 est=5.9 (control 2.3) | mayor est=59 (control 6) | frac en clusters>=5: est=0.63 (control 0.01)
+1e11      1e10  eps_pico=0.08 | activos 1a ventana=0.10% pico=1.04% estacionario(0.12-0.20)=2.77% | inicio(3x la 1a ventana)=0.05 | tam.medio>=2: pico=3.9 est=5.5 (control 2.3) | mayor est=49 (control 6) | frac en clusters>=5: est=0.59 (control 0.01)
+1e12      1e10  eps_pico=0.07 | activos 1a ventana=0.10% pico=0.74% estacionario(0.12-0.20)=2.41% | inicio(3x la 1a ventana)=0.05 | tam.medio>=2: pico=3.4 est=5.1 (control 2.2) | mayor est=37 (control 5) | frac en clusters>=5: est=0.55 (control 0.01)
+qgrad_ext 1e10  eps_pico=0.08 | activos 1a ventana=0.10% pico=0.80% estacionario(0.12-0.20)=3.31% | inicio(3x la 1a ventana)=0.06 | tam.medio>=2: pico=3.8 est=6.3 (control 2.4) | mayor est=66 (control 7) | frac en clusters>=5: est=0.65 (control 0.02)
+
+== tamanos de cluster (eps 0.12-0.20, 1e9, x)
+2e10: clusters (ε 0.12–0.20, x): n=3174, ≥5: 944, ≥20: 321, ≥100: 54, mayor 504; fracción de activos en clusters ≥20: 0.70
+1e11: clusters (ε 0.12–0.20, x): n=3205, ≥5: 914, ≥20: 246, ≥100: 21, mayor 251; fracción de activos en clusters ≥20: 0.54
+1e12: clusters (ε 0.12–0.20, x): n=3199, ≥5: 886, ≥20: 243, ≥100: 15, mayor 200; fracción de activos en clusters ≥20: 0.52
+qgrad_ext: clusters (ε 0.12–0.20, x): n=2774, ≥5: 699, ≥20: 225, ≥100: 61, mayor 3844; fracción de activos en clusters ≥20: 0.84
+
+== actividad relativa por entorno inicial (hasta el pico, 1e9)
+2e10: Cu ico=0.44  Cu no-ico=1.20  Zr CN=15=0.81  Zr otros=0.88  Ag=1.22  | CN11=1.00 CN12=0.86 CN13=1.14 CN14=1.20 | media=0.73%
+1e11: Cu ico=0.55  Cu no-ico=1.17  Zr CN=15=0.79  Zr otros=0.90  Ag=1.27  | CN11=0.96 CN12=0.91 CN13=1.14 CN14=1.21 | media=0.83%
+1e12: Cu ico=0.64  Cu no-ico=1.18  Zr CN=15=0.83  Zr otros=0.87  Ag=1.08  | CN11=1.00 CN12=0.97 CN13=1.13 CN14=1.13 | media=0.98%
+qgrad_ext: Cu ico=0.47  Cu no-ico=1.13  Zr CN=15=0.85  Zr otros=0.97  Ag=1.23  | CN11=0.92 CN12=0.84 CN13=1.14 CN14=1.21 | media=1.17%
