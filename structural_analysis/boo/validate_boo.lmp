@@ -1,12 +1,12 @@
 # =====================================================================
 #  Tarea E, validacion (Etapa 2, version final -- reemplaza el intento
 #  anterior con `rerun` sobre snaps/*.dump). Mismo patron que
-#  ~/legacy_scripts/boo_seba_ejemplo.in (real EAM, no pair_style zero;
+#  un input de referencia (real EAM, no pair_style zero;
 #  read_restart + run 1, no rerun), extendido a los 4 nnn de Ryltsev
 #  (12, 14, 15, 16) + wl/hat yes para tener Wl-hat ademas de Q4/Q6.
 #
 #  Un solo caso de validacion: 2e10, restart.quench_N65536_2e10.seg8
-#  (mismo restart que boo_seba_ejemplo.in, para poder comparar
+#  (mismo restart que el input de referencia, para poder comparar
 #  columna a columna). degrees 2 4 6 -> SOLO Q4 y Q6 (nnn_l=2), NO Q2
 #  -- igual que el ejemplo del director.
 #

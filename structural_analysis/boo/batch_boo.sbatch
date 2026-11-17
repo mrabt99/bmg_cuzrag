@@ -4,7 +4,7 @@
 # tasa, leidos de <rate>/manifest.txt (mismo archivo que ya usaba
 # batch_restart_to_dump.sbatch para snaps/), potencial real EAM (no
 # pair_style zero, no rerun -- validado contra el patron del director en
-# boo_seba_ejemplo.in, ver validate_2e10_seg8.dump).
+# un input de referencia, ver validate_2e10_seg8.dump).
 #
 # Uso: sbatch --job-name=boo_<tasa> batch_boo.sbatch <tasa> <potencial>
 #   <tasa>/manifest.txt debe tener 17 lineas (paths absolutos a restarts,

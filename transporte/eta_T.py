@@ -2,7 +2,7 @@
 eta: ACF de pxy,pxz,pyz promediada (30+ bloques). t1 = primer tiempo con C(t)/C(0) < 0.02 (ACF media).
      eta = promedio de eta(t) en [t1, 3*t1]; error = sem entre bloques; meseta si |pendiente| < 2*error bootstrap.
      Control: regla tipo Zhang (corte donde std/media entre bloques = 40 %, valor = media en [tc/2, tc]).
-kappa: trapecio, ventana [0.5, 2] ps (como mail_seba/kappa_vs_T.py). D: pendiente del MSD en la 2da mitad.
+kappa: trapecio, ventana [0.5, 2] ps (con test de pendiente). D: pendiente del MSD en la 2da mitad.
 Uso (desde transporte/): python eta_T.py -> eta_T.txt, eta_T.csv, eta_T.png. 900 K sale de eta_largo.py (500 ps)."""
 import glob, numpy as np, matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 kB=1.380649e-23; eV=1.602176634e-19; NB=10; TMAX=20.0; rng=np.random.default_rng(0)

@@ -23,11 +23,11 @@ sol67/sol125, scheduler PBS (OpenPBS/OpenHPC), NO SLURM pese a la wiki de LabSim
 ## Historia de versiones
 
 - **v1 `~/meltquench_1e10/` — EXPLOTÓ (01/09/2026, "explosión de Abt").** NPT a 1e10 K/s. Runaway catastrófico del barostato a 1.67 ns en el líquido a 2000 K. Causa raíz confirmada: 10 ns/segmento a 1e10 da ~100× más pasos que la referencia 1e12 (100 ps/segmento), lo que dispara la probabilidad de una fluctuación térmica espontánea → fuerza repulsiva EAM masiva → feedback positivo del barostato NPT. Densidad/Lx planos hasta el instante del colapso. Restart mal equilibrado y resonancia del barostato descartados definitivamente. No se escribieron restarts antes de la explosión.
-- **v2 `~/meltquench_1e10_v2/` — descartado.** Bajó dt a 0.5 fs (manteniendo NPT). Descartado por Jaroszewicz: comprometería el análisis futuro de fonones/VDOS vía autocorrelación de velocidades, que necesita dt=1 fs.
+- **v2 `~/meltquench_1e10_v2/` — descartado.** Bajó dt a 0.5 fs (manteniendo NPT). Descartado: comprometería el análisis futuro de fonones/VDOS vía autocorrelación de velocidades, que necesita dt=1 fs.
 - **v3 `~/meltquench_1e10_v3/` — activo (NVT, lanzado 02/09).** Cadena de ~19 jobs en c128/64 cores: equilibración NVT 2000K/2ns → 17 rampas NVT 100K/10ns c/u (afterok) → NVT breve + NVE 10ns final. Todos con `fix halt` (T>8000K, `error hard`) y tracking de presión `v_Pinst` en `fix log2` como criterio de validación acordado.
   - **Riesgo de v3:** a volumen fijo el sistema no puede contraerse durante el enfriamiento. La contracción volumétrica real es 9.22%. Tensión estimada a 300 K: ~7-13 GPa (B~80-120 GPa × 9.22%), 3-5× σy/UTS. Riesgo real de fractura/cavitación NO cubierto por `fix halt` (que solo dispara por temperatura).
   - Monitoreo: `~/check_pressure.py` parsea los `.log.dat`, detecta columnas por nombre de header (fix del falso positivo `P(` dentro de `Ep(`), convierte atm→GPa, compara contra `--fracture` (default 2.3 GPa). Primer check real (paso 3.04M tramo 1, T~1970K): P=-0.150 GPa, ~6.5% del margen. Ventana crítica: tramos 13-14 (~800-600 K, cerca de Tg).
-- **v4 (NPT, Pdamp=10.0) — propuesto por Jaroszewicz (02/09 noche), no arrancado.** Volver a NPT pero subir Pdamp de 1.0 a 10.0 ps (solo el barostato; Tdamp queda en 0.1 ps). Idea: 10× más inercia del barostato promedia la presión en una ventana más larga e ignora el pico repulsivo transitorio del EAM que disparó la explosión, rompiendo el feedback positivo. Ventaja sobre v3: el sistema contrae libremente a P≈0, elimina el problema de tensión por volumen fijo. Cuidado: la explosión apareció a 1.67 ns, así que un smoke test de 2000 pasos NO alcanza; requiere una corrida de validación de ~4-5 ns (2-3× el tiempo a la explosión) antes de comprometer la cadena completa. Pendiente: construir `in.quench_1e10` con Pdamp=10 partiendo del NPT original (no de v3).
+- **v4 (NPT, Pdamp=10.0) — propuesto el 02/09 (noche), no arrancado.** Volver a NPT pero subir Pdamp de 1.0 a 10.0 ps (solo el barostato; Tdamp queda en 0.1 ps). Idea: 10× más inercia del barostato promedia la presión en una ventana más larga e ignora el pico repulsivo transitorio del EAM que disparó la explosión, rompiendo el feedback positivo. Ventaja sobre v3: el sistema contrae libremente a P≈0, elimina el problema de tensión por volumen fijo. Cuidado: la explosión apareció a 1.67 ns, así que un smoke test de 2000 pasos NO alcanza; requiere una corrida de validación de ~4-5 ns (2-3× el tiempo a la explosión) antes de comprometer la cadena completa. Pendiente: construir `in.quench_1e10` con Pdamp=10 partiendo del NPT original (no de v3).
 - **Control de ensamble `~/control_ensamble_1e12/` — diseñado, no lanzado.** `in.control_NVT_1e12`: NVT a 1e12 que sigue la curva real V(T) del NPT 1e12 vía `change_box remap` en cada uno de los 17 bordes de segmento. Aísla el efecto puro de ensamble (NPT vs. NVT) sobre Tg. Fix requerido: `run 0 post no` antes del primer `change_box`.
 
 ## CAUSA RAÍZ ENCONTRADA (05/09/2026): el potencial no tiene core repulsivo
@@ -55,7 +55,7 @@ Dos arreglos posibles: (a) empalmar core ZBL a las funciones de par del setfl (b
 
 ## Decisión (05/09/2026): tasa variable, NO parchear el potencial
 
-Agustín (ya hablado con Jaroszewicz) decidió NO parchear el potencial, para no arriesgar la comparación entre tasas del estudio tipo Ryltsev (todas las tasas deben usar el mismo potencial). En su lugar: **enfriar rápido (1e12 K/s) el tramo caliente 2000→1500 K, y lento (1e10 K/s) solo de 1500→300 K.**
+Se decidió NO parchear el potencial, para no arriesgar la comparación entre tasas del estudio tipo Ryltsev (todas las tasas deben usar el mismo potencial). En su lugar: **enfriar rápido (1e12 K/s) el tramo caliente 2000→1500 K, y lento (1e10 K/s) solo de 1500→300 K.**
 
 Fundamento físico: la zona peligrosa del potencial es la de alta T (más energía térmica → más cruces de la barrera hacia el pozo atractivo), y es justo donde la tasa de enfriamiento NO afecta al vidrio final, porque el líquido arriba de ~1500 K está en equilibrio y se re-equilibra rápido. La estructura del vidrio la define la región del líquido subenfriado y la transición vítrea (Tg~680 K), que se recorre a 1e10. Así la muestra es legítimamente "1e10 K/s".
 
@@ -106,3 +106,18 @@ Siguiente paso (11/09/2026): backup de los archivos necesarios para reproducir l
 ## Nota sobre el prompt viejo
 
 `claude/protocolo-quench-1e10.md` se escribió sin este contexto. Corrección importante: dice "Tdamp/Pdamp no dependen de la tasa, no tocar" cuando Pdamp=10 es justamente el fix de v4, así que ese consejo es al revés de lo que necesita. En cambio la parte de Negishi/SLURM (`sbatch`, `--dependency`) SÍ aplica: esta corrida va a Negishi por decisión de Agustín. Usar este doc como fuente de verdad para el resto.
+
+## Nota 16/11/2026: la "causa raíz" del 05/09 queda descartada
+
+Se descartó la hipótesis de la sección "CAUSA RAÍZ ENCONTRADA (05/09/2026)": que un par cae a r < 1.2 Å, donde Cu-Zr es atractivo, y colapsa. Lo escrito arriba se deja como registro histórico.
+
+Por qué se descarta:
+- Por debajo de ~1.3 Å se superponen los carozos iónicos. El EAM no está ajustado ahí y lo tabulado es extrapolación. La tabla φ(0.4/0.8/1.0 Å) y la comparación con ZBL no dicen nada sobre una melt-quench.
+- Para llegar a esa zona un par tiene que pasar la pared repulsiva. Los pares mixtos tienen un máximo de φ de 7-11 eV a 1.54-1.59 Å. En Cu-Zr son 8.7 eV a 1.59 Å, o sea 5.6 eV ≈ 33 kT a 2000 K por encima de φ(2.0 Å). Eso cuenta solo el término de par; el embedding suma repulsión.
+- La distancia mínima medida a 2000 K es 1.87-2.0 Å, y ningún `halt` por d_min < 1.5 Å saltó nunca (`transporte/size_8192/README.md`).
+- En el intento fallido con 8192 átomos, lo primero que se vio fue el volumen casi duplicándose (ρ = 3.57 g/cm³) con Pdamp 1.0, no un par cerca.
+- Un par cayendo en ese pozo libera del orden de 1e2 eV (φ_CuZr(0.4 Å) = −296 eV), no los ~5 MeV de la explosión.
+
+El mecanismo real de las explosiones queda **sin identificar**. Lo empírico sigue valiendo: 2e10 es la tasa más lenta que sobrevivió el tramo 2000→1900 K, y las corridas largas a alta T llevan `fix halt` por T, por d_min y por ρ. La decisión de no parchear el potencial tampoco cambia.
+
+Detalle y figura: bitácora, sección 2, figura `mq_potencial_barrera` (`bitacora/figuras/fig_mq_potencial.py`).

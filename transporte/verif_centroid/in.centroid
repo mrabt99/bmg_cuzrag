@@ -1,0 +1,59 @@
+# Prueba: heat/flux con stress/atom (lo que usamos) vs con centroid/stress/atom (la alternativa propuesta).
+# Mismo vidrio, misma trayectoria: los dos flujos se calculan A LA VEZ en cada paso guardado.
+# Prediccion: en EAM las fuerzas son centrales y de a pares -> J identico a precision de maquina.
+# Uso: lmp -in in.centroid -var vmean <A^3>
+variable        rst    index  ../cal_300K_2e10/cal_npt.restart
+variable        pot    index  ../../rate_2e10/ZrCuAg.lammps.eam
+variable        T      index  300.0
+variable        vmean  index  0
+variable        seed   index  1001
+variable        nnvt   index  2000           # 2 ps
+variable        nprod  index  5000           # 5 ps
+variable        sj     index  5              # mismo muestreo de J que cal_*
+
+read_restart    ${rst}
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+timestep        0.001
+if "${vmean} > 0" then "variable s equal (${vmean}/vol)^(1.0/3.0)" "change_box all x scale ${s} y scale ${s} z scale ${s} remap"
+
+variable        Tinst equal temp
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+thermo          500
+thermo_style    custom step temp press vol pe ke etotal
+
+velocity        all create ${T} ${seed} mom yes rot yes dist gaussian
+fix             nvt all nvt temp ${T} ${T} 0.1
+run             ${nnvt}
+unfix           nvt
+
+reset_timestep  0
+compute         ke  all ke/atom
+compute         pe  all pe/atom
+compute         st  all stress/atom NULL virial            # 6 componentes (xx yy zz xy xz yz)
+compute         cst all centroid/stress/atom NULL virial   # 9 componentes (xx yy zz xy xz yz yx zx zy)
+compute         hf  all heat/flux ke pe st
+compute         hfc all heat/flux ke pe cst
+
+# 1) Las dos series de J (total 1-3 y convectiva 4-6), cada 5 pasos.
+fix             fj all ave/time ${sj} 1 ${sj} &
+                c_hf[1] c_hf[2] c_hf[3] c_hfc[1] c_hfc[2] c_hfc[3] &
+                c_hf[4] c_hf[5] c_hf[6] c_hfc[4] c_hfc[5] c_hfc[6] file J_ambos.dat
+
+# 2) Diferencia maxima por atomo entre los dos tensores (unidades stress*volumen = bar*A^3 en metal),
+#    y asimetria del centroide (xy - yx): si es 0, el tensor por atomo es simetrico como el de pares.
+variable        dxx atom abs(c_st[1]-c_cst[1])
+variable        dyy atom abs(c_st[2]-c_cst[2])
+variable        dzz atom abs(c_st[3]-c_cst[3])
+variable        dxy atom abs(c_st[4]-c_cst[4])
+variable        dxz atom abs(c_st[5]-c_cst[5])
+variable        dyz atom abs(c_st[6]-c_cst[6])
+variable        axy atom abs(c_cst[4]-c_cst[7])
+variable        mag atom abs(c_st[1])+abs(c_st[2])+abs(c_st[3])
+compute         dmax all reduce max v_dxx v_dyy v_dzz v_dxy v_dxz v_dyz v_axy v_mag
+fix             fd all ave/time 500 1 500 c_dmax[1] c_dmax[2] c_dmax[3] c_dmax[4] c_dmax[5] c_dmax[6] c_dmax[7] c_dmax[8] file dstress_max.dat
+
+fix             nve all nve
+run             ${nprod}

@@ -1,0 +1,58 @@
+# =====================================================================
+#  Produccion 1e12 K/s (tramo 2/16) : 1800 K -> 1700 K
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - Negishi/SLURM - v4 (NPT, Pdamp=10)
+#
+#  Corrida 1e12 UNIFICADA (16/11/2026): mismo protocolo que rate_1e11 y
+#  rate_2e10 (reemplaza a la referencia del profesor, rate_1e12_reference,
+#  que usaba Pdamp=1 y partia de restart.melt_N65536).
+#  Generado desde rate_1e11/prod_1e11/in.quench_1e11_seg02.lmp cambiando
+#  solo la tasa: 100 K / 1e12 K/s = 0.1 ns = 100000 pasos por tramo;
+#  dump cada 10 K = cada 1e4 pasos (10 cuadros por tramo, como 1e11).
+#  Tramo 1 arranca de ../sweep_1e12/restart.sweep_1e12_1900K (barrido
+#  2000->1900 K a 1e12 desde restart.equil2000K_N65536_1e10, Pdamp=10,
+#  copiado de rate_2e10/sweep_1e12/; mismo origen que 2e10 y 1e11).
+# =====================================================================
+
+variable        tag   index N65536
+variable        pot   index ../ZrCuAg.lammps.eam
+variable        rate  index 1e12
+variable        pdamp index 10.0
+
+read_restart    restart.quench_${tag}_${rate}.seg1
+
+pair_style      eam/alloy
+pair_coeff      * * ${pot} Zr Cu Ag
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+timestep        0.001                       # 1 fs -- fijo, no tocar (VDOS/fonones)
+
+thermo          1000
+thermo_style    custom step temp press vol density pe etotal
+
+variable        Tinst equal temp
+variable        Pinst equal press
+variable        PEat  equal pe/atoms
+variable        Lbox  equal lx
+variable        Rho   equal density
+
+fix             log2 all ave/time 10 100 1000 &
+                v_Tinst v_PEat v_Lbox v_Rho v_Pinst &
+                file quench_${tag}_${rate}.log.dat.seg2 &
+                title2 "# T(K)  Ep(eV/at)  Lx(A)  rho(g/cc)  P(bar)"
+
+fix             halt_T all halt 1000 v_Tinst > 8000.0 error hard
+fix             halt_P all halt 1000 v_Pinst > 1.0e5 error hard    # |P| > ~10 GPa
+
+dump            traj all custom 10000 quench_${tag}_${rate}.dump.seg2 &
+                id type x y z vx vy vz
+dump_modify     traj sort id first yes
+dump_modify     traj format float %.8g
+
+print           "### tramo 2/16 (1e12 K/s) :  1800 K -> 1700 K"
+fix              qnpt all npt temp 1800.0 1700.0 0.1 iso 0.0 0.0 ${pdamp}
+run              100000                         # 0.1 ns
+unfix            qnpt
+print           "### tramo 2/16 terminado : T=${Tinst} K  P=${Pinst} bar  Ep=${PEat} eV  Lx=${Lbox} A  rho=${Rho} g/cc"
+write_restart    restart.quench_${tag}_${rate}.seg2

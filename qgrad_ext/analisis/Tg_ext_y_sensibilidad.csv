@@ -1,0 +1,5 @@
+ventanas,Tg_V_ext,Tg_Ep_ext,Tg_media_ext,Tg_1.5e9_extrapolada,ext_menos_extrap,gamma_eff_por_Tg_ext,Tg_media_qgrad,gamma_eff_por_Tg_qgrad
+ventanas estandar (liq 900-1200 / vit 300-600),611.5,602.0,606.7,602.8,4.0,1.95e+09,631.9,1.04e+10
+liq 900-1100 / vit 300-500,615.5,614.5,615.0,614.8,0.2,1.52e+09,638.2,1.01e+10
+liq 800-1000 / vit 300-600,648.1,653.8,650.9,664.4,-13.5,2.15e+08,673.1,5.26e+09
+liq 1000-1200 / vit 300-600,597.3,573.9,585.6,577.4,8.2,2.44e+09,611.7,1.14e+10

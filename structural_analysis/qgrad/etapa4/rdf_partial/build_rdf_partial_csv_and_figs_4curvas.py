@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Etapa 4 / Tarea 3 -- RDF parcial (centrado en Zr y en Cu), pedido de Jaroszewicz
-tras ver la presentacion: probar si la separacion del 2do pico (Fig 5 Mendez, fingerprint
+"""Etapa 4 / Tarea 3 -- RDF parcial (centrado en Zr y en Cu), 
+probar si la separacion del 2do pico (Fig 5 Mendez, fingerprint
 de vitrificacion) aparece al descomponer el g(r) total por especie central.
 
 Entrada : raw/<tasa>/NN.rdf.txt (fix ave/time de c_rdf[*], 3 pares: total / Zr-centro / Cu-centro)

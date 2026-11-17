@@ -2,7 +2,7 @@
 # =====================================================================
 # Tramo 1/17 del templado a 1e10 K/s (v4: NPT, Pdamp=10.0), con la
 # semilla de velocidades "buena" (seed2) y 2 ns extra de equilibracion
-# a 2000 K antes de la rampa (sugerencia Jaroszewicz) -> 12 ns totales
+# a 2000 K antes de la rampa -> 12 ns totales
 # en este job en vez de 10. A la performance real medida en las
 # validaciones (~27 ns/dia, 48 ranks) son ~10.7 h; incluso al ritmo
 # conservador del log del profesor (6.845 ns/dia) serian ~42 h -> se

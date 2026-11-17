@@ -1,0 +1,17 @@
+===== 600 K (T media 600.9 K, 30 bloques de 100 ps)
+  energia efectiva por especie (pendiente de la convectiva contra el flujo de numero): Zr -5.992, Cu -3.545, Ag -2.681 eV
+  ventana [0.5,2.0] ps:  total 0.771+-0.017 | virial-virial 0.687+-0.015 | conv-conv 0.010+-0.001 | cruzada +0.074+-0.004 | PROYECTADO 0.772+-0.839
+  kappa(c) con el cero de energia corrido c eV: c=-5: 0.774, c=-2: 0.772, c=-1: 0.771, c=+0: 0.771, c=+1: 0.771, c=+2: 0.771, c=+5: 0.772
+  kappa(t) [total / proyectado / conv-conv / virial-virial] a 2, 5, 10, 20 ps: 2 ps: 0.763/0.835/0.008/0.691 | 5 ps: 0.789/0.815/0.008/0.715 | 10 ps: 0.813/0.817/0.006/0.732 | 19.9 ps: 0.719/0.728/0.003/0.664
+===== 900 K (T media 899.7 K, 30 bloques de 100 ps)
+  energia efectiva por especie (pendiente de la convectiva contra el flujo de numero): Zr -5.838, Cu -3.426, Ag -2.570 eV
+  ventana [0.5,2.0] ps:  total 0.822+-0.022 | virial-virial 0.686+-0.017 | conv-conv 0.053+-0.001 | cruzada +0.082+-0.007 | PROYECTADO 0.788+-0.020
+  kappa(c) con el cero de energia corrido c eV: c=-5: 0.883, c=-2: 0.837, c=-1: 0.828, c=+0: 0.822, c=+1: 0.818, c=+2: 0.818, c=+5: 0.834
+  kappa(t) [total / proyectado / conv-conv / virial-virial] a 2, 5, 10, 20 ps: 2 ps: 0.813/0.783/0.050/0.681 | 5 ps: 0.824/0.798/0.040/0.691 | 10 ps: 0.853/0.823/0.042/0.717 | 19.9 ps: 0.831/0.820/0.038/0.718
+===== 1200 K (T media 1201.1 K, 30 bloques de 100 ps)
+  energia efectiva por especie (pendiente de la convectiva contra el flujo de numero): Zr -5.673, Cu -3.303, Ag -2.453 eV
+  ventana [0.5,2.0] ps:  total 0.925+-0.018 | virial-virial 0.696+-0.013 | conv-conv 0.110+-0.003 | cruzada +0.118+-0.010 | PROYECTADO 0.822+-0.014
+  kappa(c) con el cero de energia corrido c eV: c=-5: 1.061, c=-2: 0.958, c=-1: 0.938, c=+0: 0.925, c=+1: 0.919, c=+2: 0.920, c=+5: 0.966
+  kappa(t) [total / proyectado / conv-conv / virial-virial] a 2, 5, 10, 20 ps: 2 ps: 0.964/0.848/0.111/0.718 | 5 ps: 0.902/0.789/0.109/0.667 | 10 ps: 0.910/0.734/0.122/0.633 | 19.9 ps: 0.889/0.686/0.126/0.612
+
+referencia kappa_tasas.csv (r1-r3, otras semillas): 600 K 0.825+-0.019, 900 K 0.789+-0.018, 1200 K 0.879+-0.017

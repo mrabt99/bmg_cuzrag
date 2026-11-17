@@ -50,29 +50,46 @@ case_id,stage,sample,T,erate,dir,path,status,jobid,steps_est,walltime,note
 2e10_900K_1e9_x,4,2e10,900,1e9,x,2e10_900K_1e9_x,ok,43975618,850000,02:00:00,
 2e10_900K_1e9_y,4,2e10,900,1e9,y,2e10_900K_1e9_y,ok,43975621,850000,02:00:00,
 2e10_900K_1e9_z,4,2e10,900,1e9,z,2e10_900K_1e9_z,ok,43975619,850000,02:00:00,
-qgrad_300K_1e9_x,5,qgrad,300,1e9,x,qgrad_300K_1e9_x,ok,44055873,250000,01:00:00,sacct=COMPLETED
-qgrad_300K_1e9_y,5,qgrad,300,1e9,y,qgrad_300K_1e9_y,ok,44055878,250000,01:00:00,sacct=COMPLETED
-qgrad_300K_1e9_z,5,qgrad,300,1e9,z,qgrad_300K_1e9_z,ok,44055874,250000,01:00:00,sacct=COMPLETED
-qgrad_ext_300K_1e9_x,5,qgrad_ext,300,1e9,x,qgrad_ext_300K_1e9_x,ok,44055879,250000,01:00:00,sacct=COMPLETED
-qgrad_ext_300K_1e9_y,5,qgrad_ext,300,1e9,y,qgrad_ext_300K_1e9_y,ok,44055875,250000,01:00:00,sacct=COMPLETED
-qgrad_ext_300K_1e9_z,5,qgrad_ext,300,1e9,z,qgrad_ext_300K_1e9_z,ok,44055880,250000,01:00:00,sacct=COMPLETED
-qgrad_300K_1e10_x,5,qgrad,300,1e10,x,qgrad_300K_1e10_x,ok,44055866,70000,00:30:00,sacct=COMPLETED
-qgrad_300K_1e10_y,5,qgrad,300,1e10,y,qgrad_300K_1e10_y,ok,44055870,70000,00:30:00,sacct=COMPLETED
-qgrad_300K_1e10_z,5,qgrad,300,1e10,z,qgrad_300K_1e10_z,ok,44055876,70000,00:30:00,sacct=COMPLETED
-qgrad_ext_300K_1e10_x,5,qgrad_ext,300,1e10,x,qgrad_ext_300K_1e10_x,ok,44055881,70000,00:30:00,sacct=COMPLETED
-qgrad_ext_300K_1e10_y,5,qgrad_ext,300,1e10,y,qgrad_ext_300K_1e10_y,ok,44055867,70000,00:30:00,sacct=COMPLETED
-qgrad_ext_300K_1e10_z,5,qgrad_ext,300,1e10,z,qgrad_ext_300K_1e10_z,ok,44055871,70000,00:30:00,sacct=COMPLETED
-qgrad_300K_1e8_x,5,qgrad,300,1e8,x,qgrad_300K_1e8_x,ok,44055864,2050000,03:00:00,sacct=COMPLETED
-qgrad_300K_1e8_y,5,qgrad,300,1e8,y,qgrad_300K_1e8_y,ok,44055868,2050000,03:00:00,sacct=COMPLETED
-qgrad_300K_1e8_z,5,qgrad,300,1e8,z,qgrad_300K_1e8_z,ok,44055872,2050000,03:00:00,sacct=COMPLETED
-qgrad_ext_300K_1e8_x,5,qgrad_ext,300,1e8,x,qgrad_ext_300K_1e8_x,ok,44055877,2050000,03:00:00,sacct=COMPLETED
-qgrad_ext_300K_1e8_y,5,qgrad_ext,300,1e8,y,qgrad_ext_300K_1e8_y,ok,44055865,2050000,03:00:00,sacct=COMPLETED
-qgrad_ext_300K_1e8_z,5,qgrad_ext,300,1e8,z,qgrad_ext_300K_1e8_z,ok,44055869,2050000,03:00:00,sacct=COMPLETED
+qgrad_300K_1e9_x,5,qgrad,300,1e9,x,qgrad_300K_1e9_x,ok,44055873,250000,01:00:00,
+qgrad_300K_1e9_y,5,qgrad,300,1e9,y,qgrad_300K_1e9_y,ok,44055878,250000,01:00:00,
+qgrad_300K_1e9_z,5,qgrad,300,1e9,z,qgrad_300K_1e9_z,ok,44055874,250000,01:00:00,
+qgrad_ext_300K_1e9_x,5,qgrad_ext,300,1e9,x,qgrad_ext_300K_1e9_x,ok,44055879,250000,01:00:00,
+qgrad_ext_300K_1e9_y,5,qgrad_ext,300,1e9,y,qgrad_ext_300K_1e9_y,ok,44055875,250000,01:00:00,
+qgrad_ext_300K_1e9_z,5,qgrad_ext,300,1e9,z,qgrad_ext_300K_1e9_z,ok,44055880,250000,01:00:00,
+qgrad_300K_1e10_x,5,qgrad,300,1e10,x,qgrad_300K_1e10_x,ok,44055866,70000,00:30:00,
+qgrad_300K_1e10_y,5,qgrad,300,1e10,y,qgrad_300K_1e10_y,ok,44055870,70000,00:30:00,
+qgrad_300K_1e10_z,5,qgrad,300,1e10,z,qgrad_300K_1e10_z,ok,44055876,70000,00:30:00,
+qgrad_ext_300K_1e10_x,5,qgrad_ext,300,1e10,x,qgrad_ext_300K_1e10_x,ok,44055881,70000,00:30:00,
+qgrad_ext_300K_1e10_y,5,qgrad_ext,300,1e10,y,qgrad_ext_300K_1e10_y,ok,44055867,70000,00:30:00,
+qgrad_ext_300K_1e10_z,5,qgrad_ext,300,1e10,z,qgrad_ext_300K_1e10_z,ok,44055871,70000,00:30:00,
+qgrad_300K_1e8_x,5,qgrad,300,1e8,x,qgrad_300K_1e8_x,ok,44055864,2050000,03:00:00,
+qgrad_300K_1e8_y,5,qgrad,300,1e8,y,qgrad_300K_1e8_y,ok,44055868,2050000,03:00:00,
+qgrad_300K_1e8_z,5,qgrad,300,1e8,z,qgrad_300K_1e8_z,ok,44055872,2050000,03:00:00,
+qgrad_ext_300K_1e8_x,5,qgrad_ext,300,1e8,x,qgrad_ext_300K_1e8_x,ok,44055877,2050000,03:00:00,
+qgrad_ext_300K_1e8_y,5,qgrad_ext,300,1e8,y,qgrad_ext_300K_1e8_y,ok,44055865,2050000,03:00:00,
+qgrad_ext_300K_1e8_z,5,qgrad_ext,300,1e8,z,qgrad_ext_300K_1e8_z,ok,44055869,2050000,03:00:00,
+1e12u_300K_1e9_x,6,1e12u,300,1e9,x,1e12u_300K_1e9_x,ok,46084368,250000,01:00:00,sacct=COMPLETED
+1e12u_300K_1e9_y,6,1e12u,300,1e9,y,1e12u_300K_1e9_y,ok,46084371,250000,01:00:00,sacct=COMPLETED
+1e12u_300K_1e9_z,6,1e12u,300,1e9,z,1e12u_300K_1e9_z,ok,46084374,250000,01:00:00,sacct=COMPLETED
+1e12u_300K_1e10_x,6,1e12u,300,1e10,x,1e12u_300K_1e10_x,ok,46084369,70000,00:30:00,sacct=COMPLETED
+1e12u_300K_1e10_y,6,1e12u,300,1e10,y,1e12u_300K_1e10_y,ok,46084372,70000,00:30:00,sacct=COMPLETED
+1e12u_300K_1e10_z,6,1e12u,300,1e10,z,1e12u_300K_1e10_z,ok,46084375,70000,00:30:00,sacct=COMPLETED
+1e12u_300K_1e8_x,6,1e12u,300,1e8,x,1e12u_300K_1e8_x,ok,46084367,2050000,03:00:00,sacct=COMPLETED
+1e12u_300K_1e8_y,6,1e12u,300,1e8,y,1e12u_300K_1e8_y,ok,46084370,2050000,03:00:00,sacct=COMPLETED
+1e12u_300K_1e8_z,6,1e12u,300,1e8,z,1e12u_300K_1e8_z,ok,46084373,2050000,03:00:00,sacct=COMPLETED
+1e12u_450K_1e9_x,7,1e12u,450,1e9,x,1e12u_450K_1e9_x,ok,46084376,400000,01:30:00,sacct=COMPLETED
+1e12u_450K_1e9_y,7,1e12u,450,1e9,y,1e12u_450K_1e9_y,ok,46084379,400000,01:30:00,sacct=COMPLETED
+1e12u_450K_1e9_z,7,1e12u,450,1e9,z,1e12u_450K_1e9_z,ok,46084377,400000,01:30:00,sacct=COMPLETED
+1e12u_540K_1e9_x,7,1e12u,540,1e9,x,1e12u_540K_1e9_x,ok,46084380,490000,01:30:00,sacct=COMPLETED
+1e12u_540K_1e9_y,7,1e12u,540,1e9,y,1e12u_540K_1e9_y,ok,46084378,490000,01:30:00,sacct=COMPLETED
+1e12u_540K_1e9_z,7,1e12u,540,1e9,z,1e12u_540K_1e9_z,ok,46084381,490000,01:30:00,sacct=COMPLETED
 elastic_1e11_300K,extra,1e11,300,-,-,../elastic_1e11/300K,ok,43975614,,03:00:00,Cij (mismo procedimiento que elastic_2e10)
 elastic_1e11_0K,extra,1e11,0,-,-,../elastic_1e11/0K,ok,43912633,,01:30:00,Cij (mismo procedimiento que elastic_2e10)
 elastic_1e12_300K,extra,1e12,300,-,-,../elastic_1e12/300K,ok,43975616,,03:00:00,Cij (mismo procedimiento que elastic_2e10)
 elastic_1e12_0K,extra,1e12,0,-,-,../elastic_1e12/0K,ok,43912635,,01:30:00,Cij (mismo procedimiento que elastic_2e10)
-elastic_qgrad_300K,extra,qgrad,300,-,-,../elastic_qgrad/300K,ok,44055882,,03:00:00,Cij (mismo procedimiento que elastic_2e10) sacct=COMPLETED
-elastic_qgrad_0K,extra,qgrad,0,-,-,../elastic_qgrad/0K,ok,44055883,,01:30:00,Cij (mismo procedimiento que elastic_2e10) sacct=COMPLETED
-elastic_qgrad_ext_300K,extra,qgrad_ext,300,-,-,../elastic_qgrad_ext/300K,ok,44055884,,03:00:00,Cij (mismo procedimiento que elastic_2e10) sacct=COMPLETED
-elastic_qgrad_ext_0K,extra,qgrad_ext,0,-,-,../elastic_qgrad_ext/0K,ok,44055885,,01:30:00,Cij (mismo procedimiento que elastic_2e10) sacct=COMPLETED
+elastic_qgrad_300K,extra,qgrad,300,-,-,../elastic_qgrad/300K,ok,44055882,,03:00:00,Cij (mismo procedimiento que elastic_2e10)
+elastic_qgrad_0K,extra,qgrad,0,-,-,../elastic_qgrad/0K,ok,44055883,,01:30:00,Cij (mismo procedimiento que elastic_2e10)
+elastic_qgrad_ext_300K,extra,qgrad_ext,300,-,-,../elastic_qgrad_ext/300K,ok,44055884,,03:00:00,Cij (mismo procedimiento que elastic_2e10)
+elastic_qgrad_ext_0K,extra,qgrad_ext,0,-,-,../elastic_qgrad_ext/0K,ok,44055885,,01:30:00,Cij (mismo procedimiento que elastic_2e10)
+elastic_1e12u_300K,extra,1e12u,300,-,-,../elastic_1e12u/300K,ok,46084382,,03:00:00,Cij (mismo procedimiento que elastic_2e10) sacct=COMPLETED
+elastic_1e12u_0K,extra,1e12u,0,-,-,../elastic_1e12u/0K,ok,46084383,,01:30:00,Cij (mismo procedimiento que elastic_2e10) sacct=COMPLETED

@@ -182,5 +182,20 @@ Ver `matrix/README.md`: `in.tension` generalizado (eje x|y|z, rampa de calentami
 | 2e10 | 105.3, 19.39, 54.8 | 0.413 | 209.3 | 54.3 | 112.0, 23.09, 64.8 | 227.7 |
 | 1e11 | 104.9, 18.35, 52.0 | 0.417 | 203.8 | 51.9 | 111.7, 22.47, 63.2 | 224.8 |
 | 1e12 | 104.6, 17.49, 49.7 | 0.421 | 199.1 | 50.2 | 111.2, 21.77, 61.3 | 221.3 |
+| 1e12u (unificada, 17/11/2026) | 104.5, 17.46, 49.6 | 0.421 | 198.9 | 50.1 | 111.4, 22.07, 62.1 | 222.8 |
 Isotropía (C11−C12)/2 ≈ C44 en todos; E de Cij y E de tracción coinciden a ≤ 1 % a 300 K. G baja ≈ 10 % de 2e10 a 1e12 (K casi no cambia). Ningún valor se acerca a los 312 K de Méndez.
 A 0 K, δ = 5e-4 vs 1e-4: G cambia 0.4 % (2e10), 0.4 % (1e11) y 1.4 % (1e12).
+
+## Nota 16/11/2026: de dónde sale el ΘD = 312 K de Méndez
+
+Ya está contestado lo que figuraba como "falta aclarar" en la sección de ΘD. El paper (Méndez y Jaroszewicz, JNCS 693, 124394, sec. 3.3.1) dice que ΘD = 312 K "was independently estimated from the average acoustic wave velocities obtained from our MD elastic constants". Es decir, es la ΘD elástica, la misma magnitud que nuestra ΘD de Anderson (209 K en 2e10 a 300 K), así que la diferencia es real. No publican sus Cij ni sus velocidades.
+
+Además, su Tabla 2 da κ_min de Cahill-Pohl = 2.15 ± 0.18 W/m/K. Con su ec. (3) a 300 K:
+- con nuestras velocidades (v_L 4190, v_T 1611 m/s, n = 0.0570 Å⁻³) da 0.57;
+- escalando las velocidades ×1.49, que es lo que hace falta para llegar a ΘD = 312 K, da 0.80;
+- para obtener 2.15 harían falta velocidades unas 3.7 veces las nuestras.
+
+O sea, su κ_min no es coherente con su propia ΘD. Pendiente: pedirles sus Cij o sus velocidades del sonido.
+
+## Cij de la 1e12 unificada (17/11/2026; `elastic_1e12u/`, jobs 46084382-83, post con `elastic_2e10/elastic_post.py`)
+300 K: C11/C12/C44 = 127.6 / 92.9 / 17.54 GPa, A_U = 0.003, asimetría máx. 0.58 GPa; Hill K 104.47, G 17.46, E 49.62, ν 0.421, ΘD 198.9 K (ρ 7.4615). 0 K (δ 1e-4): K 111.35, G 22.07, E 62.12, ΘD 222.8 K; δ 5e-4: G 21.90 (−0.8 %). Prácticamente igual a la 1e12 vieja (fila agregada a la tabla de arriba).

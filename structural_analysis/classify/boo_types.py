@@ -11,7 +11,7 @@ una tanda por cada nnn = 12, 14, 15, 16, en ese orden.
 
 Tipos de atomo LAMMPS: los inputs de produccion usan
 `pair_coeff * * ZrCuAg.lammps.eam Zr Cu Ag` -> 1=Zr, 2=Cu, 3=Ag
-(mismo mapeo que asume boo.py de Jaroszewicz).
+(mismo mapeo que asume el boo.py de referencia).
 
 El w4/w6 de la Tabla I es el invariante NORMALIZADO, que corresponde
 exactamente a nuestro What4/What6 (columnas de `wl/hat yes`), no al

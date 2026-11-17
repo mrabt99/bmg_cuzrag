@@ -21,8 +21,8 @@
 #      re-generan a 2000 K con la MISMA semilla que en la segunda
 #      validacion (job 42847448, "seed2"), que corrio los mismos 4.5 ns
 #      completos sin problema.
-#   2) Equilibracion extra a 2000 K constante (sugerencia de
-#      Jaroszewicz): 2 ns (2e6 pasos) de NPT a T=2000K fijo ANTES de
+#   2) Equilibracion extra a 2000 K constante (propuesta en la
+#      discusion del protocolo): 2 ns (2e6 pasos) de NPT a T=2000K fijo ANTES de
 #      empezar la rampa de enfriamiento, con su propio restart de
 #      resguardo. Motivo probable (no confirmado con el profesor): el
 #      barostato de Nose-Hoover tiene una variable extendida propia que
@@ -32,7 +32,7 @@
 #      aparece un pico de fuerza EAM puntual. Mas tiempo a T constante
 #      le da chance de asentarse antes de que el enfriamiento entre en
 #      juego. 2 ns = ~20x el tiempo de relajacion nominal del barostato
-#      (Pdamp=10 ps); ajustar si Jaroszewicz da un numero mas preciso.
+#      (Pdamp=10 ps); ajustar si hace falta un numero mas preciso.
 #
 #  Entrada:  restart.melt_${tag}  (velocidades re-generadas, ver abajo)
 #  Salida:   restart.equil2000K_${tag}_${rate}      (checkpoint post-equilibracion)
@@ -83,7 +83,7 @@ dump            traj all custom 1000000 quench_${tag}_${rate}.dump.seg1 &
 dump_modify     traj sort id first yes
 dump_modify     traj format float %.8g
 
-print           "### equilibracion extra a 2000 K (2 ns) antes de la rampa -- sugerencia Jaroszewicz"
+print           "### equilibracion extra a 2000 K (2 ns) antes de la rampa"
 fix              equil2000 all npt temp 2000.0 2000.0 0.1 iso 0.0 0.0 ${pdamp}
 run              2000000                        # 2 ns
 unfix            equil2000

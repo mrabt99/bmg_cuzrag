@@ -1,0 +1,29 @@
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+# =====================================================================
+#  Produccion 1e12 K/s (tramo 3/16) : 1700 K -> 1600 K
+#  Zr47.5 Cu47.5 Ag5 BMG - N65536 - Negishi/SLURM - v4 (NPT, Pdamp=10)
+#
+#  Corrida 1e12 UNIFICADA (16/11/2026): mismo protocolo que rate_1e11 y
+#  rate_2e10 (reemplaza a la referencia del profesor, rate_1e12_reference,
+#  que usaba Pdamp=1 y partia de restart.melt_N65536).
+#  Generado desde rate_1e11/prod_1e11/in.quench_1e11_seg02.lmp cambiando
+#  solo la tasa: 100 K / 1e12 K/s = 0.1 ns = 100000 pasos por tramo;
+#  dump cada 10 K = cada 1e4 pasos (10 cuadros por tramo, como 1e11).
+#  Tramo 1 arranca de ../sweep_1e12/restart.sweep_1e12_1900K (barrido
+#  2000->1900 K a 1e12 desde restart.equil2000K_N65536_1e10, Pdamp=10,
+#  copiado de rate_2e10/sweep_1e12/; mismo origen que 2e10 y 1e11).
+# =====================================================================
+
+variable        tag   index N65536
+variable        pot   index ../ZrCuAg.lammps.eam
+variable        rate  index 1e12
+variable        pdamp index 10.0
+
+read_restart    restart.quench_${tag}_${rate}.seg3
+read_restart    restart.quench_N65536_${rate}.seg3
+read_restart    restart.quench_N65536_1e12.seg3
+Reading restart file ...
+ERROR on proc 0: Cannot open restart file restart.quench_N65536_1e12.seg3: No such file or directory (src/src/read_restart.cpp:112)
+Last command: read_restart    restart.quench_${tag}_${rate}.seg3

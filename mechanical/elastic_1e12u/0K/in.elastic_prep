@@ -1,0 +1,14 @@
+# ETAPA PREVIA 0 K: minimizar atomos Y caja (presion 0) partiendo del vidrio relajado a 300 K; escribe restart.equil.
+include init.mod
+read_restart ${rst}
+include potential.mod
+velocity all set 0.0 0.0 0.0                 # sin efecto en minimizar; evita arrastrar velocidades de 300 K al restart
+fix 3 all box/relax aniso 0.0 vmax 0.001
+minimize ${etol} ${ftol} ${maxiter} ${maxeval}
+minimize ${etol} ${ftol} ${maxiter} ${maxeval}
+minimize ${etol} ${ftol} ${maxiter} ${maxeval}
+unfix 3
+minimize ${etol} ${ftol} ${maxiter} ${maxeval}   # caja fija: estado de referencia bien minimizado
+print "### REFERENCIA 0 K: Ep = $(pe:%.6f) eV ; caja Lx = $(lx:%.5f) Ly = $(ly:%.5f) Lz = $(lz:%.5f) A ; densidad = $(density:%.5f) g/cc ; presion [bar] pxx = $(pxx:%.2f) pyy = $(pyy:%.2f) pzz = $(pzz:%.2f) pxy = $(pxy:%.2f) pxz = $(pxz:%.2f) pyz = $(pyz:%.2f) ; fmax = $(fmax:%.3e)"
+change_box all triclinic                     # tilt = 0; hace falta para las cizallas
+write_restart restart.equil

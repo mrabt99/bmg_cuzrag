@@ -1,0 +1,11 @@
+# Repo publico: igual que mechanical/ (de donde salieron estos scripts).
+# Quedan solo en Negishi: restarts, trayectorias (.dump), arrays intermedios (.npz) y logs.
+*.restart
+restart.*
+*.dump
+*.dump.*
+*.npz
+log.*
+*.log
+*.out
+*.err

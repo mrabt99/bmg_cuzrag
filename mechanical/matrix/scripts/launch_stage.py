@@ -6,9 +6,9 @@ import os, sys, csv, subprocess
 M = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")); mpath = os.path.join(M, "manifest.csv")
 arg = lambda k, d=None: sys.argv[sys.argv.index(k) + 1] if k in sys.argv else d
 stage = arg("--stage"); GO = "--go" in sys.argv; FORCE = "--force" in sys.argv
-assert stage in ("1", "2", "3", "4", "5", "extra"), "--stage 1|2|3|4|5|extra"
+assert stage in ("1", "2", "3", "4", "5", "6", "7", "extra"), "--stage 1|2|3|4|5|6|7|extra"
 MAXC = int(sys.argv[sys.argv.index("--max-concurrent") + 1]) if "--max-concurrent" in sys.argv else 0   # tope de jobs simultaneos (0 = sin tope)
-rows = list(csv.DictReader(open(mpath))); order = ["1", "2", "3", "4", "5"]
+rows = list(csv.DictReader(open(mpath))); order = ["1", "2", "3", "4", "5", "6", "7"]
 def okrow(r): return r["status"].startswith("ok")
 if stage in order and not FORCE:
     prev = [r for r in rows if r["stage"] in order[:order.index(stage)] and not okrow(r)]

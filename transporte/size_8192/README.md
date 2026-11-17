@@ -4,7 +4,7 @@ Objetivo: ver si κ depende del tamaño de celda. Méndez–Jaroszewicz usan 819
 - **300 K:** κ de un vidrio de 8192 átomos a 1e12 K/s (protocolo del profesor, Pdamp 1.0 en el templado) contra `../cal_300K_1e12` (65536 átomos, mismo protocolo). Aísla el tamaño.
 - **1000 K:** κ con 8192 átomos (`../cal_1000K_1e12_N8192`) contra `../cal_1000K_2e10` (65536). Prueba la hipótesis de propagones/cola lenta. Supone que la tasa de enfriamiento no importa en el líquido a 1000 K.
 
-No tenemos el `in.melt` de Seba (sí se lo pedimos), así que el sistema se construye desde cero: red bcc 16×16×16 = 8192 sitios, 3891 Zr + 3891 Cu + 410 Ag con tipos asignados al azar (`set type/subset`).
+No tenemos el `in.melt` del paper, así que el sistema se construye desde cero: red bcc 16×16×16 = 8192 sitios, 3891 Zr + 3891 Cu + 410 Ag con tipos asignados al azar (`set type/subset`).
 
 ## Archivos
 
@@ -62,7 +62,7 @@ Relanzado el 2026-11-06:
 
 Todos los jobs terminaron COMPLETED. Ningún halt saltó: dmin ≥ 1.87 Å, ρ ≥ 6.73 g/cm³, sin saltos de Ep. El volumen por átomo coincide con 65536 átomos (17.565 vs 17.563 Å³ a 300 K; 18.198 vs 18.199 a 1000 K).
 
-`compara_tamano.py` (desde `transporte/`) usa el mismo criterio que `mail_seba/kappa_vs_T.py`. Salidas: `compara_tamano.txt` y `compara_tamano.png`.
+`compara_tamano.py` (desde `transporte/`) usa el mismo criterio que el resto del análisis de κ (trapecio, ventana 0.5-2 ps, test de pendiente). Salidas: `compara_tamano.txt` y `compara_tamano.png`.
 
 | T | N=65536 | N=8192 | diferencia |
 |---|---|---|---|
@@ -74,3 +74,9 @@ Las curvas κ(t) se superponen enteras, incluido el máximo de ~2.5 W/m/K a ~70 
 ## Recomendación general
 
 Cualquier corrida nueva a alta T con este potencial debería llevar el `halt` por distancia mínima. El de temperatura no alcanza.
+
+## Nota 16/11/2026 sobre la interpretación del intento 1
+
+Ya no vale la frase "es la patología conocida del potencial (el EAM no tiene un núcleo repulsivo válido por debajo de ~1.2 Å)" de la sección "Intento 1". Esa hipótesis quedó descartada. Los motivos están en `../../rate_2e10/ESTADO_PROYECTO_meltquench_1e10.md`, nota del 16/11/2026: por debajo de ~1.3 Å el EAM no está ajustado; hay una pared de unos 33 kT a 2000 K; d_min nunca bajó de 1.87 Å. Además, en esta corrida lo primero que se vio fue el volumen (ρ = 3.57 g/cm³ con Pdamp 1.0), no un par cerca. El mecanismo queda sin identificar.
+
+La tabla de eventos y la recomendación siguen valiendo: `halt` por distancia mínima y por densidad, porque el de T solo ve el final.

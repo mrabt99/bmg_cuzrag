@@ -1,0 +1,45 @@
+# UNA columna de Cij a 0 K: dir = 1 xx, 2 yy, 3 zz, 4 yz, 5 xz, 6 xy (-var dir N); dos signos (-up y +up), minimizando tras cada perturbacion.
+# Cij = -(p_i(+up) - p_i(-up)) / (2 up)  (diferencia central; la tension de referencia se cancela).
+include init.mod
+variable s index -1 1
+label signloop
+clear
+box tilt large
+read_restart restart.equil
+include potential.mod
+variable lx0 equal $(lx)
+variable ly0 equal $(ly)
+variable lz0 equal $(lz)
+if "${dir} == 1" then "variable len0 equal ${lx0}"
+if "${dir} == 2" then "variable len0 equal ${ly0}"
+if "${dir} == 3" then "variable len0 equal ${lz0}"
+if "${dir} == 4" then "variable len0 equal ${lz0}"
+if "${dir} == 5" then "variable len0 equal ${lz0}"
+if "${dir} == 6" then "variable len0 equal ${ly0}"
+variable delta equal ${s}*${up}*${len0}
+if "${dir} == 1" then "change_box all x delta 0 ${delta} remap units box"
+if "${dir} == 2" then "change_box all y delta 0 ${delta} remap units box"
+if "${dir} == 3" then "change_box all z delta 0 ${delta} remap units box"
+if "${dir} == 4" then "change_box all yz delta ${delta} remap units box"
+if "${dir} == 5" then "change_box all xz delta ${delta} remap units box"
+if "${dir} == 6" then "change_box all xy delta ${delta} remap units box"
+print "### dir ${dir} signo ${s}: delta = ${delta} A sobre len0 = ${len0} A (deformacion ingenieria ${s}*${up})"
+minimize ${etol} ${ftol} ${maxiter} ${maxeval}
+print "### dir ${dir} signo ${s}: Ep = $(pe:%.6f) eV ; fmax = $(fmax:%.3e) ; p [bar] pxx = $(pxx:%.3f) pyy = $(pyy:%.3f) pzz = $(pzz:%.3f) pxy = $(pxy:%.3f) pxz = $(pxz:%.3f) pyz = $(pyz:%.3f)"
+# orden de Voigt de las tensiones: 1 xx, 2 yy, 3 zz, 4 yz, 5 xz, 6 xy   (n = signo negativo, p = positivo)
+if "${s} < 0" then &
+   "variable n1 equal $(pxx)" "variable n2 equal $(pyy)" "variable n3 equal $(pzz)" &
+   "variable n4 equal $(pyz)" "variable n5 equal $(pxz)" "variable n6 equal $(pxy)" &
+else &
+   "variable p1 equal $(pxx)" "variable p2 equal $(pyy)" "variable p3 equal $(pzz)" &
+   "variable p4 equal $(pyz)" "variable p5 equal $(pxz)" "variable p6 equal $(pxy)"
+next s
+jump SELF signloop
+
+variable C1 equal -(v_p1-v_n1)/(2*${up})*${cfac}
+variable C2 equal -(v_p2-v_n2)/(2*${up})*${cfac}
+variable C3 equal -(v_p3-v_n3)/(2*${up})*${cfac}
+variable C4 equal -(v_p4-v_n4)/(2*${up})*${cfac}
+variable C5 equal -(v_p5-v_n5)/(2*${up})*${cfac}
+variable C6 equal -(v_p6-v_n6)/(2*${up})*${cfac}
+print "### COLUMNA ${dir} de Cij [${cunits}]: C1${dir} = $(v_C1:%.3f)  C2${dir} = $(v_C2:%.3f)  C3${dir} = $(v_C3:%.3f)  C4${dir} = $(v_C4:%.3f)  C5${dir} = $(v_C5:%.3f)  C6${dir} = $(v_C6:%.3f)" file Ccol${dir}.txt

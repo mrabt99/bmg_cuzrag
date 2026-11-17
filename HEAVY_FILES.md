@@ -28,6 +28,15 @@ rsync -avz aaabt@negishi.rcac.purdue.edu:/scratch/negishi/aaabt/bmg_cuzrag/rate_
 rsync -avz aaabt@negishi.rcac.purdue.edu:/scratch/negishi/aaabt/bmg_cuzrag/rate_1e11/sweep_1e11/*.dump ./rate_1e11/sweep_1e11/
 ```
 
+- **`rate_1e12/prod_1e12/quench_N65536_1e12.dump.seg1..seg16`** (~48MB c/u, ~770MB) +
+  `relax300K_N65536_1e12.dump` (40MB) — 1e12 K/s **unificada** (17/11/2026, mismo protocolo que
+  2e10/1e11; reemplaza a la referencia en los análisis). Reproducible re-rodando `rate_1e12/` (~4 h de
+  rampa + 9-10 h de relax), pero conviene bajarla.
+
+```bash
+rsync -avz aaabt@negishi.rcac.purdue.edu:/scratch/negishi/aaabt/bmg_cuzrag/rate_1e12/prod_1e12/*.dump* ./rate_1e12/prod_1e12/
+```
+
 ## Prioridad media — ya respaldados en GitHub, pero en otro repo (~857MB)
 
 - **`rate_2e10/prod_2e10/quench_N65536_2e10.dump.seg1..seg16`** + `relax300K_N65536_2e10.dump`

@@ -1,4 +1,4 @@
-"""Prueba de tamaño: kappa con 8192 vs 65536 átomos, mismo criterio que mail_seba/kappa_vs_T.py.
+"""Prueba de tamaño: kappa con 8192 vs 65536 átomos, mismo criterio que kappa_tasas.py.
 Trapecio, bloques de 100 ps (10 por réplica de 1 ns), ventana [0.5,2] ps con test de pendiente
 (|pendiente| < 2*error bootstrap), sistemático = std de ventanas [0.5,1],[1,2],[0.5,1.5],[0.75,2].
 Además kappa(t) en 5, 10, 20 ps (cola larga, hipótesis de propagones/tamaño).

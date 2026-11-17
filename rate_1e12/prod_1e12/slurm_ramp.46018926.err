@@ -1,0 +1,16 @@
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+
+  1) xalt/3.0.2
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+srun: error: a243: task 0: Exited with exit code 1
+with errorcode 1.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+[2026-11-16T13:24:30.273] error: *** STEP 46018926.2 ON a243 CANCELLED AT 2026-11-16T13:24:30 DUE TO TASK FAILURE ***
+srun: error: a243: tasks 1-47: Terminated
+srun: Force Terminated StepId=46018926.2

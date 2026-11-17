@@ -1,6 +1,6 @@
 # transporte/ en el repo (publico): solo codigo, inputs de LAMMPS, documentacion y resultados.
 # Quedan solo en Negishi: series crudas (.dat), restarts, logs de LAMMPS y de Slurm.
-# No se publican: material de Jaroszewicz (viscosidad/, notebook, datos, tarballs) ni borradores de mails.
+# No se publican: material de terceros (viscosidad/, notebooks, datos, tarballs) ni borradores de mails.
 
 # 1) Lista blanca por tipo
 *
@@ -19,6 +19,6 @@
 # 2) Exclusiones explicitas
 /viscosidad/
 /nemd/prueba_sintaxis/
-/mail_seba/
-/mail_seba2/
+/mail_*/
+/replica_metodo_*
 /plan_transporte_GK.md

@@ -4,6 +4,7 @@ No lanza nada. Idempotente: no pisa casos existentes ni sus estados. Los casos 2
 Etapas:  1: 300 K; 1e9 y 1e10; 2e10 1e11 1e12; x y z      2: 450 y 540 K; 1e9; tres tasas; x y z
          3: 300 K; 1e8; tres tasas; x y z (3 h)           4: 750 y 900 K; 1e9; solo 2e10; x y z (por encima de Tg(2e10) = 641.7 K)
          5: 300 K; 1e9, 1e10 y 1e8; qgrad y qgrad_ext (perfiles graduados, sin tasa unica); x y z
+         6: 300 K; 1e9, 1e10, 1e8; 1e12u (1e12 unificada, 17/11/2026)   7: 450 y 540 K; 1e9; 1e12u
          extra: Cij a 300 K y a 0 K de 1e11, 1e12, qgrad y qgrad_ext (mismo procedimiento que 2e10, copiando mechanical/elastic_2e10)
 Uso: python make_matrix.py"""
 import os, csv, shutil, re
@@ -12,7 +13,9 @@ MECH = os.path.dirname(M)
 SAMPLES = ["2e10", "1e11", "1e12"]; DIRS = ["x", "y", "z"]
 STAGES = {1: dict(T=[300], erate=["1e9", "1e10"], samples=SAMPLES), 2: dict(T=[450, 540], erate=["1e9"], samples=SAMPLES),
           3: dict(T=[300], erate=["1e8"], samples=SAMPLES), 4: dict(T=[750, 900], erate=["1e9"], samples=["2e10"]),
-          5: dict(T=[300], erate=["1e9", "1e10", "1e8"], samples=["qgrad", "qgrad_ext"])}
+          5: dict(T=[300], erate=["1e9", "1e10", "1e8"], samples=["qgrad", "qgrad_ext"]),
+          6: dict(T=[300], erate=["1e9", "1e10", "1e8"], samples=["1e12u"]),          # 1e12 unificada (17/11/2026)
+          7: dict(T=[450, 540], erate=["1e9"], samples=["1e12u"])}
 LINKED = {("2e10", 300, "1e9", "x"): "../pilot_tension", ("1e12", 300, "1e9", "x"): "../pilot_tension_1e12"}
 NHOLD = 50000; DT_PS = 0.001
 def steps(T, erate):
@@ -64,10 +67,11 @@ for st, g in STAGES.items():
                     add(r)
 # ---- extra: elasticas de 1e11 y 1e12 (copiando elastic_2e10 y cambiando el restart de entrada)
 SRC = os.path.join(MECH, "elastic_2e10"); RST = {"1e11": "rate_1e11/prod_1e11/restart.glass300K_N65536_1e11", "1e12": "rate_1e12_reference/restart.glass300K_N65536_1e12",
-       "qgrad": "structural_analysis/qgrad/relax300K/restart.glass300K_N65536_qgrad", "qgrad_ext": "qgrad_ext/restart.glass300K_N65536_gradext"}
+       "qgrad": "structural_analysis/qgrad/relax300K/restart.glass300K_N65536_qgrad", "qgrad_ext": "qgrad_ext/restart.glass300K_N65536_gradext",
+       "1e12u": "rate_1e12/prod_1e12/restart.glass300K_N65536_1e12"}
 FILES = {"300K": ["init.mod", "potential.mod", "in.elastic_prep", "in.elastic_dir", "run_all.sh", "slurm_elastic300K.sbatch"],
          "0K": ["init.mod", "potential.mod", "in.elastic_prep", "in.elastic_dir", "run_0K.sh", "slurm_elastic0K.sbatch"]}
-for sample in ("1e11", "1e12", "qgrad", "qgrad_ext"):
+for sample in ("1e11", "1e12", "qgrad", "qgrad_ext", "1e12u"):
     for tt in ("300K", "0K"):
         dst = os.path.join(MECH, f"elastic_{sample}", tt)
         if not os.path.exists(dst):

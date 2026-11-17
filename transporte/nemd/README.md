@@ -1,6 +1,6 @@
 # κ por NEMD (método directo con `fix ehex`) contra Green-Kubo, vidrio a 300 K
 
-**Objetivo:** medir κ con un método independiente de Green-Kubo. Si NEMD da ≈ 0.78 W/m/K, confirma la meseta de GK y descarta el valor de Méndez et al. (2.43). Ese valor coincide con el máximo de κ(t), a ~70 fs.
+**Objetivo:** medir κ con un método independiente de Green-Kubo y compararlo con la meseta de GK (≈ 0.78 W/m/K) y con el valor de Méndez et al. (2.43), que coincide con el máximo de κ(t), a ~70 fs.
 
 ## Sistema y referencia
 
@@ -74,7 +74,7 @@ Salidas por tramo: `L<n>_p<k>_Tprof.dat`, `L<n>_p<k>_thermo.dat`, `L<n>.part<k>.
 
 - Los errores son estadístico (superbloques) y sistemático (rango de ajuste); χ² de la extrapolación = 0.14.
 - GK del mismo vidrio: 0.779 ± 0.017 (± 0.019 de ventana). La diferencia es 0.048 (6 %): 1.8σ si se incluye el sistemático de GK.
-- **NEMD confirma GK y descarta el 2.43 de Méndez et al.**
+- **NEMD coincide con GK.**
 
 ## Prueba de linealidad y revisión de errores (2026-11-09)
 
@@ -82,3 +82,12 @@ Salidas por tramo: `L<n>_p<k>_Tprof.dat`, `L<n>_p<k>_thermo.dat`, `L<n>.part<k>.
 - Los errores por superbloques de la tabla de arriba están probablemente subestimados (bloques correlacionados, modos térmicos lentos).
   Con el ruido estimado: ±0.027/0.017/0.009 y **κ∞ = 0.732 ± 0.017**; la dependencia con L no es significativa.
 - `lanzar_nemd_L8ext.sh`: extensión de L8 (tramos 4-6, Q = 0.5) para medir ese ruido.
+
+## Extensión L8 a 6 ns (2026-11-10)
+
+`ruido_L8.py` → `ruido_L8.txt/png`. `nemd.txt/png` se regeneraron con los 6 tramos de L8; la versión anterior, con L8 de 3 tramos, está en `nemd_L8_3ns.txt/png`.
+
+- κ(L8, 1-6 ns) = **0.732**. Por mitades: 0.709 (1-3 ns) y 0.747 (3-6 ns).
+- Análisis de bloqueo: el sem con 5 ns es ≈ 0.009-0.010, contra 0.011 estimado por el modo lento. La estimación de ruido vale; los errores por superbloques con 2 ns estaban subestimados ~2×.
+- κ sube +0.014 ± 0.005 W/m/K por ns en L8. L16 envejece igual (Ep) y no muestra tendencia, así que lo más probable es ruido lento.
+- κ∞ = **0.730 ± 0.016**, sin dependencia significativa con L. GK − NEMD = 0.049 (1.6σ con el sistemático de GK).

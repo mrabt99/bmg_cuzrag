@@ -54,9 +54,9 @@ los 51 archivos existen. Los originales no se modificaron.
   ~13× más rápida que la más lenta de Ryltsev (1.5e9), donde ellos ven la diferencia clara.
 
 ## Tarea 3 — RDF parcial por especie (`rdf_partial/`)
-Pedido de Jaroszewicz (2026-09-23) tras ver la presentación: probar el RDF por especie, esperando
-ver la separación del 2do pico que él y Mendez reportan en su Figura 5
-(`../../referencias/Fugura5_Mendez.png`, heatmap g_total(r) vs T con el 2do pico partiéndose en dos
+Tarea (2026-09-23): probar el RDF por especie, esperando
+ver la separación del 2do pico que reporta la Figura 5 de Méndez y Jaroszewicz (JNCS 693, 124394)
+(heatmap g_total(r) vs T con el 2do pico partiéndose en dos
 franjas cerca de Tg) — pero centrando en Cu y en Zr.
 
 - Mismo esquema que Tarea 1 (`run_rdf_partial.lmp`, mismos 51 restarts vía `../manifests/`), pero
@@ -129,7 +129,7 @@ que Cu (radio menor, especie minoritaria) sea el que arma el orden icosaedral/SR
 BMG.
 
 ## Tarea 6 — Figuras estilo Figura 4 de Mendez, por par (`fig4_style/`)
-Pedido explícito: reproducir el estilo de `../../referencias/Figura4_Mendez.png` (panel izq.: g(r)+offset
+Objetivo: reproducir el estilo de la Figura 4 de Méndez y Jaroszewicz (panel izq.: g(r)+offset
 apiladas por T, waterfall; panel der.: zoom del 2do pico sin offset) para Cu-Cu, Zr-Zr y Zr-Cu.
 
 - `build_fig4_style.py` lee `rdf_sametype/rdf_sametype_all.csv` (Cu-Cu, Zr-Zr) y
@@ -143,3 +143,22 @@ apiladas por T, waterfall; panel der.: zoom del 2do pico sin offset) para Cu-Cu,
   (violeta) es una sola joroba; en Zr-Zr no hay separación en dos picos comparables (un pico principal
   con hombros menores, forma estable en T); en Zr-Cu se ve una versión intermedia -- un hombro que se
   define un poco más al enfriar pero de forma más gradual y menos marcada que en Cu-Cu.
+
+## Nota 16/11/2026: corrección de la lectura de las Tareas 4-5 (desdoblamiento del 2.º pico)
+
+Ya no valen dos frases de arriba: "Cu-Cu tiene un salto neto de la posición del 2.º subpico entre 900 y 700 K, justo en Tg" y "Zr-Cu es más débil y gradual, sin discontinuidad". Lo escrito antes se deja como registro.
+
+**El problema.** `CuCu_split_summary.csv` y `ZrCu_split_summary.csv` buscan pico, valle y pico en ventanas fijas de r. A alta T no hay dos subpicos, así que las ventanas encuentran máximos espurios: por ejemplo, Cu-Cu de 2e10 a 1900 K da r_peak2 = 5.07 < r_dip = 5.29 Å. El "salto" de r_peak2 entre 900 y 700 K es el paso de ruido a pico real. No es un cambio físico en Tg.
+
+**Medida nueva**, en `bitacora/figuras/fig_est_rdf.py` (que solo lee de acá): contraste C = [g(r_a) + g(r_b)]/2 − g(r_d). Las posiciones r_a, r_b (subpicos) y r_d (valle) se fijan una sola vez en la curva de 2e10 a 300 K, y g se promedia en ±0.1 Å.
+- Cu-Cu: r_a, r_d, r_b = 4.43 / 5.05 / 5.43 Å.
+- Zr-Cu: 4.85 / 5.37 / 5.73 Å.
+
+**Resultado.**
+- C es negativo y casi constante a alta T, que es la forma de una sola joroba. Empieza a crecer cerca de 1300 K, cruza 0 cerca de 950 K y sigue creciendo de forma continua hasta 300 K.
+- Cu-Cu: −0.12 a 1900 K → +0.30 / 0.28 / 0.25 a 300 K (2e10 / 1e11 / 1e12).
+- Zr-Cu: −0.08 → +0.24 / 0.24 / 0.23.
+- No hay salto en Tg y no hay diferencia cualitativa entre Cu-Cu y Zr-Cu. Zr-Zr sigue sin desdoblamiento.
+- Las tasas se separan solo por debajo de ~800 K, igual que los icosaedros.
+
+Figuras en la bitácora, sección 6: `est_cucu_T`, `est_split_CuCu_T`, `est_split_ZrCu_T`.

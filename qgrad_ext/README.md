@@ -108,3 +108,57 @@ Hecho acá (300 K relajado, `ryltsev_cmp.py`, salidas `ryltsev_cmp.csv`, `fig11a
 | qgrad | 903 | 4.73 | 0 | 2340 | 51 |
 | qgrad_ext | 952 | 4.60 | 0 | 2267 | 49 |
 Lectura: la rama tiene más centros ico pero NO más agrupados que 2e10 (el factor baja con la lentitud); cluster mayor ≈ qgrad (49 vs 51, ~1.4 % de esos poliedros, antes ya descartado como grano). El Z16 BOO estricto del paper da 0 a 300 K (distorsión térmica; ver classify/boo_types.py), así que la comparación de Z16 usa Voronoi. En el mapa se ven acumulaciones de ico en qgrad y qgrad_ext, sin patrón de red a simple vista; una loncha 2D no puede mostrar cristalinidad. Limitaciones: el factor de agrupación incluye la correlación de empaquetamiento y no distingue red periódica de cúmulos amorfos; no hay semejanza alguna con su grano medida por periodicidad (eso es lo que mide el detector de diamante en subred de Zr: 0).
+
+## Tg del perfil ext y "tasa efectiva" (2026-11-16)
+`analisis/thermo_ext.csv` (`extract_thermo.py --style avetime` sobre qgrad seg01–08 + ext seg09,10a,10,11,12; las 7996 filas de seg01–08 son idénticas a
+`structural_analysis/qgrad/thermo/thermo_qgrad.csv`) → `analisis/tg_ext.py` (importa `compute_tg.py` tal cual; mismas 4 ventanas que `tg_qgrad.py`) → `analisis/Tg_ext_y_sensibilidad.csv`.
+La "γ_eff por Tg" invierte la recta Tg(log10 γ) de las 3 tasas constantes calculada con LA MISMA ventana.
+| ventanas | Tg(V) | Tg(Ep) | media ext | Tg(1.5e9) extrapolada | γ_eff (Tg) ext | Tg qgrad | γ_eff (Tg) qgrad |
+|---|---|---|---|---|---|---|---|
+| estándar (liq 900–1200 / vit 300–600) | 611.5 | 602.0 | **606.7** | 602.8 | **2.0e9** | 631.9 | 1.0e10 |
+| liq 900–1100 / vit 300–500 | 615.5 | 614.5 | 615.0 | 614.8 | 1.5e9 | 638.2 | 1.0e10 |
+| liq 800–1000 / vit 300–600 | 648.1 | 653.8 | 650.9 | 664.4 | 2e8 (*) | 673.1 | 5.3e9 |
+| liq 1000–1200 / vit 300–600 | 597.3 | 573.9 | 585.6 | 577.4 | 2.4e9 | 611.7 | 1.1e10 |
+(*) con esa ventana la recta Tg(log γ) tiene pendiente 16 K/década y la inversión amplifica todo: no usar.
+Lectura: por Tg, ext ≈ 1.5–2.4e9 K/s (3 de 4 ventanas) y qgrad ≈ 1e10; por Ep(300 K) (pendiente 4.34 meV/década, promedios 5 ns: −3.66 meV/at → 0.84 décadas) ext ≈ 2.9e9 y qgrad ≈ 1.4e10.
+Supuestos: linealidad en log γ extrapolada ~1 década por debajo de 2e10; la ventana vítrea 300–600 K mezcla 600–500 K (1.5e9) con 500–300 K (1e11). Por observables estructurales
+la tasa efectiva NO es única (Z15 ≈ ley a 1.5e9; Cu-ico y Z16 por debajo).
+
+## Tasas efectivas con la 1e12 unificada (17/11/2026)
+`analisis/tasa_efectiva_1e12u.py` → `analisis/tasa_efectiva_1e12u.csv`. Mismas 4 ventanas de Tg (compute_tg.py sin cambios), con el punto 1e12 reemplazado por la corrida unificada (`rate_1e12/`). Ep(300) se toma como el promedio de los últimos 5 ns de la relajación en las 5 muestras; la 1e12 vieja no tenía log y se usaba el run 0.
+
+| | antes | ahora |
+|---|---|---|
+| Tg(1.5e9) extrapolada, ventanas estándar | 602.8 K (577–664) | 604.9 K (584–663) |
+| ley Tg | 34.6 K/década | 33.1 K/década |
+| ley Ep | 4.32 meV/década | 4.15 meV/década |
+| γ_eff de ext, por Tg | 1.95e9 | 1.70e9 (1.65–1.70e9 en 3 de 4 ventanas) |
+| γ_eff de ext, por Ep | 2.84e9 | 2.55e9 |
+| γ_eff de qgrad, por Tg / por Ep | 1.0e10 / 1.4e10 | 0.98e10 / 1.35e10 |
+| faltante de Ep de ext frente a la ley en 1.5e9 | ≈1.2 meV/at | 0.96 meV/at |
+
+Tg de ext (606.7 K) queda 1.8 K por encima de la extrapolada. Conclusión: ext equivale a 1.7–2.6e9 K/s, un poco más cerca de 1.5e9 que antes. La bitácora (sección 7) ya usa estos números.
+
+## Clusters de ico y FK con las muestras correctas (17/11/2026, `ryltsev_cmp/clusters_4tasas.py`)
+Rehace la idea de `ryltsev_cmp.py` con 1e12 (unificada), 1e11, 2e10 y qgrad_ext. Se saca qgrad (= 2e10) y se agrega la 1e12. Su `features/1e12u/17.npz` se generó con `structural_analysis/qgrad/laves/laves_features.py` en el login (6 s).
+
+Método:
+- Clusters = componentes conexas del grafo de vecinos de Voronoi, restringido a cada tipo de poliedro.
+- Referencia al azar = las mismas etiquetas repartidas al azar dentro de cada especie, 20 repeticiones.
+- Salida: `ryltsev_cmp/clusters_4tasas.csv`.
+- `ryltsev_cmp.py` y sus salidas no se tocaron.
+
+| 300 K | Cu ico (Voronoi): en clusters obs/azar, mayor (azar) | ico BOO: factor espacial | Zr FK: obs/azar, mayor (azar) | Z16+ico: mayor (azar) |
+|---|---|---|---|---|
+| 1e12 | 65.0/30.2 % (×2.15), 17 (5.8) | 4.97 | 47.7/33.0 % (×1.45), 10 (6.3) | 19 (7.4) |
+| 1e11 | 68.8/33.3 % (×2.07), 16 (6.7) | 5.05 | 46.7/34.3 % (×1.36), 12 (6.9) | 29 (8.3) |
+| 2e10 | 70.6/36.9 % (×1.91), 19 (7.5) | 4.95 | 48.7/36.2 % (×1.34), 9 (6.8) | 30 (9.4) |
+| qgrad_ext | 76.3/41.9 % (×1.82), 40 (8.6) | 4.48 | 52.8/38.4 % (×1.38), 10 (7.7) | 49 (10.4) |
+
+Lectura:
+- Los icosaedros se agrupan claramente, pero en grupos chicos: tamaño medio 3–4 átomos.
+- El cociente contra el azar baja con la lentitud: los clusters crecen por densidad, no porque se organicen más.
+- Los FK de Zr se agrupan poco.
+- Única excepción: qgrad_ext tiene un dominio de 40 ico (49 con Z16), alrededor del 1 % de esos átomos, sin periodicidad.
+
+En la bitácora: sección 5, slides "Para entender: cómo se mide si los poliedros forman clusters" y "¿Forman clusters?"; figuras `fig_est_clusters.py`.

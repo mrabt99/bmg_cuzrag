@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Etapa 4 / Tarea 6 -- replica del estilo de Figura4_Mendez.png (../../../referencias/) para
+"""Etapa 4 / Tarea 6 -- replica del estilo de la Fig. 4 de Mendez & Jaroszewicz (JNCS 693, 124394) para
 los pares Cu-Cu, Zr-Zr y Zr-Cu (cruzado). Panel izquierdo: g(r)+offset apiladas por T (waterfall).
 Panel derecho: zoom del 2do pico, sin offset, para ver la evolucion/split con T.
 

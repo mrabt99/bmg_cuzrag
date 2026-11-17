@@ -4,7 +4,8 @@
 #  Traccion uniaxial en el eje 'dir' a T y tasa de deformacion constantes (NPT en los otros dos ejes).
 #
 #  Uso:  lmp -in in.tension -var sample 2e10 -var T 300 -var erate 1e9 -var dir x
-#    sample : 2e10 | 1e11 | 1e12 | qgrad | qgrad_ext   (elige el restart del vidrio relajado; qgrad* = perfiles de enfriamiento graduado, sin tasa unica)
+#    sample : 2e10 | 1e11 | 1e12 | qgrad | qgrad_ext | 1e12u   (elige el restart del vidrio relajado; qgrad* = perfiles graduados;
+#             1e12u = 1e12 UNIFICADA, rate_1e12/, mismo protocolo que 2e10 y 1e11, agregada 17/11/2026)
 #    T      : temperatura en K (>= 300; si T > 300 hay una rampa de calentamiento NPT iso de 300 K a T)
 #    erate  : tasa de deformacion en 1/s  (1e9 s^-1 = 1e-3 1/ps)
 #    dir    : eje de traccion x | y | z
@@ -44,7 +45,8 @@ if "${skey} == s1e11" then "variable rpath string ${base}/rate_1e11/prod_1e11/re
 if "${skey} == s1e12" then "variable rpath string ${base}/rate_1e12_reference/restart.glass300K_N65536_1e12"
 if "${skey} == sqgrad" then "variable rpath string ${base}/structural_analysis/qgrad/relax300K/restart.glass300K_N65536_qgrad"
 if "${skey} == sqgrad_ext" then "variable rpath string ${base}/qgrad_ext/restart.glass300K_N65536_gradext"
-# si sample no es ninguna de las cinco, rpath queda sin definir y LAMMPS aborta en read_restart
+if "${skey} == s1e12u" then "variable rpath string ${base}/rate_1e12/prod_1e12/restart.glass300K_N65536_1e12"
+# si sample no es ninguna de las seis, rpath queda sin definir y LAMMPS aborta en read_restart
 variable pot    index  ${base}/rate_2e10/ZrCuAg.lammps.eam
 
 # ---- cuentas derivadas de la tasa ----

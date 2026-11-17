@@ -68,3 +68,17 @@ __pycache__/
 
 # Repo publico: PDFs de papers (copyright) y plan personal de tesis no se suben
 /referencias/*.pdf
+
+# 1e12 unificada (rate_1e12/, 2026-11-17) -- trayectorias crudas (>=20MB), ver HEAVY_FILES.md
+/rate_1e12/prod_1e12/quench_N65536_1e12.dump.seg*
+/rate_1e12/prod_1e12/relax300K_N65536_1e12.dump
+
+# Material de terceros y registros que lo nombran: quedan solo en Negishi (2026-11-17)
+/legacy_scripts/
+/structural_analysis/boo/baseline_*
+/structural_analysis/boo/slurm_validate.sbatch
+/structural_analysis/boo/validate.log.*
+/structural_analysis/boo/*/log.*
+/rate_2e10/log.seg01.42862763
+/rate_2e10/slurm_seg01.42862763.out
+/structural_analysis/qgrad/checksums_*.txt

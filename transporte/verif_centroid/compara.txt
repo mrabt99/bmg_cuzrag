@@ -1,0 +1,9 @@
+1001 muestras (cada 5 pasos); rms(J) = 562.7 eV*A/ps
+  J total      : max|dJ| = 0.000e+00   max|dJ|/rms(J) = 0.000e+00
+  J convectivo : max|dJ| = 0.000e+00   max|dJ|/rms(J) = 0.000e+00
+  <J^2>/3 con stress/atom = 3.166468e+05
+  <J^2>/3 con centroid    = 3.166468e+05
+Tensor por atomo (bar*A^3), maximo sobre atomos y sobre los instantes guardados:
+  max|S_st - S_cst| (xx yy zz xy xz yz) = 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00
+  asimetria centroide max|xy - yx|     = 0.00e+00
+  escala: max(|Sxx|+|Syy|+|Szz|)        = 1.19e+07
